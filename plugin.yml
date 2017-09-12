@@ -1,0 +1,5 @@
+name: OlympicHeroes
+main: me.TehGoldyLockz.OlympicHeroes.OlympicHeroes
+version: 1.0
+commands:
+  oh:
