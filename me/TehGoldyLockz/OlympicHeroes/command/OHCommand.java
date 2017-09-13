@@ -5,13 +5,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
+
 public class OHCommand implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
-			player.sendMessage("hallo");
+			player.getInventory().addItem(OHItems.TEST_ITEM);
 		}
 		return false;
 	}
