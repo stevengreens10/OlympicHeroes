@@ -1,6 +1,7 @@
 package me.TehGoldyLockz.OlympicHeroes;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.TehGoldyLockz.OlympicHeroes.command.OHCommand;
