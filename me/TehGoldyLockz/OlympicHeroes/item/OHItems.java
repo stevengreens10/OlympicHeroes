@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
 
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
@@ -23,42 +24,83 @@ public class OHItems {
 	public static ItemStack LONG_BOW;
 	public static ItemStack FIRE_STICK;
 	public static ItemStack HERMES_BOOTS;
+	public static ItemStack LAMINATED_STICK;
+	public static MaterialData LAMINATED_STICK_MAT;
+	public static ItemStack LAMINATED_RECURVE;
+	public static ItemStack LAMINATED_LONGBOW;
 	
 	private static List<ItemStack> items = new ArrayList<ItemStack>();
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
-		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"This is a test item"});
+		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"not this"});
+		LONG_BOW = addAttribute(LONG_BOW, "Generic.movementSpeed", .02, "mainhand");
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
-		ShapedRecipe shapedRecipe = new ShapedRecipe(LONG_BOW);
-		shapedRecipe.shape("SSA", "sAS", "AsS");
-		shapedRecipe.setIngredient('S', Material.STICK);
-		shapedRecipe.setIngredient('s', Material.STRING);
-		shapedRecipe.setIngredient('A', Material.AIR);
-		Bukkit.getServer().addRecipe(shapedRecipe);
+		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);
+		longbowRecipe.shape("SSA", "sAS", "AsS");
+		longbowRecipe.setIngredient('S', Material.STICK);
+		longbowRecipe.setIngredient('s', Material.STRING);
+		longbowRecipe.setIngredient('A', Material.AIR);
+		Bukkit.getServer().addRecipe(longbowRecipe);
 		items.add(LONG_BOW);
 		
 		FIRE_STICK = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
 		FIRE_STICK.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
 		// Put attributes after changing name and adding enchants
 		FIRE_STICK = addAttribute(FIRE_STICK, "generic.attackSpeed", 1024, "mainhand");
-		FIRE_STICK = addAttribute(FIRE_STICK, "generic.attackDamage", 10000, "mainhand");
+		FIRE_STICK = addAttribute(FIRE_STICK, "generic.attackDamage", 2, "mainhand");
 		// Have to put recipe after modifying attributes
 		ShapelessRecipe shapelessRecipe = new ShapelessRecipe(FIRE_STICK);
-		shapelessRecipe.addIngredient(Material.STICK);
+		shapelessRecipe.addIngredient(Material.BLAZE_POWDER);
+		shapelessRecipe.addIngredient(Material.GOLD_NUGGET);
 		shapelessRecipe.addIngredient(Material.STICK);
 		Bukkit.getServer().addRecipe(shapelessRecipe);
 		items.add(FIRE_STICK);
 		
-		HERMES_BOOTS = createItem(Material.DIAMOND_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"sanic boots"});
-		HERMES_BOOTS = addAttribute(HERMES_BOOTS, "generic.movementSpeed", 0.3, "feet");
-		shapedRecipe = new ShapedRecipe(HERMES_BOOTS);
-		shapedRecipe.shape("dfd","dad","aaa");
-		shapedRecipe.setIngredient('d', Material.DIAMOND);
-		shapedRecipe.setIngredient('f', Material.FEATHER);
-		shapedRecipe.setIngredient('a', Material.AIR);
-		Bukkit.getServer().addRecipe(shapedRecipe);
+		HERMES_BOOTS = createItem(Material.LEATHER_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"sanic boots"});
+		HERMES_BOOTS = addAttribute(HERMES_BOOTS, "generic.movementSpeed", 0.1, "feet");
+		ShapedRecipe hermesRecipe = new ShapedRecipe(HERMES_BOOTS);
+		hermesRecipe.shape("lfl","lal","faf");
+		hermesRecipe.setIngredient('g', Material.GOLD_INGOT);
+		hermesRecipe.setIngredient('l', Material.LEATHER);
+		hermesRecipe.setIngredient('f', Material.FEATHER);
+		hermesRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(hermesRecipe);
 		items.add(HERMES_BOOTS);
+		
+		LAMINATED_STICK = createItem(Material.STICK, "Laminated Stick", new String[]{"This is a laminated stick used for bowmaking"});
+		ShapedRecipe laminateRecipe = new ShapedRecipe(LAMINATED_STICK);
+		laminateRecipe.shape("psp","psp","aaa");
+		laminateRecipe.setIngredient('p', Material.LOG);
+		laminateRecipe.setIngredient('s', Material.STICK);
+		laminateRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(laminateRecipe);
+		items.add(LAMINATED_STICK);
+		
+		LAMINATED_LONGBOW = createItem(Material.BOW, "Laminated Longbow", new String[]{"A Longbow made through Lamination."});
+		LAMINATED_LONGBOW.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
+		LAMINATED_LONGBOW.addEnchantment(Enchantment.DURABILITY, 2);
+		LAMINATED_LONGBOW = addAttribute(LAMINATED_LONGBOW, "Generic.movementSpeed", -.2, "mainhand");
+		ShapedRecipe laminateLongRecipe = new ShapedRecipe(LAMINATED_LONGBOW);
+		laminateLongRecipe.shape("SSA", "sAS", "AsS");
+		laminateLongRecipe.setIngredient('l', OHItems.LAMINATED_STICK_MAT);
+		laminateLongRecipe.setIngredient('s', Material.STRING);
+		laminateLongRecipe.setIngredient('A', Material.AIR);
+		Bukkit.getServer().addRecipe(laminateLongRecipe);
+		items.add(LAMINATED_LONGBOW);
+		
+		LAMINATED_RECURVE = createItem(Material.BOW, "Laminated Longbow", new String[]{"A Recurve made through Lamination."});
+		LAMINATED_RECURVE.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+		LAMINATED_RECURVE.addEnchantment(Enchantment.DURABILITY, 2);
+		LAMINATED_RECURVE = addAttribute(LAMINATED_RECURVE, "Generic.movementSpeed", .05, "mainhand");
+		ShapedRecipe laminateRecurveRecipe = new ShapedRecipe(LAMINATED_RECURVE);
+		laminateRecurveRecipe.shape("sla", "sal", "sla");
+		laminateRecurveRecipe.setIngredient('l', OHItems.LAMINATED_STICK_MAT);
+		laminateRecurveRecipe.setIngredient('s', Material.STRING);
+		laminateRecurveRecipe.setIngredient('A', Material.AIR);
+		Bukkit.getServer().addRecipe(laminateRecurveRecipe);
+		items.add(LAMINATED_RECURVE);
+		
 	}
 	
 	public static List<ItemStack> getItems(){

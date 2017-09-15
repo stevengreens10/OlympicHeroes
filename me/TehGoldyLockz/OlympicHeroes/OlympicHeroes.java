@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.TehGoldyLockz.OlympicHeroes.command.OHCommand;
 import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 
+@SuppressWarnings("unused")
 public class OlympicHeroes extends JavaPlugin{
 
 	public void onEnable() {
