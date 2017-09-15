@@ -34,7 +34,7 @@ public class OHItems {
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
 		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"not this"});
-		LONG_BOW = addAttribute(LONG_BOW, "Generic.movementSpeed", .02, "mainhand");
+		LONG_BOW = addAttribute(LONG_BOW, "generic.movementSpeed", .02, "mainhand");
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);
 		longbowRecipe.shape("SSA", "sAS", "AsS");
@@ -60,8 +60,8 @@ public class OHItems {
 		HERMES_BOOTS = createItem(Material.LEATHER_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"sanic boots"});
 		HERMES_BOOTS = addAttribute(HERMES_BOOTS, "generic.movementSpeed", 0.1, "feet");
 		ShapedRecipe hermesRecipe = new ShapedRecipe(HERMES_BOOTS);
-		hermesRecipe.shape("lfl","lal","faf");
-		hermesRecipe.setIngredient('g', Material.GOLD_INGOT);
+		hermesRecipe.shape("lgl","lal","faf");
+		hermesRecipe.setIngredient('g', Material.GLOWSTONE_DUST);
 		hermesRecipe.setIngredient('l', Material.LEATHER);
 		hermesRecipe.setIngredient('f', Material.FEATHER);
 		hermesRecipe.setIngredient('a', Material.AIR);
@@ -80,21 +80,21 @@ public class OHItems {
 		LAMINATED_LONGBOW = createItem(Material.BOW, "Laminated Longbow", new String[]{"A Longbow made through Lamination."});
 		LAMINATED_LONGBOW.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
 		LAMINATED_LONGBOW.addEnchantment(Enchantment.DURABILITY, 2);
-		LAMINATED_LONGBOW = addAttribute(LAMINATED_LONGBOW, "Generic.movementSpeed", -.2, "mainhand");
+		LAMINATED_LONGBOW = addAttribute(LAMINATED_LONGBOW, "generic.movementSpeed", -.2, "mainhand");
 		ShapedRecipe laminateLongRecipe = new ShapedRecipe(LAMINATED_LONGBOW);
-		laminateLongRecipe.shape("SSA", "sAS", "AsS");
+		laminateLongRecipe.shape("llA", "sAl", "Asl");
 		laminateLongRecipe.setIngredient('l', OHItems.LAMINATED_STICK_MAT);
 		laminateLongRecipe.setIngredient('s', Material.STRING);
 		laminateLongRecipe.setIngredient('A', Material.AIR);
 		Bukkit.getServer().addRecipe(laminateLongRecipe);
 		items.add(LAMINATED_LONGBOW);
 		
-		LAMINATED_RECURVE = createItem(Material.BOW, "Laminated Longbow", new String[]{"A Recurve made through Lamination."});
+		LAMINATED_RECURVE = createItem(Material.BOW, "Laminated Recurve", new String[]{"A Recurve made through Lamination."});
 		LAMINATED_RECURVE.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		LAMINATED_RECURVE.addEnchantment(Enchantment.DURABILITY, 2);
-		LAMINATED_RECURVE = addAttribute(LAMINATED_RECURVE, "Generic.movementSpeed", .05, "mainhand");
+		LAMINATED_RECURVE = addAttribute(LAMINATED_RECURVE, "generic.movementSpeed", .05, "mainhand");
 		ShapedRecipe laminateRecurveRecipe = new ShapedRecipe(LAMINATED_RECURVE);
-		laminateRecurveRecipe.shape("sla", "sal", "sla");
+		laminateRecurveRecipe.shape("slA", "sAl", "slA");
 		laminateRecurveRecipe.setIngredient('l', OHItems.LAMINATED_STICK_MAT);
 		laminateRecurveRecipe.setIngredient('s', Material.STRING);
 		laminateRecurveRecipe.setIngredient('A', Material.AIR);
