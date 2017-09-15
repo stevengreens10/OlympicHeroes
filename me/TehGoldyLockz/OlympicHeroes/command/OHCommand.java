@@ -13,7 +13,7 @@ public class OHCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
-			player.getInventory().addItem(OHItems.POWER_BOW);
+			player.getInventory().addItem(OHItems.LONG_BOW);
 		}
 		return false;
 	}

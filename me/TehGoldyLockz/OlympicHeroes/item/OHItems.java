@@ -20,7 +20,7 @@ import net.minecraft.server.v1_12_R1.NBTTagList;
 import net.minecraft.server.v1_12_R1.NBTTagString;
 
 public class OHItems {
-	public static ItemStack POWER_BOW;
+	public static ItemStack LONG_BOW;
 	public static ItemStack FIRE_STICK;
 	public static ItemStack HERMES_BOOTS;
 	
@@ -28,15 +28,15 @@ public class OHItems {
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
-		POWER_BOW = createItem(Material.BOW, ChatColor.BLUE + "Test Item", new String[]{"This is a test item"});
-		POWER_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
-		ShapedRecipe shapedRecipe = new ShapedRecipe(POWER_BOW);
+		LONG_BOW = createItem(Material.BOW, "LONG_BOW", new String[]{"This is a test item"});
+		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+		ShapedRecipe shapedRecipe = new ShapedRecipe(LONG_BOW);
 		shapedRecipe.shape("SSA", "sAS", "AsS");
 		shapedRecipe.setIngredient('S', Material.STICK);
 		shapedRecipe.setIngredient('s', Material.STRING);
 		shapedRecipe.setIngredient('A', Material.AIR);
 		Bukkit.getServer().addRecipe(shapedRecipe);
-		items.add(POWER_BOW);
+		items.add(LONG_BOW);
 		
 		FIRE_STICK = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
 		FIRE_STICK.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
