@@ -28,7 +28,7 @@ public class OHItems {
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
-		LONG_BOW = createItem(Material.BOW, "LONG_BOW", new String[]{"This is a test item"});
+		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"This is a test item"});
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		ShapedRecipe shapedRecipe = new ShapedRecipe(LONG_BOW);
 		shapedRecipe.shape("SSA", "sAS", "AsS");
