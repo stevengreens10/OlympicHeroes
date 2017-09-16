@@ -111,7 +111,7 @@ public class MultiBlockListener implements Listener{
 		}
 	}
 	
-	@EventHandler(priority = EventPriority.LOWEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent e) {
 		Block b = e.getBlock();
 		if(!e.isCancelled() && MultiBlocks.isBlockInMultiBlock(b)) {
