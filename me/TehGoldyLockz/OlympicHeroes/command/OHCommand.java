@@ -13,8 +13,15 @@ public class OHCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
+<<<<<<< Updated upstream
 			player.getInventory().addItem(OHItems.LONG_BOW);
 			//player.getInventory().addItem(OHItems.LAMINATED_LONGBOW);
+=======
+//			player.getInventory().addItem(OHItems.LONG_BOW);
+			player.getInventory().addItem(OHItems.LAMINATED_LONGBOW);
+			player.getInventory().addItem(OHItems.LAMINATED_RECURVE);
+			player.getInventory().addItem(OHItems.LAMINATED_STICK);
+>>>>>>> Stashed changes
 			player.getInventory().addItem(OHItems.HERMES_BOOTS);
 			//player.getInventory().addItem(OHItems.LAMINATED_RECURVE);
 			player.getInventory().addItem(OHItems.LAMINATED_STICK);

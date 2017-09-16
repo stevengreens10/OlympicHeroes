@@ -35,6 +35,7 @@ public class OHItems {
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
+<<<<<<< Updated upstream
 		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"a Heavier Bow"});
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);
@@ -44,6 +45,18 @@ public class OHItems {
 		longbowRecipe.setIngredient('a', Material.AIR);
 		Bukkit.getServer().addRecipe(longbowRecipe);
 		items.add(LONG_BOW);
+=======
+//		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"not this"});
+//		LONG_BOW = addAttribute(LONG_BOW, "generic.movementSpeed", .02, "mainhand");
+//		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+//		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);
+//		longbowRecipe.shape("SSA", "sAS", "AsS");
+//		longbowRecipe.setIngredient('S', Material.STICK);
+//		longbowRecipe.setIngredient('s', Material.STRING);
+//		longbowRecipe.setIngredient('A', Material.AIR);
+//		Bukkit.getServer().addRecipe(longbowRecipe);
+//		items.add(LONG_BOW);
+>>>>>>> Stashed changes
 		
 		FIRE_STICK = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
 		FIRE_STICK.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
@@ -77,6 +90,7 @@ public class OHItems {
 		Bukkit.getServer().addRecipe(laminateRecipe);
 		items.add(LAMINATED_STICK);
 		
+<<<<<<< Updated upstream
 		//LAMINATED_LONGBOW = createItem(Material.BOW, "Laminated Longbow", new String[]{"a Longbow made through Lamination."});
 		//LAMINATED_LONGBOW.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
 		//LAMINATED_LONGBOW.addEnchantment(Enchantment.DURABILITY, 2);
@@ -100,6 +114,31 @@ public class OHItems {
 		recurveRecipe.setIngredient('l', Material.LEATHER);
 		Bukkit.getServer().addRecipe(recurveRecipe);
 		items.add(RECURVE);
+=======
+		LAMINATED_LONGBOW = createItem(Material.BOW, "Laminated Longbow", new String[]{"A Longbow made through Lamination."});
+		LAMINATED_LONGBOW.addEnchantment(Enchantment.ARROW_DAMAGE, 2);
+		LAMINATED_LONGBOW.addEnchantment(Enchantment.DURABILITY, 2);
+		LAMINATED_LONGBOW = addAttribute(LAMINATED_LONGBOW, "generic.movementSpeed", -.2, "mainhand");
+		ShapedRecipe laminateLongRecipe = new ShapedRecipe(LAMINATED_LONGBOW);
+		laminateLongRecipe.shape("llA", "sAl", "Asl");
+		laminateLongRecipe.setIngredient('l', LAMINATED_STICK_MAT);
+		laminateLongRecipe.setIngredient('s', Material.STRING);
+		laminateLongRecipe.setIngredient('A', Material.AIR);
+		Bukkit.getServer().addRecipe(laminateLongRecipe);
+		items.add(LAMINATED_LONGBOW);
+		
+		LAMINATED_RECURVE = createItem(Material.BOW, "Laminated Recurve", new String[]{"A Recurve made through Lamination."});
+		LAMINATED_RECURVE.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+		LAMINATED_RECURVE.addEnchantment(Enchantment.DURABILITY, 2);
+		LAMINATED_RECURVE = addAttribute(LAMINATED_RECURVE, "generic.movementSpeed", .05, "mainhand");
+		ShapedRecipe laminateRecurveRecipe = new ShapedRecipe(LAMINATED_RECURVE);
+		laminateRecurveRecipe.shape("slA", "sAl", "slA");
+		laminateRecurveRecipe.setIngredient('l', LAMINATED_STICK_MAT);
+		laminateRecurveRecipe.setIngredient('s', Material.STRING);
+		laminateRecurveRecipe.setIngredient('A', Material.AIR);
+		Bukkit.getServer().addRecipe(laminateRecurveRecipe);
+		items.add(LAMINATED_RECURVE);
+>>>>>>> Stashed changes
 		
 	}
 	
