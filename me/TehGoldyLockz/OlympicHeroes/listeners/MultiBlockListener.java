@@ -60,7 +60,7 @@ public class MultiBlockListener implements Listener{
 			}
 		}else if(type == Material.DIAMOND_BLOCK) {
 			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) -1, Material.QUARTZ_STAIRS, "Hera")) {
-				e.getPlayer().sendMessage("You just made a shrine to Hera!");
+				e.getPlayer().sendMessage("You just made a shrine to Hera.");
 			}
 		}else if(type == Material.MAGMA) {
 			if(isShrine(block, Material.STONE, (byte) 5, Material.SMOOTH_STAIRS, "Hephaestus")) {
@@ -71,7 +71,9 @@ public class MultiBlockListener implements Listener{
 				e.getPlayer().sendMessage("You just made a shrine to Demeter!");
 			}
 		}else if(type == Material.LAPIS_BLOCK) {
-			// hermes
+			if(isShrine(block, Material.CONCRETE, (byte) 8, Material.JUNGLE_WOOD_STAIRS, "Hermes"));{
+				e.getPlayer().sendMessage("You just made a shrine to Hermes!");
+			}
 		}else if(type == Material.SEA_LANTERN) {
 			if(isShrine(block, Material.PRISMARINE, (byte) -1, Material.BIRCH_WOOD_STAIRS, "Poseidon")) {
 				e.getPlayer().sendMessage("You just made a shrine to Poseidon!");
