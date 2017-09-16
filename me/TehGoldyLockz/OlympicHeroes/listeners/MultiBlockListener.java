@@ -1,6 +1,7 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -10,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -17,8 +19,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
-
-import java.util.Base64;
 
 import me.TehGoldyLockz.OlympicHeroes.MultiBlock;
 import me.TehGoldyLockz.OlympicHeroes.MultiBlocks;
@@ -111,10 +111,10 @@ public class MultiBlockListener implements Listener{
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onBlockBreak(BlockBreakEvent e) {
 		Block b = e.getBlock();
-		if(MultiBlocks.isBlockInMultiBlock(b)) {
+		if(!e.isCancelled() && MultiBlocks.isBlockInMultiBlock(b)) {
 			MultiBlock mb = MultiBlocks.getMultiBlock(b);
 			MultiBlocks.removeMultiBlock(mb);
 			Bukkit.broadcastMessage(e.getPlayer().getName() + " just broke a shrine to " + mb.god + "!");
