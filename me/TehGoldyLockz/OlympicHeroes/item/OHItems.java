@@ -78,7 +78,6 @@ public class OHItems {
 		items.add(LAMINATED_STICK);
 		
 		RECURVE = createItem(Material.BOW, ChatColor.YELLOW +  "Recurve", new String[]{"a Lightweight bow that gives mobility"});
-		RECURVE.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		RECURVE = addAttribute(RECURVE, "generic.movementSpeed", .05, "mainhand");
 		ShapedRecipe recurveRecipe = new ShapedRecipe(RECURVE);
 		recurveRecipe.shape("sSa", "sal", "sSa");
