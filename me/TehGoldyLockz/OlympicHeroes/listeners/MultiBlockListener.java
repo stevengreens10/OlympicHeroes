@@ -137,6 +137,7 @@ public class MultiBlockListener implements Listener{
 			   w.getBlockAt(l.clone().add(1, -1, 0)).getData() == exteriorData &&
 			   w.getBlockAt(l.clone().add(-1, -1, 0)).getData() == exteriorData)) {
 				for(int z = -1; z <= 1; z+=2) {
+					BlockFace facing = null;
 					if(w.getBlockAt(l.clone().add(0, -2, z)).getType() == stair &&
 					   w.getBlockAt(l.clone().add(1, -1, z)).getType() == stair &&
 					   w.getBlockAt(l.clone().add(-1, -1, z)).getType() == stair) {
@@ -145,8 +146,10 @@ public class MultiBlockListener implements Listener{
 							( (Stairs) w.getBlockAt(l.clone().add(-1, -1, z)).getState().getData() ).getAscendingDirection() == BlockFace.WEST){
 							// z = -1: north ; z = 1: south
 							if(z == -1 &&  ((Stairs) w.getBlockAt(l.clone().add(0, -2, z)).getState().getData() ).getAscendingDirection() == BlockFace.SOUTH) {
+								facing = BlockFace.NORTH;
 								isShrine = true;
 							}else if(z == 1 &&  ((Stairs) w.getBlockAt(l.clone().add(0, -2, z)).getState().getData() ).getAscendingDirection() == BlockFace.NORTH){
+								facing = BlockFace.SOUTH;
 								isShrine = true;
 							}
 							
@@ -170,7 +173,7 @@ public class MultiBlockListener implements Listener{
 								}
 								
 								if(!partOfMultiBlock) {
-									MultiBlocks.addMultiBlock(block, blocks, god);
+									MultiBlocks.addMultiBlock(block, blocks, god, facing);
 								}else {
 									isShrine = false;
 								}
@@ -190,6 +193,7 @@ public class MultiBlockListener implements Listener{
 			   w.getBlockAt(l.clone().add(0, -1, 1)).getData() == exteriorData &&
 			   w.getBlockAt(l.clone().add(0, -1, -1)).getData() == exteriorData)) {
 				for(int x = -1; x <= 1; x+=2) {
+					BlockFace facing = null;
 					if(w.getBlockAt(l.clone().add(x, -2, 0)).getType() == stair &&
 					   w.getBlockAt(l.clone().add(x, -1, 1)).getType() == stair &&
 					   w.getBlockAt(l.clone().add(x, -1, -1)).getType() == stair) {
@@ -198,8 +202,10 @@ public class MultiBlockListener implements Listener{
 							( (Stairs) w.getBlockAt(l.clone().add(x, -1, 1)).getState().getData() ).getAscendingDirection() == BlockFace.SOUTH) {
 							// z = -1: west ; z = 1: east
 							if(x == -1 &&  ((Stairs) w.getBlockAt(l.clone().add(x, -2, 0)).getState().getData() ).getAscendingDirection() == BlockFace.EAST) {
+								facing = BlockFace.WEST;
 								isShrine = true;
 							}else if(x == 1 &&  ((Stairs) w.getBlockAt(l.clone().add(x, -2, 0)).getState().getData() ).getAscendingDirection() == BlockFace.WEST){
+								facing = BlockFace.EAST;
 								isShrine = true;
 							}
 							
@@ -223,7 +229,7 @@ public class MultiBlockListener implements Listener{
 								}
 								
 								if(!partOfMultiBlock) {
-									MultiBlocks.addMultiBlock(block, blocks, god);
+									MultiBlocks.addMultiBlock(block, blocks, god, facing);
 								}else {
 									isShrine = false;
 								}

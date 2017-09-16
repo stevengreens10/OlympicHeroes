@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 
 public class MultiBlocks {
 	public static List<MultiBlock> multiBlocks = new ArrayList<MultiBlock>();
 	
-	public static void addMultiBlock(Block triggerBlock, List<Block> blocks, String god) {
-		multiBlocks.add(new MultiBlock(triggerBlock, blocks, god));
+	public static void addMultiBlock(Block triggerBlock, List<Block> blocks, String god, BlockFace facing) {
+		multiBlocks.add(new MultiBlock(triggerBlock, blocks, god, facing));
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -44,5 +45,9 @@ public class MultiBlocks {
 	
 	public static void removeMultiBlock(MultiBlock multiBlock) {
 		multiBlocks.remove(multiBlock);
+	}
+	
+	public static void save() {
+		
 	}
 }
