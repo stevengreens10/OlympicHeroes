@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.TehGoldyLockz.OlympicHeroes.command.OHCommand;
 import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.listeners.EnchantListener;
+import me.TehGoldyLockz.OlympicHeroes.listeners.MultiBlockListener;
 
 @SuppressWarnings("unused")
 public class OlympicHeroes extends JavaPlugin{
@@ -15,6 +16,7 @@ public class OlympicHeroes extends JavaPlugin{
 		Bukkit.getLogger().info("Olympic Heroes is startin up :D");
 		
 		new EnchantListener(this);
+		new MultiBlockListener(this);
 		
 		getCommand("oh").setExecutor(new OHCommand());
 		
