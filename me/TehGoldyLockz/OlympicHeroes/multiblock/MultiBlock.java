@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes;
+package me.TehGoldyLockz.OlympicHeroes.multiblock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,13 @@ public class MultiBlock {
 	public List<Block> blocks = new ArrayList<Block>();
 	public String god = "";
 	public BlockFace facing = null;
+	public int ID = 0;
 	
-	public MultiBlock(Block triggerBlock, List<Block> blocks, String god, BlockFace facing) {
+	public MultiBlock(Block triggerBlock, List<Block> blocks, String god, BlockFace facing, int ID) {
 		this.triggerBlock = triggerBlock;
 		this.blocks = blocks;
 		this.god = god;
 		this.facing = facing;
+		this.ID = ID;
 	}
 }

