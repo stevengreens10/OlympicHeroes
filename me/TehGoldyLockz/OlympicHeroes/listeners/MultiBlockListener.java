@@ -63,7 +63,7 @@ public class MultiBlockListener implements Listener{
 				e.getPlayer().sendMessage("You just made a shrine to Hera.");
 			}
 		}else if(type == Material.MAGMA) {
-			if(isShrine(block, Material.STONE, (byte) 5, Material.SMOOTH_STAIRS, "Hephaestus")) {
+			if(isShrine(block, Material.STONE, (byte) 6, Material.SMOOTH_STAIRS, "Hephaestus")) {
 				e.getPlayer().sendMessage("You just made a shrine to Hephaestus!");
 			}
 		}else if(type == Material.MELON_BLOCK) {
