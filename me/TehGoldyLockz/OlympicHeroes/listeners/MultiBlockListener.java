@@ -34,6 +34,8 @@ public class MultiBlockListener implements Listener{
 		Block block = e.getBlock();
 		Material type = block.getType();
 		
+		// Set block data to -1 if it doesn't matter
+		
 		if(type == Material.IRON_BLOCK) {
 			if(isShrine(block, Material.STONE, (byte) 4, Material.SPRUCE_WOOD_STAIRS, "Artemis")) {
 				e.getPlayer().sendMessage("You just made a shrine to Artemis!");
@@ -43,19 +45,19 @@ public class MultiBlockListener implements Listener{
 				e.getPlayer().sendMessage("You just made a shrine to Athena!");
 			}
 		}else if(type == Material.GOLD_BLOCK) {
-			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) 0, Material.SANDSTONE_STAIRS, "Apollo")) {
+			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) -1, Material.SANDSTONE_STAIRS, "Apollo")) {
 				e.getPlayer().sendMessage("You just made a shrine to Apollo!");
 			}
 			
-			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) 0, Material.QUARTZ_STAIRS, "Zeus")) {
+			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) -1, Material.QUARTZ_STAIRS, "Zeus")) {
 				e.getPlayer().sendMessage("You just made a shrine to Zeus!");
 			}
 			
-			if(isShrine(block, Material.PINK_GLAZED_TERRACOTTA, (byte) 0, Material.PURPUR_STAIRS, "Aphrodite")) {
+			if(isShrine(block, Material.PINK_GLAZED_TERRACOTTA, (byte) -1, Material.PURPUR_STAIRS, "Aphrodite")) {
 				e.getPlayer().sendMessage("You just made a shrine to Aphrodite!");
 			}
 		}else if(type == Material.DIAMOND_BLOCK) {
-			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) 0, Material.QUARTZ_STAIRS, "Hera")) {
+			if(isShrine(block, Material.QUARTZ_BLOCK, (byte) -1, Material.QUARTZ_STAIRS, "Hera")) {
 				e.getPlayer().sendMessage("You just made a shrine to Hera!");
 			}
 		}else if(type == Material.MAGMA) {
@@ -63,21 +65,21 @@ public class MultiBlockListener implements Listener{
 				e.getPlayer().sendMessage("You just made a shrine to Hephaestus!");
 			}
 		}else if(type == Material.MELON_BLOCK) {
-			if(isShrine(block, Material.HAY_BLOCK, (byte) 0, Material.BIRCH_WOOD_STAIRS, "Demeter")) {
+			if(isShrine(block, Material.HAY_BLOCK, (byte) -1, Material.BIRCH_WOOD_STAIRS, "Demeter")) {
 				e.getPlayer().sendMessage("You just made a shrine to Demeter!");
 			}
 		}else if(type == Material.LAPIS_BLOCK) {
 			// hermes
 		}else if(type == Material.SEA_LANTERN) {
-			if(isShrine(block, Material.PRISMARINE, (byte) 0, Material.BIRCH_WOOD_STAIRS, "Poseidon")) {
+			if(isShrine(block, Material.PRISMARINE, (byte) -1, Material.BIRCH_WOOD_STAIRS, "Poseidon")) {
 				e.getPlayer().sendMessage("You just made a shrine to Poseidon!");
 			}
 		}else if(type == Material.EMERALD_BLOCK) {
-			if(isShrine(block, Material.RED_NETHER_BRICK, (byte) 0, Material.NETHER_BRICK_STAIRS, "Hades")) {
+			if(isShrine(block, Material.RED_NETHER_BRICK, (byte) -1, Material.NETHER_BRICK_STAIRS, "Hades")) {
 				e.getPlayer().sendMessage("You just made a shrine to Hades!");
 			}
 		}else if(type == Material.CONCRETE && block.getData() == (byte) 10) {
-			if(isShrine(block, Material.GREEN_GLAZED_TERRACOTTA, (byte) 0, Material.PURPUR_STAIRS, "Dionysus")) {
+			if(isShrine(block, Material.GREEN_GLAZED_TERRACOTTA, (byte) -1, Material.PURPUR_STAIRS, "Dionysus")) {
 				e.getPlayer().sendMessage("You just made a shrine to Dionysus!");
 			}
 		}else if(type == Material.REDSTONE_BLOCK) {
@@ -125,10 +127,10 @@ public class MultiBlockListener implements Listener{
 			   w.getBlockAt(l.clone().add(-1, 0, 0)).getType() == exterior &&
 			   w.getBlockAt(l.clone().add(1, -1, 0)).getType() == exterior &&
 			   w.getBlockAt(l.clone().add(-1, -1, 0)).getType() == exterior &&
-			   w.getBlockAt(l.clone().add(1, 0, 0)).getData() == exteriorData && 
+			   (exteriorData == -1 || w.getBlockAt(l.clone().add(1, 0, 0)).getData() == exteriorData && 
 			   w.getBlockAt(l.clone().add(-1, 0, 0)).getData() == exteriorData &&
 			   w.getBlockAt(l.clone().add(1, -1, 0)).getData() == exteriorData &&
-			   w.getBlockAt(l.clone().add(-1, -1, 0)).getData() == exteriorData) {
+			   w.getBlockAt(l.clone().add(-1, -1, 0)).getData() == exteriorData)) {
 				for(int z = -1; z <= 1; z+=2) {
 					if(w.getBlockAt(l.clone().add(0, -2, z)).getType() == stair &&
 					   w.getBlockAt(l.clone().add(1, -1, z)).getType() == stair &&
@@ -178,10 +180,10 @@ public class MultiBlockListener implements Listener{
 			   w.getBlockAt(l.clone().add(0, 0, -1)).getType() == exterior &&
 			   w.getBlockAt(l.clone().add(0, -1, 1)).getType() == exterior &&
 			   w.getBlockAt(l.clone().add(0, -1, -1)).getType() == exterior &&
-			   w.getBlockAt(l.clone().add(0, 0, 1)).getData() == exteriorData && 
+			   (exteriorData == -1 || w.getBlockAt(l.clone().add(0, 0, 1)).getData() == exteriorData && 
 			   w.getBlockAt(l.clone().add(0, 0, -1)).getData() == exteriorData &&
 			   w.getBlockAt(l.clone().add(0, -1, 1)).getData() == exteriorData &&
-			   w.getBlockAt(l.clone().add(0, -1, -1)).getData() == exteriorData) {
+			   w.getBlockAt(l.clone().add(0, -1, -1)).getData() == exteriorData)) {
 				for(int x = -1; x <= 1; x+=2) {
 					if(w.getBlockAt(l.clone().add(x, -2, 0)).getType() == stair &&
 					   w.getBlockAt(l.clone().add(x, -1, 1)).getType() == stair &&
