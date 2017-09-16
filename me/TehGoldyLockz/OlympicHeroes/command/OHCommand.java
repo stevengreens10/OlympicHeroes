@@ -14,10 +14,12 @@ public class OHCommand implements CommandExecutor{
 		if(sender instanceof Player) {
 			Player player = (Player) sender;
 			player.getInventory().addItem(OHItems.LONG_BOW);
-			player.getInventory().addItem(OHItems.LAMINATED_LONGBOW);
-			player.getInventory().addItem(OHItems.LAMINATED_RECURVE);
-			player.getInventory().addItem(OHItems.LAMINATED_STICK);
+			//player.getInventory().addItem(OHItems.LAMINATED_LONGBOW);
 			player.getInventory().addItem(OHItems.HERMES_BOOTS);
+			//player.getInventory().addItem(OHItems.LAMINATED_RECURVE);
+			player.getInventory().addItem(OHItems.LAMINATED_STICK);
+			
+			
 		}
 		return false;
 	}
