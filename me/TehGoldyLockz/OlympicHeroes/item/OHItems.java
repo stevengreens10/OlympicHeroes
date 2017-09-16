@@ -28,14 +28,14 @@ public class OHItems {
 	public static ItemStack HERMES_BOOTS;
 	public static ItemStack LAMINATED_STICK;
 	//public static MaterialData LAMINATED_STICK_MAT;
+	//public static ItemStack LAMINATED_LONGBOW;
 	public static ItemStack LAMINATED_RECURVE;
-	public static ItemStack LAMINATED_LONGBOW;
 	
 	private static List<ItemStack> items = new ArrayList<ItemStack>();
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
-		LONG_BOW = createItem(Material.BOW, "LongBow", new String[]{"a Heavier Bow"});
+		LONG_BOW = createItem(Material.BOW, ChatColor.YELLOW + "LongBow", new String[]{"a Heavier Bow"});
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);
 		longbowRecipe.shape("SSa", "saS", "asS");
@@ -77,7 +77,7 @@ public class OHItems {
 		Bukkit.getServer().addRecipe(laminateRecipe);
 		items.add(LAMINATED_STICK);
 		
-		RECURVE = createItem(Material.BOW, "Recurve", new String[]{"a Lightweight bow that gives mobility"});
+		RECURVE = createItem(Material.BOW, ChatColor.YELLOW +  "Recurve", new String[]{"a Lightweight bow that gives mobility"});
 		RECURVE.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		RECURVE = addAttribute(RECURVE, "generic.movementSpeed", .05, "mainhand");
 		ShapedRecipe recurveRecipe = new ShapedRecipe(RECURVE);
