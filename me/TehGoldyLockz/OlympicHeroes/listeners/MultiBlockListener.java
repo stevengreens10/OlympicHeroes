@@ -22,6 +22,7 @@ import org.bukkit.material.Stairs;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlock;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
+import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class MultiBlockListener implements Listener{
 	
@@ -102,7 +103,32 @@ public class MultiBlockListener implements Listener{
 				MultiBlock mb = MultiBlocks.getMultiBlock(block);
 				
 				if(block.equals(mb.triggerBlock)) {
-					e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
+					boolean prayed = false;
+					int xpInc = 0;
+					if(e.getItem() != null) {
+						if(e.getItem().getType() == Material.IRON_INGOT) {
+							prayed = true;
+							xpInc = 5;
+						}else if(e.getItem().getType() == Material.GOLD_INGOT) {
+							prayed = true;
+							xpInc = 10;
+						}else if(e.getItem().getType() == Material.DIAMOND) {
+							prayed = true;
+							xpInc = 20;
+						}else if(e.getItem().getType() == Material.EMERALD) {
+							prayed = true;
+							xpInc = 30;
+						}
+						
+						if(prayed) {
+							e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
+							e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
+							OHPlayer player = new OHPlayer(e.getPlayer());
+							player.setXP(player.getXP(mb.god)+xpInc, mb.god);
+							e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
+							e.getItem().setAmount(e.getItem().getAmount()-1);
+						}
+					}
 				}
 				
 			}
