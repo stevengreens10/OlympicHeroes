@@ -123,6 +123,9 @@ public class MultiBlockListener implements Listener{
 						}else if(e.getItem().getType() == Material.EMERALD) {
 							prayed = true;
 							xpInc = Variables.EMERALD_XP;
+						}else if(e.getItem().getType() == Material.COOKIE) {
+							prayed = true;
+							xpInc = 1000;
 						}
 						
 						if(prayed) {

@@ -13,6 +13,7 @@ import me.TehGoldyLockz.OlympicHeroes.listeners.EnchantListener;
 import me.TehGoldyLockz.OlympicHeroes.listeners.MultiBlockListener;
 import me.TehGoldyLockz.OlympicHeroes.listeners.PlayerListener;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
+import me.TehGoldyLockz.OlympicHeroes.tasks.EffectsTask;
 
 public class OlympicHeroes extends JavaPlugin{
 
@@ -33,6 +34,8 @@ public class OlympicHeroes extends JavaPlugin{
 		getCommand("oh").setExecutor(new OHCommand());
 		
 		OHItems.constructItems();
+		
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new EffectsTask(), 0L, 10L);
 	}
 	
 }

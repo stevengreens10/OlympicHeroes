@@ -22,6 +22,36 @@ public class OHCommand implements CommandExecutor{
 				for(String god : Variables.GODS) {
 					player.sendMessage(god + " : " + ohPlayer.getXP(god) + " XP : " + "Lvl " + ohPlayer.getLevel(god));
 				}
+			}else if(args.length >= 3) {
+				if(args[0].equalsIgnoreCase("set")) {
+					String playerName = args[1];
+					Player p = Bukkit.getServer().getPlayer(playerName);
+					if(p != null) {
+						String godName = args[2];
+						godName = godName.toLowerCase();
+						godName = godName.substring(0,1).toUpperCase() + godName.substring(1);
+						boolean validGod = false;
+						for(String god : Variables.GODS) {
+							if(god.equalsIgnoreCase(godName)) {
+								validGod = true;
+							}
+						}
+						
+						if(validGod) {
+							try {
+								int xp = Integer.parseInt(args[3]);
+								ohPlayer.setXP(xp, godName);
+								player.sendMessage("You set " + playerName + "'s XP for " + godName + " to " + xp + ".");
+							}catch(Exception e) {
+								player.sendMessage("The XP amount must be a valid number!");
+							}
+						}else {
+							player.sendMessage(godName + " is not a valid god!");
+						}
+					}else {
+						player.sendMessage("Player does not exist!");
+					}
+				}
 			}else if(args.length >= 2) {
 				if(args[0].equalsIgnoreCase("reset")) {
 					String playerName = args[1];
