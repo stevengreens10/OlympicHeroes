@@ -11,6 +11,7 @@ public class OHPlayer {
 	public OHPlayer(Player player) {
 		config = new Config("storage/" + player.getUniqueId().toString() + ".yml");
 		config.getConfig().set("username", player.getName());
+		config.save();
 	}
 	
 	public int getXP(String god) {
