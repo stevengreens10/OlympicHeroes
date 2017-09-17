@@ -22,8 +22,8 @@ public class PlayerListener implements Listener{
 			OHPlayer ohPlayer = new OHPlayer(player);
 			
 			if(e.getCause() == DamageCause.FALL) {
-				if(ohPlayer.getLevel("Zeus") >= 2) {
-					e.setDamage(e.getFinalDamage() / 2.0);
+				if(ohPlayer.getXP("Zeus") > 0) {
+					e.setDamage(e.getFinalDamage() / 1.5);
 					player.sendMessage("Your fall damage has been reduced thanks to Zeus");
 				}
 			}
