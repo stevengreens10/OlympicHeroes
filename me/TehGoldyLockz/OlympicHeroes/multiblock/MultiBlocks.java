@@ -20,63 +20,65 @@ public class MultiBlocks {
 		
 		if(config.getConfigurationSection("multiblocks") != null && config.getConfigurationSection("multiblocks").getKeys(false) != null) {
 			for(int i = 0; i < config.getConfigurationSection("multiblocks").getKeys(false).size(); i++) {
-				int x = config.getInt("multiblocks." +  i + ".trigger.x");
-				int y = config.getInt("multiblocks." +  i + ".trigger.y");
-				int z = config.getInt("multiblocks." +  i + ".trigger.z");
-				String world = config.getString("multiblocks." +  i + ".trigger.world");
-				String direction = config.getString("multiblocks." + i + ".facing");
-				String god = config.getString("multiblocks." + i + ".god");
-				
-				Location l =  new Location(Bukkit.getWorld(world),x,y,z);
-				
-				Block trigger = l.getBlock();
-				List<Block> blocks = new ArrayList<Block>();
-				blocks.add(trigger);
-				
-				if(direction.equalsIgnoreCase("NORTH")) {
-					blocks.add(l.clone().add(0, 1, 0).getBlock());
-					blocks.add(l.clone().add(0, -1, 0).getBlock());
-					blocks.add(l.clone().add(1, 0, 0).getBlock());
-					blocks.add(l.clone().add(-1, 0, 0).getBlock());
-					blocks.add(l.clone().add(1, -1, 0).getBlock());
-					blocks.add(l.clone().add(-1, -1, 0).getBlock());
-					blocks.add(l.clone().add(0, -2, -1).getBlock());
-					blocks.add(l.clone().add(1, -1, -1).getBlock());
-					blocks.add(l.clone().add(-1, -1, -1).getBlock());
-				}else if(direction.equalsIgnoreCase("EAST")) {
-					blocks.add(l.clone().add(0, 1, 0).getBlock());
-					blocks.add(l.clone().add(0, -1, 0).getBlock());
-					blocks.add(l.clone().add(0, 0, 1).getBlock());
-					blocks.add(l.clone().add(0, 0, -1).getBlock());
-					blocks.add(l.clone().add(0, -1, 1).getBlock());
-					blocks.add(l.clone().add(0, -1, -1).getBlock());
-					blocks.add(l.clone().add(1, -2, 0).getBlock());
-					blocks.add(l.clone().add(1, -1, -1).getBlock());
-					blocks.add(l.clone().add(1, -1, 1).getBlock());
-				}else if(direction.equalsIgnoreCase("SOUTH")) {
-					blocks.add(l.clone().add(0, 1, 0).getBlock());
-					blocks.add(l.clone().add(0, -1, 0).getBlock());
-					blocks.add(l.clone().add(1, 0, 0).getBlock());
-					blocks.add(l.clone().add(-1, 0, 0).getBlock());
-					blocks.add(l.clone().add(1, -1, 0).getBlock());
-					blocks.add(l.clone().add(-1, -1, 0).getBlock());
-					blocks.add(l.clone().add(0, -2, 1).getBlock());
-					blocks.add(l.clone().add(1, -1, 1).getBlock());
-					blocks.add(l.clone().add(-1, -1, 1).getBlock());
-				}else if(direction.equalsIgnoreCase("WEST")) {
-					blocks.add(l.clone().add(0, 1, 0).getBlock());
-					blocks.add(l.clone().add(0, -1, 0).getBlock());
-					blocks.add(l.clone().add(0, 0, 1).getBlock());
-					blocks.add(l.clone().add(0, 0, -1).getBlock());
-					blocks.add(l.clone().add(0, -1, 1).getBlock());
-					blocks.add(l.clone().add(0, -1, -1).getBlock());
-					blocks.add(l.clone().add(-1, -2, 0).getBlock());
-					blocks.add(l.clone().add(-1, -1, -1).getBlock());
-					blocks.add(l.clone().add(-1, -1, 1).getBlock());
+				if(config.getConfigurationSection("multiblocks." + i) != null) {
+					int x = config.getInt("multiblocks." +  i + ".trigger.x");
+					int y = config.getInt("multiblocks." +  i + ".trigger.y");
+					int z = config.getInt("multiblocks." +  i + ".trigger.z");
+					String world = config.getString("multiblocks." +  i + ".trigger.world");
+					String direction = config.getString("multiblocks." + i + ".facing");
+					String god = config.getString("multiblocks." + i + ".god");
+					
+					Location l =  new Location(Bukkit.getWorld(world),x,y,z);
+					
+					Block trigger = l.getBlock();
+					List<Block> blocks = new ArrayList<Block>();
+					blocks.add(trigger);
+					
+					if(direction.equalsIgnoreCase("NORTH")) {
+						blocks.add(l.clone().add(0, 1, 0).getBlock());
+						blocks.add(l.clone().add(0, -1, 0).getBlock());
+						blocks.add(l.clone().add(1, 0, 0).getBlock());
+						blocks.add(l.clone().add(-1, 0, 0).getBlock());
+						blocks.add(l.clone().add(1, -1, 0).getBlock());
+						blocks.add(l.clone().add(-1, -1, 0).getBlock());
+						blocks.add(l.clone().add(0, -2, -1).getBlock());
+						blocks.add(l.clone().add(1, -1, -1).getBlock());
+						blocks.add(l.clone().add(-1, -1, -1).getBlock());
+					}else if(direction.equalsIgnoreCase("EAST")) {
+						blocks.add(l.clone().add(0, 1, 0).getBlock());
+						blocks.add(l.clone().add(0, -1, 0).getBlock());
+						blocks.add(l.clone().add(0, 0, 1).getBlock());
+						blocks.add(l.clone().add(0, 0, -1).getBlock());
+						blocks.add(l.clone().add(0, -1, 1).getBlock());
+						blocks.add(l.clone().add(0, -1, -1).getBlock());
+						blocks.add(l.clone().add(1, -2, 0).getBlock());
+						blocks.add(l.clone().add(1, -1, -1).getBlock());
+						blocks.add(l.clone().add(1, -1, 1).getBlock());
+					}else if(direction.equalsIgnoreCase("SOUTH")) {
+						blocks.add(l.clone().add(0, 1, 0).getBlock());
+						blocks.add(l.clone().add(0, -1, 0).getBlock());
+						blocks.add(l.clone().add(1, 0, 0).getBlock());
+						blocks.add(l.clone().add(-1, 0, 0).getBlock());
+						blocks.add(l.clone().add(1, -1, 0).getBlock());
+						blocks.add(l.clone().add(-1, -1, 0).getBlock());
+						blocks.add(l.clone().add(0, -2, 1).getBlock());
+						blocks.add(l.clone().add(1, -1, 1).getBlock());
+						blocks.add(l.clone().add(-1, -1, 1).getBlock());
+					}else if(direction.equalsIgnoreCase("WEST")) {
+						blocks.add(l.clone().add(0, 1, 0).getBlock());
+						blocks.add(l.clone().add(0, -1, 0).getBlock());
+						blocks.add(l.clone().add(0, 0, 1).getBlock());
+						blocks.add(l.clone().add(0, 0, -1).getBlock());
+						blocks.add(l.clone().add(0, -1, 1).getBlock());
+						blocks.add(l.clone().add(0, -1, -1).getBlock());
+						blocks.add(l.clone().add(-1, -2, 0).getBlock());
+						blocks.add(l.clone().add(-1, -1, -1).getBlock());
+						blocks.add(l.clone().add(-1, -1, 1).getBlock());
+					}
+					
+					MultiBlock mb = new MultiBlock(trigger, blocks, god, BlockFace.valueOf(direction), i);
+					multiBlocks.add(mb);
 				}
-				
-				MultiBlock mb = new MultiBlock(trigger, blocks, god, BlockFace.valueOf(direction), i);
-				multiBlocks.add(mb);
 			}
 		}
 	}

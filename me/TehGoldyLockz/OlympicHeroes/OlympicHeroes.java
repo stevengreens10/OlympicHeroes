@@ -11,6 +11,7 @@ import me.TehGoldyLockz.OlympicHeroes.command.OHCommand;
 import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.listeners.EnchantListener;
 import me.TehGoldyLockz.OlympicHeroes.listeners.MultiBlockListener;
+import me.TehGoldyLockz.OlympicHeroes.listeners.PlayerListener;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
 
 public class OlympicHeroes extends JavaPlugin{
@@ -27,6 +28,7 @@ public class OlympicHeroes extends JavaPlugin{
 		
 		new EnchantListener(this);
 		new MultiBlockListener(this);
+		new PlayerListener(this);
 		
 		getCommand("oh").setExecutor(new OHCommand());
 		

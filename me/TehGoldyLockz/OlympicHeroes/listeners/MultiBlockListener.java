@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
@@ -128,8 +129,14 @@ public class MultiBlockListener implements Listener{
 								e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
 								e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
 								OHPlayer player = new OHPlayer(e.getPlayer());
+								int levelBefore = player.getLevel(mb.god);
 								player.setXP(player.getXP(mb.god)+xpInc, mb.god);
 								e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
+								
+								if(levelBefore != player.getLevel(mb.god)) {
+									e.getPlayer().sendMessage("Your level for " + mb.god + " has just increased to " + player.getLevel(mb.god));
+								}
+								
 								e.getItem().setAmount(e.getItem().getAmount()-1);
 								
 								OlympicHeroes.cooldownList.add(e.getPlayer());
@@ -158,6 +165,18 @@ public class MultiBlockListener implements Listener{
 			MultiBlocks.save();
 			Bukkit.broadcastMessage(e.getPlayer().getName() + " just broke a shrine to " + mb.god + "!");
 			
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onExplode(EntityExplodeEvent e) {
+		for(Block b : e.blockList()) {
+			if(!e.isCancelled() && MultiBlocks.isBlockInMultiBlock(b)) {
+				MultiBlock mb = MultiBlocks.getMultiBlock(b);
+				MultiBlocks.removeMultiBlock(mb);
+				MultiBlocks.save();
+				Bukkit.broadcastMessage("A shrine to " + mb.god + " has been blown up!");
+			}
 		}
 	}
 	
