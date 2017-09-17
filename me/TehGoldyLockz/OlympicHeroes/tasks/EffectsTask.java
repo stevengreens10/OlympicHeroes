@@ -48,7 +48,7 @@ public class EffectsTask implements Runnable {
 				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
 				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
 				   item.getType() == Material.WOOD_SWORD) {
-					int hasteLevel = Math.min(ohPlayer.getLevel("Athena")-4, 2);
+					int hasteLevel = Math.min(ohPlayer.getLevel("Athena")-3, 2);
 					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
 				}
 			}
