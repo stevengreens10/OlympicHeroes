@@ -43,6 +43,16 @@ public class EffectsTask implements Runnable {
 				}
 			}
 			
+			if(ohPlayer.getLevel("Athena") >= 3) {
+				ItemStack item = p.getInventory().getItemInMainHand();
+				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
+				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
+				   item.getType() == Material.WOOD_SWORD) {
+					int hasteLevel = Math.min(ohPlayer.getLevel("Athena")-4, 2);
+					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
+				}
+			}
+			
 			if(ohPlayer.getLevel("Hermes") >= 2) {
 				int speedLevel = ohPlayer.getLevel("Hermes") - 2;
 				speedLevel = Math.min(speedLevel, 3);
