@@ -137,7 +137,7 @@ public class MultiBlockListener implements Listener{
 									public void run() {
 										OlympicHeroes.cooldownList.remove(e.getPlayer());
 									}
-								}, /*288000L*/100L);
+								}, /*288000L*/200L);
 							}else {
 								e.getPlayer().sendMessage("You must wait to pray again!");
 							}
