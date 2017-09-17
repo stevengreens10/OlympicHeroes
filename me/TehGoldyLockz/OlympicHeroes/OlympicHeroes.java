@@ -21,7 +21,7 @@ public class OlympicHeroes extends JavaPlugin{
 	
 	public void onEnable() {
 		Bukkit.getLogger().info("Olympic Heroes is startin up :D");
-		
+		Variables.setup();
 		mbConfig = new Config("storage/mb.yml");
 		
 		MultiBlocks.load();

@@ -21,6 +21,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
 
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
+import me.TehGoldyLockz.OlympicHeroes.Variables;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlock;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
@@ -112,39 +113,52 @@ public class MultiBlockListener implements Listener{
 					if(e.getItem() != null) {
 						if(e.getItem().getType() == Material.IRON_INGOT) {
 							prayed = true;
-							xpInc = 5;
+							xpInc = Variables.IRON_XP;
 						}else if(e.getItem().getType() == Material.GOLD_INGOT) {
 							prayed = true;
-							xpInc = 10;
+							xpInc = Variables.GOLD_XP;
 						}else if(e.getItem().getType() == Material.DIAMOND) {
 							prayed = true;
-							xpInc = 20;
+							xpInc = Variables.DIAMOND_XP;
 						}else if(e.getItem().getType() == Material.EMERALD) {
 							prayed = true;
-							xpInc = 30;
+							xpInc = Variables.EMERALD_XP;
 						}
 						
 						if(prayed) {
 							if(!OlympicHeroes.cooldownList.contains(e.getPlayer())) {
-								e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
-								e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
-								OHPlayer player = new OHPlayer(e.getPlayer());
-								int levelBefore = player.getLevel(mb.god);
-								player.setXP(player.getXP(mb.god)+xpInc, mb.god);
-								e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
 								
-								if(levelBefore != player.getLevel(mb.god)) {
-									e.getPlayer().sendMessage("Your level for " + mb.god + " has just increased to " + player.getLevel(mb.god));
+								OHPlayer player = new OHPlayer(e.getPlayer());
+								boolean canPray = true;
+								
+								for(String god : Variables.OPPOSING_GODS.get(mb.god)) {
+									if(player.getXP(god) > 0)
+										canPray = false;
 								}
 								
-								e.getItem().setAmount(e.getItem().getAmount()-1);
-								
-								OlympicHeroes.cooldownList.add(e.getPlayer());
-								Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-									public void run() {
-										OlympicHeroes.cooldownList.remove(e.getPlayer());
+								if(canPray) {
+									e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
+									e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
+									int levelBefore = player.getLevel(mb.god);
+									player.setXP(player.getXP(mb.god)+xpInc, mb.god);
+									e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
+									
+									if(levelBefore != player.getLevel(mb.god)) {
+										e.getPlayer().sendMessage("Your level for " + mb.god + " has just increased to " + player.getLevel(mb.god));
 									}
-								}, /*288000L*/200L);
+									
+									e.getItem().setAmount(e.getItem().getAmount()-1);
+									
+									OlympicHeroes.cooldownList.add(e.getPlayer());
+									Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+										public void run() {
+											OlympicHeroes.cooldownList.remove(e.getPlayer());
+										}
+									}, /*288000L*/200L);
+								
+								}else {
+									e.getPlayer().sendMessage("You can not pray to this god!");
+								}
 							}else {
 								e.getPlayer().sendMessage("You must wait to pray again!");
 							}
