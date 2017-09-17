@@ -71,7 +71,7 @@ public class MultiBlockListener implements Listener{
 				e.getPlayer().sendMessage("You just made a shrine to Demeter!");
 			}
 		}else if(type == Material.LAPIS_BLOCK) {
-			if(isShrine(block, Material.CONCRETE, (byte) 8, Material.JUNGLE_WOOD_STAIRS, "Hermes")){
+			if(isShrine(block, Material.CONCRETE, (byte) 8, Material.JUNGLE_WOOD_STAIRS, "Hermes")) {
 				e.getPlayer().sendMessage("You just made a shrine to Hermes!");
 			}
 		}else if(type == Material.SEA_LANTERN) {
