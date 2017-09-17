@@ -26,7 +26,10 @@ import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class MultiBlockListener implements Listener{
 	
+	OlympicHeroes plugin;
+	
 	public MultiBlockListener(OlympicHeroes plugin) {
+		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
@@ -121,12 +124,23 @@ public class MultiBlockListener implements Listener{
 						}
 						
 						if(prayed) {
-							e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
-							e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
-							OHPlayer player = new OHPlayer(e.getPlayer());
-							player.setXP(player.getXP(mb.god)+xpInc, mb.god);
-							e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
-							e.getItem().setAmount(e.getItem().getAmount()-1);
+							if(!OlympicHeroes.cooldownList.contains(e.getPlayer())) {
+								e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
+								e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
+								OHPlayer player = new OHPlayer(e.getPlayer());
+								player.setXP(player.getXP(mb.god)+xpInc, mb.god);
+								e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
+								e.getItem().setAmount(e.getItem().getAmount()-1);
+								
+								OlympicHeroes.cooldownList.add(e.getPlayer());
+								Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+									public void run() {
+										OlympicHeroes.cooldownList.remove(e.getPlayer());
+									}
+								}, /*288000L*/100L);
+							}else {
+								e.getPlayer().sendMessage("You must wait to pray again!");
+							}
 						}
 					}
 				}
