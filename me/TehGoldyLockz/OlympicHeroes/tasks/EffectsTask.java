@@ -15,7 +15,10 @@ public class EffectsTask implements Runnable {
 			OHPlayer ohPlayer = new OHPlayer(p);
 			
 			if(ohPlayer.getLevel("Artemis") >= 2 ) {
-				p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20, 0), true);
+				long time = p.getWorld().getTime();
+				if(time >= 13500 && time <= 23000) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20, 0), true);
+				}
 			}
 			
 			if(ohPlayer.getLevel("Artemis") >= 5) {
