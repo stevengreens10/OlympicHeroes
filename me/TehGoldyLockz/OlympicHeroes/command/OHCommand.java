@@ -40,7 +40,7 @@ public class OHCommand implements CommandExecutor{
 						if(validGod) {
 							try {
 								int xp = Integer.parseInt(args[3]);
-								ohPlayer.setXP(xp, godName);
+								new OHPlayer(p).setXP(xp, godName);
 								player.sendMessage("You set " + playerName + "'s XP for " + godName + " to " + xp + ".");
 							}catch(Exception e) {
 								player.sendMessage("The XP amount must be a valid number!");
