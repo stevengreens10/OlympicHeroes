@@ -50,9 +50,14 @@ public class PlayerListener implements Listener{
 			   item.getType() == Material.WOOD_SWORD) {
 				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
 				if(ohPlayer.getLevel("Zeus") >= 5) {
-					Block block = e.getPlayer().getTargetBlock(null, 100);
-					Location l = block.getLocation();
-					e.getPlayer().getWorld().strikeLightning(l);
+					
+					if(!Cooldowns.lightningCooldown.contains(e.getPlayer())) {
+						Block block = e.getPlayer().getTargetBlock(null, 100);
+						Location l = block.getLocation();
+						e.getPlayer().getWorld().strikeLightning(l);
+					}else {
+						e.getPlayer().sendMessage("That ability is on cooldown.");
+					}
 					
 					Cooldowns.lightningCooldown.add(e.getPlayer());
 					OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), 6000L);
