@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
+import me.TehGoldyLockz.OlympicHeroes.Variables;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class PlayerListener implements Listener{
@@ -60,7 +61,7 @@ public class PlayerListener implements Listener{
 					}
 					
 					Cooldowns.lightningCooldown.add(e.getPlayer());
-					OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), 6000L);
+					OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), Variables.LIGHTNING_COOLDOWN);
 				}
 			}
 		}

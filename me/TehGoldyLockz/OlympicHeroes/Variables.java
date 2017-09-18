@@ -8,6 +8,8 @@ public class Variables {
 	public static final int DIAMOND_XP = 50;
 	public static final int EMERALD_XP = 70;
 	public static final int[] LEVEL_CUTOFFS = {1000, 2500, 4500, 8000};
+	public static final long PRAYER_COOLDOWN = 200L;
+	public static final long LIGHTNING_COOLDOWN = 200L;
 	public static final String[] GODS = {"Zeus", "Poseidon", "Hades", "Hera",
 										"Demeter", "Aphrodite", "Artemis", "Apollo",
 										"Dionysus", "Athena", "Ares", "Hephaestus", "Hermes"};
