@@ -12,12 +12,16 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class PlayerListener implements Listener{
 
+	OlympicHeroes plugin;
+	
 	public PlayerListener(OlympicHeroes plugin) {
+		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
@@ -38,7 +42,7 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
-		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+		if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_AIR) {
 			ItemStack item = e.getItem();
 			
 			if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
@@ -49,6 +53,9 @@ public class PlayerListener implements Listener{
 					Block block = e.getPlayer().getTargetBlock(null, 100);
 					Location l = block.getLocation();
 					e.getPlayer().getWorld().strikeLightning(l);
+					
+					Cooldowns.lightningCooldown.add(e.getPlayer());
+					OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), 6000L);
 				}
 			}
 		}

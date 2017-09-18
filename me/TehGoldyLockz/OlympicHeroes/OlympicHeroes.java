@@ -1,6 +1,5 @@
 package me.TehGoldyLockz.OlympicHeroes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -18,7 +17,6 @@ import me.TehGoldyLockz.OlympicHeroes.tasks.EffectsTask;
 public class OlympicHeroes extends JavaPlugin{
 
 	public static Config mbConfig;
-	public static List<Player> cooldownList = new ArrayList<Player>();
 	
 	public void onEnable() {
 		Bukkit.getLogger().info("Olympic Heroes is startin up :D");
@@ -36,6 +34,14 @@ public class OlympicHeroes extends JavaPlugin{
 		OHItems.constructItems();
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new EffectsTask(), 0L, 10L);
+	}
+	
+	public static void removeCooldown(OlympicHeroes plugin, List<Player> cooldown, Player p, long ticks) {
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+			public void run() {
+				cooldown.remove(p.getPlayer());
+			}
+		}, ticks);
 	}
 	
 }

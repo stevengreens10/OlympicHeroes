@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
 
+import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.Variables;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlock;
@@ -129,7 +130,7 @@ public class MultiBlockListener implements Listener{
 						}
 						
 						if(prayed) {
-							if(!OlympicHeroes.cooldownList.contains(e.getPlayer())) {
+							if(!Cooldowns.prayCooldown.contains(e.getPlayer())) {
 								
 								OHPlayer player = new OHPlayer(e.getPlayer());
 								boolean canPray = true;
@@ -152,12 +153,8 @@ public class MultiBlockListener implements Listener{
 									
 									e.getItem().setAmount(e.getItem().getAmount()-1);
 									
-									OlympicHeroes.cooldownList.add(e.getPlayer());
-									Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-										public void run() {
-											OlympicHeroes.cooldownList.remove(e.getPlayer());
-										}
-									}, /*288000L*/200L);
+									Cooldowns.prayCooldown.add(e.getPlayer());
+									OlympicHeroes.removeCooldown(plugin, Cooldowns.prayCooldown, e.getPlayer(), 200L);
 								
 								}else {
 									e.getPlayer().sendMessage("You can not pray to this god!");
