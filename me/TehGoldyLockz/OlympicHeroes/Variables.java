@@ -17,15 +17,28 @@ public class Variables {
 		OPPOSING_GODS.put("Zeus", new String[] {"Poseidon", "Hades"});
 		OPPOSING_GODS.put("Poseidon", new String[] {"Zeus", "Hades"});
 		OPPOSING_GODS.put("Hades", new String[] {"Poseidon", "Zeus"});
-		OPPOSING_GODS.put("Hera", new String[]{"Hephaestus","Dionysus"});
-		OPPOSING_GODS.put("Hephaestus", new String[]{"Hera", "Dionysus"});
-		OPPOSING_GODS.put("Dionysus", new String[]{"Hera","Hephaestus"});
-		OPPOSING_GODS.put("Aphrodite", new String[] {"Athena","Ares"});
-		OPPOSING_GODS.put("Athena", new String[]{"Ares", "Aphrodite"});
-		OPPOSING_GODS.put("Ares", new String[]{"Athena","Ares"});
+		OPPOSING_GODS.put("Hera", new String[]{"Hephaestus"});
+		OPPOSING_GODS.put("Hephaestus", new String[]{"Hera"});
+		OPPOSING_GODS.put("Demeter", new String[] {"Hermes"});
+		OPPOSING_GODS.put("Hermes", new String[]{"Demeter"});
+		OPPOSING_GODS.put("Aphrodite", new String[] {"Dionysus"});
+		OPPOSING_GODS.put("Dionysus", new String[]{"Aphrodite"});
+		OPPOSING_GODS.put("Athena", new String[]{"Ares"});
+		OPPOSING_GODS.put("Ares", new String[]{"Athena"});
 		OPPOSING_GODS.put("Artemis", new String[]{"Apollo"});
 		OPPOSING_GODS.put("Apollo", new String[]{"Artemis"});
-		OPPOSING_GODS.put("Hermes", new String[]{"Demeter"});
-		OPPOSING_GODS.put("Demeter", new String[] {"Hermes"});
+//		OPPOSING_GODS.put("Zeus", new String[] {"Poseidon", "Hades"});
+//		OPPOSING_GODS.put("Poseidon", new String[] {"Zeus", "Hades"});
+//		OPPOSING_GODS.put("Hades", new String[] {"Poseidon", "Zeus"});
+//		OPPOSING_GODS.put("Hera", new String[]{"Hephaestus","Dionysus"});
+//		OPPOSING_GODS.put("Hephaestus", new String[]{"Hera", "Dionysus"});
+//		OPPOSING_GODS.put("Dionysus", new String[]{"Hera","Hephaestus"});
+//		OPPOSING_GODS.put("Aphrodite", new String[] {"Athena","Ares"});
+//		OPPOSING_GODS.put("Athena", new String[]{"Ares", "Aphrodite"});
+//		OPPOSING_GODS.put("Ares", new String[]{"Athena","Ares"});
+//		OPPOSING_GODS.put("Artemis", new String[]{"Apollo"});
+//		OPPOSING_GODS.put("Apollo", new String[]{"Artemis"});
+//		OPPOSING_GODS.put("Hermes", new String[]{"Demeter"});
+//		OPPOSING_GODS.put("Demeter", new String[] {"Hermes"});
 	}
 }

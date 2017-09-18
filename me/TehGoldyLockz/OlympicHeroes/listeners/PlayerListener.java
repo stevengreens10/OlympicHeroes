@@ -1,10 +1,16 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
@@ -25,6 +31,24 @@ public class PlayerListener implements Listener{
 				if(ohPlayer.getXP("Zeus") > 0) {
 					e.setDamage(e.getFinalDamage() / 1.5);
 					player.sendMessage("Your fall damage has been reduced thanks to Zeus");
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onInteract(PlayerInteractEvent e) {
+		if(e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+			ItemStack item = e.getItem();
+			
+			if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
+			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
+			   item.getType() == Material.WOOD_SWORD) {
+				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
+				if(ohPlayer.getLevel("Zeus") >= 5) {
+					Block block = e.getPlayer().getTargetBlock(null, 100);
+					Location l = block.getLocation();
+					e.getPlayer().getWorld().strikeLightning(l);
 				}
 			}
 		}
