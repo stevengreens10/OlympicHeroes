@@ -44,7 +44,7 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
-		if((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
+		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getHand() == EquipmentSlot.HAND) {
 			ItemStack item = e.getItem();
 			
 			if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||

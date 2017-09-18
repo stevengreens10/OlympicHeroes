@@ -29,6 +29,7 @@ public class Variables {
 		OPPOSING_GODS.put("Ares", new String[]{"Athena"});
 		OPPOSING_GODS.put("Artemis", new String[]{"Apollo"});
 		OPPOSING_GODS.put("Apollo", new String[]{"Artemis"});
+
 //		OPPOSING_GODS.put("Zeus", new String[] {"Poseidon", "Hades"});
 //		OPPOSING_GODS.put("Poseidon", new String[] {"Zeus", "Hades"});
 //		OPPOSING_GODS.put("Hades", new String[] {"Poseidon", "Zeus"});
