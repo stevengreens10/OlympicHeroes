@@ -56,11 +56,10 @@ public class PlayerListener implements Listener{
 						Block block = e.getPlayer().getTargetBlock(null, 100);
 						Location l = block.getLocation();
 						e.getPlayer().getWorld().strikeLightning(l);
+						Cooldowns.lightningCooldown.add(e.getPlayer());
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
-					
-					Cooldowns.lightningCooldown.add(e.getPlayer());
 					OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), Variables.LIGHTNING_COOLDOWN);
 				}
 			}
