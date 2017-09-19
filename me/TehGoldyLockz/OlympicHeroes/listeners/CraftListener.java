@@ -49,14 +49,14 @@ public class CraftListener implements Listener{
 					ItemStack item2 = items[1];
 					
 					if(item1 != null && item2 != null) {
-						ItemStack clicked = e.getCurrentItem();
 						
-						if(!clicked.equals(item1) && !clicked.equals(item2)) {
-							if(clicked != null && (clicked.getType() == item1.getType() || clicked.getType() == item2.getType())){
+						if(e.getRawSlot() == 2) {
+							ItemStack result = e.getCurrentItem();
+							if(result != null && (result.getType() == item1.getType() || result.getType() == item2.getType())){
 								OHPlayer ohPlayer = new OHPlayer(player);
 								int hephLevel = ohPlayer.getLevel("Hephaestus");
 
-								if(clicked.getEnchantments().size() > 0) {
+								if(result.getEnchantments().size() > 0) {
 									if(hephLevel < 5) {
 										e.setCancelled(true);
 										player.sendMessage("Your devotion to Hephaestus is not high enough to repair enchanted items.");
