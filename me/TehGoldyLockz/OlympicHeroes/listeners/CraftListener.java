@@ -59,11 +59,13 @@ public class CraftListener implements Listener{
 								if(result.getEnchantments().size() > 0) {
 									if(hephLevel < 5) {
 										e.setCancelled(true);
+										player.closeInventory();
 										player.sendMessage("Your devotion to Hephaestus is not high enough to repair enchanted items.");
 									}
 								}else {
 									if(hephLevel < 3) {
 										e.setCancelled(true);
+										player.closeInventory();
 										player.sendMessage("Your devotion to Hephaestus is not high enough to repair items.");
 									}
 								}
