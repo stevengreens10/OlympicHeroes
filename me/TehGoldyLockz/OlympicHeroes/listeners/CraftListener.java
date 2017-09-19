@@ -49,24 +49,27 @@ public class CraftListener implements Listener{
 					ItemStack item2 = items[1];
 					
 					if(item1 != null && item2 != null) {
-						ItemStack result = e.getCurrentItem();
+						ItemStack clicked = e.getCurrentItem();
 						
-						if(result != null && (result.getType() == item1.getType() || result.getType() == item2.getType())){
-							OHPlayer ohPlayer = new OHPlayer(player);
-							int hephLevel = ohPlayer.getLevel("Hephaestus");
+						if(!clicked.equals(item1) && !clicked.equals(item2)) {
+							if(clicked != null && (clicked.getType() == item1.getType() || clicked.getType() == item2.getType())){
+								OHPlayer ohPlayer = new OHPlayer(player);
+								int hephLevel = ohPlayer.getLevel("Hephaestus");
 
-							if(result.getEnchantments().size() > 0) {
-								if(hephLevel < 5) {
-									e.setCancelled(true);
-									player.sendMessage("Your devotion to Hephaestus is not high enough to repair enchanted items.");
-								}
-							}else {
-								if(hephLevel < 3) {
-									e.setCancelled(true);
-									player.sendMessage("Your devotion to Hephaestus is not high enough to repair items.");
+								if(clicked.getEnchantments().size() > 0) {
+									if(hephLevel < 5) {
+										e.setCancelled(true);
+										player.sendMessage("Your devotion to Hephaestus is not high enough to repair enchanted items.");
+									}
+								}else {
+									if(hephLevel < 3) {
+										e.setCancelled(true);
+										player.sendMessage("Your devotion to Hephaestus is not high enough to repair items.");
+									}
 								}
 							}
 						}
+						
 					}
 				}
 			}
