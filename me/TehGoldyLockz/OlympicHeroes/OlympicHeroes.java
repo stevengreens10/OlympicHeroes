@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.TehGoldyLockz.OlympicHeroes.command.OHCommand;
 import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
-import me.TehGoldyLockz.OlympicHeroes.listeners.EnchantListener;
+import me.TehGoldyLockz.OlympicHeroes.listeners.CraftListener;
 import me.TehGoldyLockz.OlympicHeroes.listeners.MultiBlockListener;
 import me.TehGoldyLockz.OlympicHeroes.listeners.PlayerListener;
 import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
@@ -25,7 +25,7 @@ public class OlympicHeroes extends JavaPlugin{
 		
 		MultiBlocks.load();
 		
-		new EnchantListener(this);
+		new CraftListener(this);
 		new MultiBlockListener(this);
 		new PlayerListener(this);
 		
