@@ -6,9 +6,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Arrow.PickupStatus;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.SpectralArrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -57,12 +58,10 @@ public class PlayerListener implements Listener{
 
 			if(ohPlayer.getLevel("Artemis") >= 3) {
 				if(e.getBow().containsEnchantment(Enchantment.ARROW_INFINITE) == false && player.getGameMode() != GameMode.CREATIVE) {
-					player.getInventory().addItem(new ItemStack(Material.ARROW, 1));
-					player.getInventory().remove(new ItemStack(Material.ARROW, 1));
-					
+					((Arrow) e.getProjectile()).setPickupStatus(PickupStatus.DISALLOWED);
+					player.getWorld().spawnEntity(player.getLocation(), EntityType.ARROW);
 				}
 			}
-			
 		}
 	}
 	
