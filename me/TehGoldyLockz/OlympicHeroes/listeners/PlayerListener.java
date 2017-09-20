@@ -1,14 +1,19 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SpectralArrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -37,6 +42,35 @@ public class PlayerListener implements Listener{
 				if(ohPlayer.getXP("Zeus") > 0) {
 					e.setDamage(e.getFinalDamage() / 1.5);
 					player.sendMessage("Your fall damage has been reduced thanks to Zeus");
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onBowShoot(EntityShootBowEvent e) {
+		if(e.getEntity() instanceof Player) {
+			Player player = (Player) e.getEntity();
+			OHPlayer ohPlayer = new OHPlayer(player);
+			Entity arrow = e.getProjectile();
+
+			if(ohPlayer.getLevel("Artemis") >= 3) {
+				if(e.getBow().containsEnchantment(Enchantment.ARROW_INFINITE) == false && player.getGameMode() != GameMode.CREATIVE) {
+					player.getInventory().addItem(new ItemStack(Material.ARROW, 1));
+					player.getInventory().remove(new ItemStack(Material.ARROW, 1));
+					
+				}
+			}
+			
+			if(ohPlayer.getLevel("Apollo") >= 2) {
+				arrow = player.launchProjectile(SpectralArrow.class, arrow.getVelocity());
+				e.setProjectile(null);
+			}
+			
+			if(ohPlayer.getLevel("Apollo") >= 3) {
+				long time = player.getWorld().getTime();
+				if(time <= 13500 || time >= 23000) {
+					arrow.setFireTicks(300);
 				}
 			}
 		}
