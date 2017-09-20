@@ -59,7 +59,7 @@ public class PlayerListener implements Listener{
 			if(ohPlayer.getLevel("Artemis") >= 3) {
 				if(e.getBow().containsEnchantment(Enchantment.ARROW_INFINITE) == false && player.getGameMode() != GameMode.CREATIVE) {
 					((Arrow) e.getProjectile()).setPickupStatus(PickupStatus.DISALLOWED);
-					player.getWorld().spawnEntity(player.getLocation(), EntityType.ARROW);
+					player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(Material.ARROW, 1));
 				}
 			}
 		}
