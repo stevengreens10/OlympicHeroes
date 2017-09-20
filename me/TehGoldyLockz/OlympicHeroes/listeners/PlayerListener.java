@@ -1,5 +1,6 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +15,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -52,7 +54,6 @@ public class PlayerListener implements Listener{
 		if(e.getEntity() instanceof Player) {
 			Player player = (Player) e.getEntity();
 			OHPlayer ohPlayer = new OHPlayer(player);
-			Entity arrow = e.getProjectile();
 
 			if(ohPlayer.getLevel("Artemis") >= 3) {
 				if(e.getBow().containsEnchantment(Enchantment.ARROW_INFINITE) == false && player.getGameMode() != GameMode.CREATIVE) {
@@ -62,15 +63,35 @@ public class PlayerListener implements Listener{
 				}
 			}
 			
+		}
+	}
+	
+	@EventHandler
+	public void onShootEntity(ProjectileHitEvent e) {
+		if(e.getEntity().getShooter() instanceof Player) {
+			Player player = (Player) e.getEntity().getShooter();
+			OHPlayer ohPlayer = new OHPlayer(player);
 			if(ohPlayer.getLevel("Apollo") >= 2) {
-				arrow = player.launchProjectile(SpectralArrow.class, arrow.getVelocity());
-				e.setProjectile(null);
+				if(e.getHitEntity() != null) {
+					e.getHitEntity().setGlowing(true);
+					
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+
+						@Override
+						public void run() {
+							if(e.getHitEntity().isDead() == false) {
+								e.getHitEntity().setGlowing(false);
+							}
+						}
+						
+					}, 200L);
+				}
 			}
 			
 			if(ohPlayer.getLevel("Apollo") >= 3) {
 				long time = player.getWorld().getTime();
 				if(time <= 13500 || time >= 23000) {
-					arrow.setFireTicks(300);
+					e.getHitEntity().setFireTicks(300);
 				}
 			}
 		}
