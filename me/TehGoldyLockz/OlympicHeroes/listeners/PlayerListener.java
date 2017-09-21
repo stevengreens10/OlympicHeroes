@@ -1,6 +1,7 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,6 +11,8 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Arrow.PickupStatus;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -17,6 +20,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +30,7 @@ import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.Variables;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
+@SuppressWarnings("unused")
 public class PlayerListener implements Listener{
 
 	OlympicHeroes plugin;
@@ -121,4 +126,13 @@ public class PlayerListener implements Listener{
 		}
 	}
 	
+	public void PlayerInteractEntity(PlayerInteractEntityEvent e) {
+		if(e.getRightClicked() instanceof Sheep) {
+			Sheep sheep = (Sheep) e.getRightClicked();
+			if(sheep.getCustomName() == ChatColor.AQUA + "Vault Manager") {
+				e.getPlayer().sendMessage(ChatColor.AQUA + "That is a Vault Manager");
+				
+			}
+		}
+	}
 }
