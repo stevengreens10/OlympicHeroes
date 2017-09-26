@@ -125,11 +125,11 @@ public class PlayerListener implements Listener{
 			}
 		}
 	}
-	
+	@EventHandler
 	public void PlayerInteractEntity(PlayerInteractEntityEvent e) {
-		if(e.getRightClicked() instanceof Sheep) {
-			Sheep sheep = (Sheep) e.getRightClicked();
-			if(sheep.getCustomName() == ChatColor.AQUA + "Vault Manager") {
+		if(e.getRightClicked() instanceof Villager) {
+			Villager villager = (Villager) e.getRightClicked();
+			if(villager.getCustomName() == ChatColor.AQUA + "Vault Manager") {
 				e.getPlayer().sendMessage(ChatColor.AQUA + "That is a Vault Manager");
 				
 			}
