@@ -27,14 +27,20 @@ public class OHItems {
 	public static ItemStack FIRE_STICK;
 	public static ItemStack HERMES_BOOTS;
 	public static ItemStack LAMINATED_STICK;
+	public static ItemStack AEGIS_SHIELD;
+	public static ItemStack AEGIS_CAPE;
 	//public static MaterialData LAMINATED_STICK_MAT;
 	//public static ItemStack LAMINATED_LONGBOW;
-	public static ItemStack LAMINATED_RECURVE;
+	//public static ItemStack LAMINATED_RECURVE;
 	
 	private static List<ItemStack> items = new ArrayList<ItemStack>();
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
+		AEGIS_SHIELD = createItem(Material.SHIELD, ChatColor.AQUA + "The Aegis", new String[] {"The Shield of Athena Herself"});
+		AEGIS_SHIELD.addEnchantment(Enchantment.DURABILITY, 2);
+		AEGIS_SHIELD.addEnchantment(Enchantment.THORNS, 1);
+		
 		LONG_BOW = createItem(Material.BOW, ChatColor.YELLOW + "LongBow", new String[]{"a Heavier Bow"});
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);

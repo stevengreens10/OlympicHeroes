@@ -7,10 +7,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class EffectsTask implements Runnable {
-
+	ItemStack prevOffHand = null;
 	@Override
 	public void run() {
 		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -53,19 +54,20 @@ public class EffectsTask implements Runnable {
 				}
 			}
 			
-	//		if(ohPlayer.getLevel("Athena") >= 5) {
-	//			ItemStack item = p.getInventory().getItemInMainHand();
-	//			ItemStack prevOffHand = p.getInventory().getItemInOffHand();
-	//			if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
-	//			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-	//			   item.getType() == Material.WOOD_SWORD) {
-	//				p.getInventory().setItemInOffHand();
-	//				
-	//			}else{
-	//				
-	//			}
-	//		}
-	//		
+			if(ohPlayer.getLevel("Athena") >= 5) {
+				ItemStack item = p.getInventory().getItemInMainHand();
+				
+				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
+				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
+				   item.getType() == Material.WOOD_SWORD) {
+					prevOffHand = p.getInventory().getItemInOffHand();
+					p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
+					
+				}else{
+					p.getInventory().setItemInOffHand(prevOffHand);
+				}
+			}
+			
 			
 			if(ohPlayer.getLevel("Hermes") >= 2) {
 				int speedLevel = ohPlayer.getLevel("Hermes") - 2;
