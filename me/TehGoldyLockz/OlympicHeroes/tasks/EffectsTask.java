@@ -14,6 +14,7 @@ public class EffectsTask implements Runnable {
 	
 	@Override
 	public void run() {
+	
 		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 			OHPlayer ohPlayer = new OHPlayer(p);
 			
@@ -54,19 +55,18 @@ public class EffectsTask implements Runnable {
 				}
 			}
 			
-			if(ohPlayer.getLevel("Athena") >= 5) {
-				ItemStack item = p.getInventory().getItemInMainHand();
-				ItemStack prevOffHand = null;
-				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
-				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-				   item.getType() == Material.WOOD_SWORD) {
-					prevOffHand = p.getInventory().getItemInOffHand();
-					p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
-					
-				}else{
-					p.getInventory().setItemInOffHand(prevOffHand);
-				}
-			}
+	//		if(ohPlayer.getLevel("Athena") >= 5) {
+	//			ItemStack item = p.getInventory().getItemInMainHand();
+				//ItemStack prevOffHand = p.getInventory().getItemInOffHand();
+	//			if(p.getInventory().getItemInOffHand() != OHItems.AEGIS_SHIELD) {
+	//			if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
+	//			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
+	//			   item.getType() == Material.WOOD_SWORD) {
+	//				p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
+	//				
+	//				}
+	//			}
+	//		}
 			
 			
 			if(ohPlayer.getLevel("Hermes") >= 2) {
@@ -103,13 +103,9 @@ public class EffectsTask implements Runnable {
 				}
 
 			}
-			
-			if(ohPlayer.getLevel("Aphrodite") >= 3) {
-				int strengthLevel = Math.min(ohPlayer.getLevel("Aphrodite") - 3, 1);
-				p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 20, strengthLevel), true);
-			}
-			
+
 		}
+
 	}
 
 }

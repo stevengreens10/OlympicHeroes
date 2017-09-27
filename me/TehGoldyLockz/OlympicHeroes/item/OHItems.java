@@ -39,7 +39,7 @@ public class OHItems {
 	public static void constructItems() {
 		AEGIS_SHIELD = createItem(Material.SHIELD, ChatColor.AQUA + "The Aegis", new String[] {"The Shield of Athena Herself"});
 		AEGIS_SHIELD.addEnchantment(Enchantment.DURABILITY, 2);
-		AEGIS_SHIELD.addEnchantment(Enchantment.THORNS, 1);
+		AEGIS_SHIELD.addUnsafeEnchantment(Enchantment.THORNS, 1);
 		
 		LONG_BOW = createItem(Material.BOW, ChatColor.YELLOW + "LongBow", new String[]{"a Heavier Bow"});
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
