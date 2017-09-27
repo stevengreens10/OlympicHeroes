@@ -11,7 +11,7 @@ import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class EffectsTask implements Runnable {
-	ItemStack prevOffHand = null;
+	
 	@Override
 	public void run() {
 		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -56,7 +56,7 @@ public class EffectsTask implements Runnable {
 			
 			if(ohPlayer.getLevel("Athena") >= 5) {
 				ItemStack item = p.getInventory().getItemInMainHand();
-				
+				ItemStack prevOffHand = null;
 				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
 				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
 				   item.getType() == Material.WOOD_SWORD) {
