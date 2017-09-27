@@ -45,6 +45,20 @@ public class EffectsTask implements Runnable {
 				}
 			}
 			
+			if(ohPlayer.getLevel("Aphrodite") >= 3) {
+				boolean hasAbsorption = false;
+				for(PotionEffect e : p.getActivePotionEffects()) {
+					if(e.getType() == PotionEffectType.ABSORPTION) {
+						hasAbsorption = true;
+					}
+				}
+				
+				if(!hasAbsorption) {
+					int absLevel = Math.min(ohPlayer.getLevel("Aphrodite") - 3, 1);
+					p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, absLevel), true);
+				}
+			}
+			
 			if(ohPlayer.getLevel("Athena") >= 3) {
 				ItemStack item = p.getInventory().getItemInMainHand();
 				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
