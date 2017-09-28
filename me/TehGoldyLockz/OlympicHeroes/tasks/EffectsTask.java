@@ -7,7 +7,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class EffectsTask implements Runnable {
