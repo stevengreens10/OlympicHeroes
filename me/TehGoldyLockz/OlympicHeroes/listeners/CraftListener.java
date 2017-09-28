@@ -6,18 +6,57 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
+import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class CraftListener implements Listener{
 
 	public CraftListener(OlympicHeroes plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+	
+	@EventHandler
+	public void onCraft(CraftItemEvent e) {
+		Recipe r = e.getRecipe();
+		boolean usingDrachma = false;
+		if(r instanceof ShapedRecipe) {
+			ShapedRecipe sr = (ShapedRecipe) r;
+			
+			for(char c : sr.getIngredientMap().keySet()) {
+				ItemStack ing = sr.getIngredientMap().get(c);
+				
+				if(ing != null) {
+					if(OHItems.isItemSimilarTo(ing, OHItems.SILVER_DRACHMA, true) || 
+					   OHItems.isItemSimilarTo(ing, OHItems.GOLD_DRACHMA, true)) {
+						usingDrachma = true;
+					}
+				}
+			}
+		}else if(r instanceof ShapelessRecipe){
+			ShapelessRecipe sr = (ShapelessRecipe) r;
+			for(ItemStack ing : sr.getIngredientList()) {
+				if(ing != null) {
+					if(OHItems.isItemSimilarTo(ing, OHItems.SILVER_DRACHMA, true) || 
+					   OHItems.isItemSimilarTo(ing, OHItems.GOLD_DRACHMA, true)) {
+						usingDrachma = true;
+					}
+				}
+			}
+		}
+		
+		if(usingDrachma) {
+			e.setCancelled(true);
+		}
 	}
 	
 	@EventHandler
