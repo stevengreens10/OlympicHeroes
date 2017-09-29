@@ -24,9 +24,9 @@ public class EffectsTask implements Runnable {
 
 			}
 			
-			if(ohPlayer.getLevel("Poseidon") >= 1) {
-				if(p.getLocation().add(0, -1, 0).getBlock().getType() == Material.WATER ||
-				   p.getLocation().add(0, -1, 0).getBlock().getType() == Material.STATIONARY_WATER){
+			if(ohPlayer.getXP("Poseidon") > 0) {
+				if(p.getLocation().getBlock().getType() == Material.WATER ||
+				   p.getLocation().getBlock().getType() == Material.STATIONARY_WATER){
 					int strengthLevel = Math.min(ohPlayer.getLevel("Poseidon")-2, 1);
 					p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
 				}
