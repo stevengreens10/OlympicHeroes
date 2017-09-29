@@ -51,6 +51,17 @@ public class PlayerListener implements Listener{
 					player.sendMessage("Your fall damage has been reduced thanks to Zeus");
 				}
 			}
+			
+			if(e.getCause() == DamageCause.ENTITY_ATTACK) {
+				if(ohPlayer.getLevel("Aphrodite") >= 5) {
+					if(!Cooldowns.resCooldown.contains(player.getPlayer())) {
+						Cooldowns.resCooldown.add(player.getPlayer());
+						player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1));
+						
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.resCooldown, player.getPlayer(), Variables.RES_COOLDOWN);
+					}
+				}
+			}
 		}
 	}
 	
@@ -151,6 +162,8 @@ public class PlayerListener implements Listener{
 			}
 		}
 	}
+	
+	
 	@EventHandler
 	public void PlayerInteractEntity(PlayerInteractEntityEvent e) {
 		if(e.getRightClicked() instanceof Villager) {

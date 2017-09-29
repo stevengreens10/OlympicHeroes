@@ -52,7 +52,12 @@ public class OHItems {
         BlockStateMeta AEGIS_META = (BlockStateMeta) meta;
         Banner banner = (Banner) AEGIS_META.getBlockState();
         banner.setBaseColor(DyeColor.YELLOW);
-        banner.addPattern(new Pattern(DyeColor.WHITE, PatternType.CREEPER));
+        banner.addPattern(new Pattern(DyeColor.SILVER, PatternType.STRIPE_DOWNLEFT));
+        banner.addPattern(new Pattern(DyeColor.SILVER, PatternType.STRIPE_DOWNRIGHT));
+        banner.addPattern(new Pattern(DyeColor.LIME, PatternType.FLOWER));
+        banner.addPattern(new Pattern(DyeColor.GREEN, PatternType.CROSS));
+        banner.addPattern(new Pattern(DyeColor.GREEN, PatternType.FLOWER));
+        banner.addPattern(new Pattern(DyeColor.ORANGE, PatternType.BORDER));
         AEGIS_META.setBlockState(banner);
         AEGIS_SHIELD.setItemMeta(AEGIS_META);
 		

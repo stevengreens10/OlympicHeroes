@@ -9,5 +9,6 @@ public class Cooldowns {
 	public static List<Player> prayCooldown = new ArrayList<Player>();
 	public static List<Player> lightningCooldown = new ArrayList<Player>();
 	public static List<Player> rageCooldown = new ArrayList<Player>();
+	public static List<Player> resCooldown = new ArrayList<Player>();
 
 }

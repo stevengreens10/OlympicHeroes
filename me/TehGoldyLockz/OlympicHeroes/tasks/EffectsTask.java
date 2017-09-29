@@ -72,16 +72,19 @@ public class EffectsTask implements Runnable {
 				ItemStack item = p.getInventory().getItemInMainHand();
 				ItemStack offhand = p.getInventory().getItemInOffHand();
 				if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
-				//ItemStack prevOffHand = p.getInventory().getItemInOffHand();
+					//ItemStack prevOffHand = p.getInventory().getItemInOffHand();
 					if(p.getInventory().getItemInOffHand() != OHItems.AEGIS_SHIELD) {
 						if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
 							item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
 							item.getType() == Material.WOOD_SWORD) {
-							p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
-					
+							if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
+								p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
+							}
+							
 						}
 					}
 				}
+				
 			}
 			
 			
