@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.Banner;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
@@ -43,6 +48,13 @@ public class OHItems {
 		AEGIS_SHIELD = createItem(Material.SHIELD, ChatColor.AQUA + "The Aegis", new String[] {"The Shield of Athena Herself"});
 		AEGIS_SHIELD.addEnchantment(Enchantment.DURABILITY, 2);
 		AEGIS_SHIELD.addUnsafeEnchantment(Enchantment.THORNS, 1);
+		ItemMeta meta = AEGIS_SHIELD.getItemMeta();
+        BlockStateMeta AEGIS_META = (BlockStateMeta) meta;
+        Banner banner = (Banner) AEGIS_META.getBlockState();
+        banner.setBaseColor(DyeColor.YELLOW);
+        banner.addPattern(new Pattern(DyeColor.WHITE, PatternType.CREEPER));
+        AEGIS_META.setBlockState(banner);
+        AEGIS_SHIELD.setItemMeta(AEGIS_META);
 		
 		LONG_BOW = createItem(Material.BOW, ChatColor.YELLOW + "LongBow", new String[]{"a Heavier Bow"});
 		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
