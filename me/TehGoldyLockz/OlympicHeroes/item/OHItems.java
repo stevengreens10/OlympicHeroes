@@ -31,7 +31,7 @@ public class OHItems {
 	public static ItemStack AEGIS_CAPE;
 	
 	public static ItemStack SILVER_DRACHMA;
-	public static ItemStack GOLD_DRACHMA;
+	public static ItemStack GOLDEN_DRACHMA;
 	//public static MaterialData LAMINATED_STICK_MAT;
 	//public static ItemStack LAMINATED_LONGBOW;
 	//public static ItemStack LAMINATED_RECURVE;
@@ -98,7 +98,7 @@ public class OHItems {
 		items.add(RECURVE);
 		
 		SILVER_DRACHMA = createItem(Material.IRON_NUGGET, ChatColor.GRAY + "Silver Drachma", new String[] {"The common currency of the greek world."});
-		GOLD_DRACHMA = createItem(Material.GOLD_NUGGET, ChatColor.GOLD + "Gold Drachma", new String[] {"The advanced currency of the greek world"});
+		GOLDEN_DRACHMA = createItem(Material.GOLD_NUGGET, ChatColor.GOLD + "Golden Drachma", new String[] {"The advanced currency of the greek world"});
 		
 	}
 	

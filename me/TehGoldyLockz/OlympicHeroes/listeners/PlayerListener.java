@@ -132,7 +132,6 @@ public class PlayerListener implements Listener{
 		if( (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
 			
 			ItemStack item = e.getItem();
-			
 			if(item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE ||
 			   item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE ||
 			   item.getType() == Material.WOOD_AXE) {

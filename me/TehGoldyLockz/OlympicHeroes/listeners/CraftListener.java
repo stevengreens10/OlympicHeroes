@@ -29,7 +29,7 @@ public class CraftListener implements Listener{
 		for(ItemStack ing : e.getInventory().getContents()) {
 			if(ing != null) {
 				if(OHItems.isItemSimilarTo(ing, OHItems.SILVER_DRACHMA, true) || 
-					OHItems.isItemSimilarTo(ing, OHItems.GOLD_DRACHMA, true)) {
+					OHItems.isItemSimilarTo(ing, OHItems.GOLDEN_DRACHMA, true)) {
 					e.setCancelled(true);
 					break;
 				}

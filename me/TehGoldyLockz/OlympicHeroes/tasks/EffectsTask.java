@@ -113,7 +113,7 @@ public class EffectsTask implements Runnable {
 				   item.getType() == Material.STONE_AXE || item.getType() == Material.WOOD_AXE) {
 					boolean apply = true;
 					for(PotionEffect e : p.getActivePotionEffects()) {
-						if(e.getType().getName().equalsIgnoreCase("INCREASE_DAMAGE")) {
+						if(e.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
 							if(e.getAmplifier() > strengthLevel) {
 								apply = false;
 							}
