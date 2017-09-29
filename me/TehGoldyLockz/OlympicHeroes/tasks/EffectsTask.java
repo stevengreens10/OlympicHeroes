@@ -23,6 +23,14 @@ public class EffectsTask implements Runnable {
 
 			}
 			
+			if(ohPlayer.getLevel("Poseidon") >= 1) {
+				if(p.getLocation().add(0, -1, 0).getBlock().getType() == Material.WATER ||
+				   p.getLocation().add(0, -1, 0).getBlock().getType() == Material.STATIONARY_WATER){
+					int strengthLevel = Math.min(ohPlayer.getLevel("Poseidon")-2, 1);
+					p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
+				}
+			}
+			
 			if(ohPlayer.getLevel("Artemis") >= 2 ) {
 				long time = p.getWorld().getTime();
 				if(time >= 13500 && time <= 23000) {
@@ -103,7 +111,17 @@ public class EffectsTask implements Runnable {
 				   item.getType() == Material.WOOD_SWORD || item.getType() == Material.DIAMOND_AXE || 
 				   item.getType() == Material.GOLD_AXE || item.getType() == Material.IRON_AXE || 
 				   item.getType() == Material.STONE_AXE || item.getType() == Material.WOOD_AXE) {
-					p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
+					boolean apply = true;
+					for(PotionEffect e : p.getActivePotionEffects()) {
+						if(e.getType().getName().equalsIgnoreCase("INCREASE_DAMAGE")) {
+							if(e.getAmplifier() > strengthLevel) {
+								apply = false;
+							}
+						}
+					}
+					if(apply) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
+					}
 				}
 
 			}

@@ -8,10 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Arrow.PickupStatus;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,13 +22,14 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.Variables;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
-@SuppressWarnings("unused")
 public class PlayerListener implements Listener{
 
 	OlympicHeroes plugin;
@@ -103,6 +102,9 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
+		
+		//HANDLE ZEUS ABILITY
+		
 		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getHand() == EquipmentSlot.HAND) {
 			ItemStack item = e.getItem();
 			
@@ -118,6 +120,31 @@ public class PlayerListener implements Listener{
 						e.getPlayer().getWorld().strikeLightning(l);
 						Cooldowns.lightningCooldown.add(e.getPlayer());
 						OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), Variables.LIGHTNING_COOLDOWN);
+					}else {
+						e.getPlayer().sendMessage("That ability is on cooldown.");
+					}
+				}
+			}
+		}
+		
+		// HANDLE ARES ABILITY
+		
+		if( (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
+			
+			ItemStack item = e.getItem();
+			
+			if(item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE ||
+			   item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE ||
+			   item.getType() == Material.WOOD_AXE) {
+				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
+				if(ohPlayer.getLevel("Ares") >= 5) {
+					
+					if(!Cooldowns.rageCooldown.contains(e.getPlayer())) {
+						Cooldowns.rageCooldown.add(e.getPlayer());
+						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 3), true);
+						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 100, 1));
+						
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.rageCooldown, e.getPlayer(), Variables.RAGE_COOLDOWN);
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
