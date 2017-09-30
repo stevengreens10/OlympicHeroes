@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -179,6 +180,19 @@ public class PlayerListener implements Listener{
 			if(villager.getCustomName() == ChatColor.AQUA + "Vault Manager") {
 				e.getPlayer().sendMessage(ChatColor.AQUA + "That is a Vault Manager");
 				
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerDeath(EntityDeathEvent e) {
+		if(e.getEntity() instanceof Player) {
+			for(int i = e.getDrops().size() - 1; i >= 0; i--) {
+				ItemStack item = e.getDrops().get(i);
+				
+				if(OHItems.isItemSimilarTo(item, OHItems.AEGIS_SHIELD, false)) {
+					e.getDrops().remove(i);
+				}
 			}
 		}
 	}
