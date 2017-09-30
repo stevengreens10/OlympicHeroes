@@ -11,6 +11,7 @@ import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class EffectsTask implements Runnable {
+	public static ItemStack PrevOffHand;
 	
 	@Override
 	public void run() {
@@ -67,24 +68,31 @@ public class EffectsTask implements Runnable {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
 				}
 			}
-			
-			if(ohPlayer.getLevel("Athena") >= 5) {
-				ItemStack item = p.getInventory().getItemInMainHand();
-				ItemStack offhand = p.getInventory().getItemInOffHand();
-				if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
-					//ItemStack prevOffHand = p.getInventory().getItemInOffHand();
-					if(p.getInventory().getItemInOffHand() != OHItems.AEGIS_SHIELD) {
+			ItemStack offhand = p.getInventory().getItemInOffHand();
+			if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
+				@SuppressWarnings("unused")
+				ItemStack PrevOffHand = p.getInventory().getItemInOffHand();
+				if(ohPlayer.getLevel("Athena") >= 5) {
+					ItemStack item = p.getInventory().getItemInMainHand();
+					if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
 						if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
-							item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-							item.getType() == Material.WOOD_SWORD) {
-							if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
-								p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
+									item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
+									item.getType() == Material.WOOD_SWORD) {
+									if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
+										p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
 							}
-							
 						}
 					}
 				}
-				
+			}else if(ohPlayer.getLevel("Athena") >= 5){
+				ItemStack item = p.getInventory().getItemInMainHand();
+				if(item.getType() != Material.DIAMOND_SWORD && item.getType() != Material.GOLD_SWORD && 
+					item.getType() != Material.IRON_SWORD && item.getType() != Material.STONE_SWORD &&
+					item.getType() != Material.WOOD_SWORD) {
+						p.getInventory().removeItem(OHItems.AEGIS_SHIELD);
+				}
+			}else {
+				p.getInventory().removeItem(OHItems.AEGIS_SHIELD);
 			}
 			
 			
