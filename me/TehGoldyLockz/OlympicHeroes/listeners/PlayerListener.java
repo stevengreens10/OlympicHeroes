@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -28,6 +29,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
 import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
 import me.TehGoldyLockz.OlympicHeroes.Variables;
+import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
 import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
 
 public class PlayerListener implements Listener{
@@ -163,6 +165,12 @@ public class PlayerListener implements Listener{
 		}
 	}
 	
+	@EventHandler
+	public void onInvClick(InventoryClickEvent e) {
+		if(OHItems.isItemSimilarTo(e.getCurrentItem(), OHItems.AEGIS_SHIELD, false)) {
+			e.setCancelled(true);
+		}
+	}
 	
 	@EventHandler
 	public void PlayerInteractEntity(PlayerInteractEntityEvent e) {
