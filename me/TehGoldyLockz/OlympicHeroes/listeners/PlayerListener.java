@@ -22,6 +22,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -181,6 +182,14 @@ public class PlayerListener implements Listener{
 				e.getPlayer().sendMessage(ChatColor.AQUA + "That is a Vault Manager");
 				
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onSwapItem(PlayerSwapHandItemsEvent e) {
+		if(OHItems.isItemSimilarTo(e.getOffHandItem(), OHItems.AEGIS_SHIELD, false) ||
+		   OHItems.isItemSimilarTo(e.getMainHandItem(), OHItems.AEGIS_SHIELD, false)) {
+			e.setCancelled(true);
 		}
 	}
 	
