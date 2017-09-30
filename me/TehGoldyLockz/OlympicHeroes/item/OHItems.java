@@ -34,7 +34,6 @@ public class OHItems {
 	public static ItemStack LAMINATED_STICK;
 	public static ItemStack AEGIS_SHIELD;
 	public static ItemStack AEGIS_CAPE;
-	
 	public static ItemStack SILVER_DRACHMA;
 	public static ItemStack GOLDEN_DRACHMA;
 	//public static MaterialData LAMINATED_STICK_MAT;
@@ -45,6 +44,7 @@ public class OHItems {
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
+		
 		AEGIS_SHIELD = createItem(Material.SHIELD, ChatColor.AQUA + "The Aegis", new String[] {"The Shield of Athena Herself"});
 		AEGIS_SHIELD.addEnchantment(Enchantment.DURABILITY, 2);
 		AEGIS_SHIELD.addUnsafeEnchantment(Enchantment.THORNS, 1);
