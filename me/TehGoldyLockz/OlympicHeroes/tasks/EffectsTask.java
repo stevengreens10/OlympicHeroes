@@ -90,6 +90,8 @@ public class EffectsTask implements Runnable {
 					item.getType() != Material.WOOD_SWORD) {
 						p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 				}
+			}else {
+				p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 			}
 			
 			
