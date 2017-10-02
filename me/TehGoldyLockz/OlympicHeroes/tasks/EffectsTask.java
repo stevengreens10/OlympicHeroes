@@ -28,7 +28,18 @@ public class EffectsTask implements Runnable {
 				if(p.getLocation().getBlock().getType() == Material.WATER ||
 				   p.getLocation().getBlock().getType() == Material.STATIONARY_WATER){
 					int strengthLevel = Math.min(ohPlayer.getLevel("Poseidon")-2, 1);
-					p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
+					
+					boolean apply = true;
+					for(PotionEffect e : p.getActivePotionEffects()) {
+						if(e.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
+							if(e.getAmplifier() > strengthLevel) {
+								apply = false;
+							}
+						}
+					}
+					if(apply) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
+					}
 				}
 			}
 			
