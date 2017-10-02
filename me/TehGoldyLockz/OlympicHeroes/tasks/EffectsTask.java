@@ -59,8 +59,16 @@ public class EffectsTask implements Runnable {
 			
 			if(ohPlayer.getLevel("Apollo") >= 5) {
 				long time = p.getWorld().getTime();
-				if(time <= 13500 || time >= 23000) {
-					p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20, 0), true);
+				
+				boolean apply = true;
+				for(PotionEffect e : p.getActivePotionEffects()) {
+					if(e.getType().equals(PotionEffectType.REGENERATION)) {
+						apply = false;
+					}
+				}
+				
+				if((time <= 13500 || time >= 23000) && apply) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 200, 0), true);
 				}
 			}
 			
