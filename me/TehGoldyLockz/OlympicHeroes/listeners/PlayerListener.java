@@ -123,9 +123,9 @@ public class PlayerListener implements Listener{
 		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getHand() == EquipmentSlot.HAND) {
 			ItemStack item = e.getItem();
 			
-			if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
+			if((item != null) && (item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
 			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-			   item.getType() == Material.WOOD_SWORD) {
+			   item.getType() == Material.WOOD_SWORD) ) {
 				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
 				if(ohPlayer.getLevel("Zeus") >= 5) {
 					
@@ -147,9 +147,9 @@ public class PlayerListener implements Listener{
 		if( (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
 			
 			ItemStack item = e.getItem();
-			if(item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE ||
+			if((item != null) && (item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE ||
 			   item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE ||
-			   item.getType() == Material.WOOD_AXE) {
+			   item.getType() == Material.WOOD_AXE) ) {
 				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
 				if(ohPlayer.getLevel("Ares") >= 5) {
 					
