@@ -122,6 +122,8 @@ public class EffectsTask implements Runnable {
 				if(swordInMain) {
 						p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 				}
+			}else {
+				p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 			}
 			
 			
