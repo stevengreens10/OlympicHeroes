@@ -18,6 +18,32 @@ public class EffectsTask implements Runnable {
 		for(Player p : Bukkit.getServer().getOnlinePlayers()) {
 			OHPlayer ohPlayer = new OHPlayer(p);
 			
+			long time = p.getWorld().getTime();
+			ItemStack mainItem = p.getInventory().getItemInMainHand();
+			ItemStack offItem = p.getInventory().getItemInOffHand();
+			
+			boolean swordInMain = false;
+			boolean axeInMain = false;
+			boolean pickInMain = false;
+			
+			if(mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.GOLD_SWORD || 
+					   mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.STONE_SWORD ||
+					   mainItem.getType() == Material.WOOD_SWORD) {
+				swordInMain = true;
+			}
+			
+			if(mainItem.getType() == Material.DIAMOND_AXE || mainItem.getType() == Material.GOLD_AXE || 
+					   mainItem.getType() == Material.IRON_AXE || mainItem.getType() == Material.STONE_AXE ||
+					   mainItem.getType() == Material.WOOD_AXE) {
+				axeInMain = true;
+			}
+			
+			if(mainItem.getType() == Material.DIAMOND_PICKAXE || mainItem.getType() == Material.GOLD_PICKAXE || 
+			   mainItem.getType() == Material.IRON_PICKAXE || mainItem.getType() == Material.STONE_PICKAXE ||
+			   mainItem.getType() == Material.WOOD_PICKAXE) {
+				pickInMain = true;
+			}
+			
 			if(ohPlayer.getLevel("Zeus") >= 3) {
 				int jumpLevel = Math.min(ohPlayer.getLevel("Zeus") - 3, 1);
 				p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, jumpLevel), true);
@@ -44,21 +70,18 @@ public class EffectsTask implements Runnable {
 			}
 			
 			if(ohPlayer.getLevel("Artemis") >= 2 ) {
-				long time = p.getWorld().getTime();
 				if(time >= 13500 && time <= 23000) {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20, 0), true);
 				}
 			}
 			
 			if(ohPlayer.getLevel("Artemis") >= 5) {
-				long time = p.getWorld().getTime();
 				if(time >= 13500 && time <= 23000) {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 20, 0), true);
 				}
 			}
 			
 			if(ohPlayer.getLevel("Apollo") >= 5) {
-				long time = p.getWorld().getTime();
 				
 				boolean apply = true;
 				for(PotionEffect e : p.getActivePotionEffects()) {
@@ -78,24 +101,17 @@ public class EffectsTask implements Runnable {
 			}
 			
 			if(ohPlayer.getLevel("Athena") >= 3) {
-				ItemStack item = p.getInventory().getItemInMainHand();
-				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
-				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-				   item.getType() == Material.WOOD_SWORD) {
+				if(swordInMain) {
 					int hasteLevel = Math.min(ohPlayer.getLevel("Athena")-3, 2);
 					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
 				}
 			}
-			ItemStack offhand = p.getInventory().getItemInOffHand();
-			if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
+			if(OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
 				if(ohPlayer.getLevel("Athena") >= 5) {
-					ItemStack item = p.getInventory().getItemInMainHand();
-					if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
-						if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
-						    item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-							item.getType() == Material.WOOD_SWORD) {
-							if(OHItems.isItemSimilarTo(offhand, OHItems.AEGIS_SHIELD, true) == false) {
-								if(p.getInventory().getItemInOffHand() == null || p.getInventory().getItemInOffHand().getType() == Material.AIR) {
+					if(OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
+						if(swordInMain) {
+							if(OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
+								if(offItem == null || offItem.getType() == Material.AIR) {
 									p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
 								}
 							}
@@ -103,10 +119,7 @@ public class EffectsTask implements Runnable {
 					}
 				}
 			}else if(ohPlayer.getLevel("Athena") >= 5){
-				ItemStack item = p.getInventory().getItemInMainHand();
-				if(item.getType() != Material.DIAMOND_SWORD && item.getType() != Material.GOLD_SWORD && 
-					item.getType() != Material.IRON_SWORD && item.getType() != Material.STONE_SWORD &&
-					item.getType() != Material.WOOD_SWORD) {
+				if(swordInMain) {
 						p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 				}
 			}
@@ -125,10 +138,7 @@ public class EffectsTask implements Runnable {
 			}
 			
 			if(ohPlayer.getLevel("Hades") >= 3) {
-				ItemStack item = p.getInventory().getItemInMainHand();
-				if(item.getType() == Material.DIAMOND_PICKAXE || item.getType() == Material.GOLD_PICKAXE || 
-				   item.getType() == Material.IRON_PICKAXE || item.getType() == Material.STONE_PICKAXE ||
-				   item.getType() == Material.WOOD_PICKAXE) {
+				if(pickInMain) {
 					int hasteLevel = Math.min(ohPlayer.getLevel("Hades")-4, 1);
 					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
 				}
@@ -136,12 +146,7 @@ public class EffectsTask implements Runnable {
 			
 			if(ohPlayer.getLevel("Ares") >= 3) {
 				int strengthLevel = Math.min(ohPlayer.getLevel("Ares") - 3, 1);
-				ItemStack item = p.getInventory().getItemInMainHand();
-				if(item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD || 
-				   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
-				   item.getType() == Material.WOOD_SWORD || item.getType() == Material.DIAMOND_AXE || 
-				   item.getType() == Material.GOLD_AXE || item.getType() == Material.IRON_AXE || 
-				   item.getType() == Material.STONE_AXE || item.getType() == Material.WOOD_AXE) {
+				if(axeInMain) {
 					boolean apply = true;
 					for(PotionEffect e : p.getActivePotionEffects()) {
 						if(e.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
