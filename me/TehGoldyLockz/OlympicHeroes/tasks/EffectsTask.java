@@ -109,6 +109,8 @@ public class EffectsTask implements Runnable {
 			
 			boolean hasShield = (offItem != null) ? OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) : false;
 			
+			p.sendMessage("Sword: " + swordInMain);
+			p.sendMessage("Shield: " + hasShield);
 			
 			if(ohPlayer.getLevel("Athena") >= 5) {
 				if(!hasShield && swordInMain) {
@@ -117,9 +119,10 @@ public class EffectsTask implements Runnable {
 					}
 				}
 			}
+			
 			if(hasShield && ohPlayer.getLevel("Athena") >= 5){
 				if(!swordInMain) {
-						p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
+					p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 				}
 			}
 			
