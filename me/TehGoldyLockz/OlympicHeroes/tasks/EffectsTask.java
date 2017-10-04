@@ -26,21 +26,21 @@ public class EffectsTask implements Runnable {
 			boolean axeInMain = false;
 			boolean pickInMain = false;
 			
-			if(mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.GOLD_SWORD || 
+			if(mainItem != null && (mainItem.getType() == Material.DIAMOND_SWORD || mainItem.getType() == Material.GOLD_SWORD || 
 					   mainItem.getType() == Material.IRON_SWORD || mainItem.getType() == Material.STONE_SWORD ||
-					   mainItem.getType() == Material.WOOD_SWORD) {
+					   mainItem.getType() == Material.WOOD_SWORD)) {
 				swordInMain = true;
 			}
 			
-			if(mainItem.getType() == Material.DIAMOND_AXE || mainItem.getType() == Material.GOLD_AXE || 
+			if(mainItem != null && (mainItem.getType() == Material.DIAMOND_AXE || mainItem.getType() == Material.GOLD_AXE || 
 					   mainItem.getType() == Material.IRON_AXE || mainItem.getType() == Material.STONE_AXE ||
-					   mainItem.getType() == Material.WOOD_AXE) {
+					   mainItem.getType() == Material.WOOD_AXE)) {
 				axeInMain = true;
 			}
 			
-			if(mainItem.getType() == Material.DIAMOND_PICKAXE || mainItem.getType() == Material.GOLD_PICKAXE || 
+			if(mainItem != null && (mainItem.getType() == Material.DIAMOND_PICKAXE || mainItem.getType() == Material.GOLD_PICKAXE || 
 			   mainItem.getType() == Material.IRON_PICKAXE || mainItem.getType() == Material.STONE_PICKAXE ||
-			   mainItem.getType() == Material.WOOD_PICKAXE) {
+			   mainItem.getType() == Material.WOOD_PICKAXE)) {
 				pickInMain = true;
 			}
 			
@@ -106,17 +106,13 @@ public class EffectsTask implements Runnable {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
 				}
 			}
-			if(OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
 				if(ohPlayer.getLevel("Athena") >= 5) {
-					if(OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
+					if(offItem != null && OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
 						if(swordInMain) {
-							if(OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
-								if(offItem == null || offItem.getType() == Material.AIR) {
-									p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
-								}
+							if(offItem == null || offItem.getType() == Material.AIR) {
+								p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
 							}
 						}
-					}
 				}
 			}else if(ohPlayer.getLevel("Athena") >= 5){
 				if(swordInMain) {
