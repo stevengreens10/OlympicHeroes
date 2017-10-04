@@ -106,20 +106,21 @@ public class EffectsTask implements Runnable {
 					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
 				}
 			}
-				if(ohPlayer.getLevel("Athena") >= 5) {
-					if(offItem != null && OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) == false) {
-						if(swordInMain) {
-							if(offItem == null || offItem.getType() == Material.AIR) {
-								p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
-							}
-						}
+			
+			boolean hasShield = (offItem != null) ? OHItems.isItemSimilarTo(offItem, OHItems.AEGIS_SHIELD, true) : false;
+			
+			
+			if(ohPlayer.getLevel("Athena") >= 5) {
+				if(!hasShield && swordInMain) {
+					if(offItem == null || offItem.getType() == Material.AIR) {
+						p.getInventory().setItemInOffHand(OHItems.AEGIS_SHIELD);
+					}
 				}
-			}else if(ohPlayer.getLevel("Athena") >= 5){
-				if(swordInMain) {
+			}
+			if(hasShield && ohPlayer.getLevel("Athena") >= 5){
+				if(!swordInMain) {
 						p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 				}
-			}else {
-				p.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
 			}
 			
 			
