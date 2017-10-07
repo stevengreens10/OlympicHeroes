@@ -1,5 +1,8 @@
 package me.TehGoldyLockz.OlympicHeroes.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -15,14 +18,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -176,11 +180,30 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void PlayerInteractEntity(PlayerInteractEntityEvent e) {
+		
+		Player player = e.getPlayer();
+		
 		if(e.getRightClicked() instanceof Villager) {
 			Villager villager = (Villager) e.getRightClicked();
 			if(villager.getCustomName() == ChatColor.AQUA + "Vault Manager") {
 				e.getPlayer().sendMessage(ChatColor.AQUA + "That is a Vault Manager");
 				
+			}
+		}else if(e.getRightClicked() instanceof Player) {
+			OHPlayer ohPlayer = new OHPlayer(player);
+			Player otherPlayer = (Player) e.getRightClicked();
+			if(!Cooldowns.heraCooldown.contains(player)) {
+				if(ohPlayer.getLevel("Hera") >= 3) {
+					otherPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+				}
+				if(ohPlayer.getLevel("Hera") >= 5) {
+					otherPlayer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1));
+				}
+				
+				player.sendMessage("You have bestowed wellness on " + otherPlayer.getName());
+				
+				Cooldowns.heraCooldown.add(player);
+				OlympicHeroes.removeCooldown(plugin, Cooldowns.heraCooldown, player, 200);
 			}
 		}
 	}
@@ -205,4 +228,39 @@ public class PlayerListener implements Listener{
 			}
 		}
 	}
+	
+//	@EventHandler
+//	public void onShift(PlayerToggleSneakEvent e) {
+//		if(e.isSneaking()) {
+//			Player player = e.getPlayer();
+//			OHPlayer ohPlayer = new OHPlayer(player);
+//			
+//			player.sendMessage("sneak");
+//			
+//			if(ohPlayer.getLevel("Poseidon") >= 5) {
+//				int radius = 5;
+//				int playerX = player.getLocation().getBlockX();
+//				int playerY = player.getLocation().getBlockY();
+//				int playerZ = player.getLocation().getBlockZ();
+//				
+//				player.sendMessage("yes");
+//				
+//				List<Block> blocksToReplace = new ArrayList<Block>();
+//					
+//				for(int x = playerX - radius; x <= playerX + radius; x++) {
+//					for(int z = playerZ - radius; z <= playerZ + radius; z++) {
+//						Block block = player.getLocation().getWorld().getBlockAt(x, playerY, z);
+//						if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.AIR) {
+//							player.sendMessage(block.getType()+" (" + x + ", " + playerY + ", " + z + ")");
+//							blocksToReplace.add(block);
+//						}
+//					}
+//				}
+//				
+//				for(Block b : blocksToReplace) {
+//					b.setType(Material.WATER);
+//				}
+//			}
+//		}
+//	}
 }
