@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.multiblock;
+package me.NodeDigital.OlympicHeroes.multiblock;
 
 import java.util.ArrayList;
 import java.util.List;

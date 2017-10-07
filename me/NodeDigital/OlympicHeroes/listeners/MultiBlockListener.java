@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.listeners;
+package me.NodeDigital.OlympicHeroes.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.material.Stairs;
 
-import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
-import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
-import me.TehGoldyLockz.OlympicHeroes.Variables;
-import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlock;
-import me.TehGoldyLockz.OlympicHeroes.multiblock.MultiBlocks;
-import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
+import me.NodeDigital.OlympicHeroes.Cooldowns;
+import me.NodeDigital.OlympicHeroes.OlympicHeroes;
+import me.NodeDigital.OlympicHeroes.Variables;
+import me.NodeDigital.OlympicHeroes.multiblock.MultiBlock;
+import me.NodeDigital.OlympicHeroes.multiblock.MultiBlocks;
+import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class MultiBlockListener implements Listener{
 	

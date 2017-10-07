@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.multiblock;
+package me.NodeDigital.OlympicHeroes.multiblock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
+import me.NodeDigital.OlympicHeroes.OlympicHeroes;
 
 public class MultiBlocks {
 	public static List<MultiBlock> multiBlocks = new ArrayList<MultiBlock>();

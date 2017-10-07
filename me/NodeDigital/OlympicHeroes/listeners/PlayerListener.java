@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.listeners;
+package me.NodeDigital.OlympicHeroes.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +32,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import me.TehGoldyLockz.OlympicHeroes.Cooldowns;
-import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
-import me.TehGoldyLockz.OlympicHeroes.Variables;
-import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
-import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
+import me.NodeDigital.OlympicHeroes.Cooldowns;
+import me.NodeDigital.OlympicHeroes.OlympicHeroes;
+import me.NodeDigital.OlympicHeroes.Variables;
+import me.NodeDigital.OlympicHeroes.block.ChangedBlock;
+import me.NodeDigital.OlympicHeroes.item.OHItems;
+import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class PlayerListener implements Listener{
 
@@ -229,38 +230,55 @@ public class PlayerListener implements Listener{
 		}
 	}
 	
-//	@EventHandler
-//	public void onShift(PlayerToggleSneakEvent e) {
-//		if(e.isSneaking()) {
-//			Player player = e.getPlayer();
-//			OHPlayer ohPlayer = new OHPlayer(player);
-//			
-//			player.sendMessage("sneak");
-//			
-//			if(ohPlayer.getLevel("Poseidon") >= 5) {
-//				int radius = 5;
-//				int playerX = player.getLocation().getBlockX();
-//				int playerY = player.getLocation().getBlockY();
-//				int playerZ = player.getLocation().getBlockZ();
-//				
-//				player.sendMessage("yes");
-//				
-//				List<Block> blocksToReplace = new ArrayList<Block>();
-//					
-//				for(int x = playerX - radius; x <= playerX + radius; x++) {
-//					for(int z = playerZ - radius; z <= playerZ + radius; z++) {
-//						Block block = player.getLocation().getWorld().getBlockAt(x, playerY, z);
-//						if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.AIR) {
-//							player.sendMessage(block.getType()+" (" + x + ", " + playerY + ", " + z + ")");
-//							blocksToReplace.add(block);
-//						}
-//					}
-//				}
-//				
-//				for(Block b : blocksToReplace) {
-//					b.setType(Material.WATER);
-//				}
-//			}
-//		}
-//	}
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	public void onShift(PlayerToggleSneakEvent e) {
+		if(e.isSneaking()) {
+			Player player = e.getPlayer();
+			OHPlayer ohPlayer = new OHPlayer(player);
+			
+			if(ohPlayer.getLevel("Poseidon") >= 5) {
+				int radius = 5;
+				int playerX = player.getLocation().getBlockX();
+				int playerY = player.getLocation().getBlockY();
+				int playerZ = player.getLocation().getBlockZ();
+				
+				List<Block> blocksToReplace = new ArrayList<Block>();
+					
+				for(int x = playerX - radius; x <= playerX + radius; x++) {
+					for(int z = playerZ - radius; z <= playerZ + radius; z++) {
+						Block block = player.getLocation().getWorld().getBlockAt(x, playerY, z);
+						blocksToReplace.add(block);
+					}
+				}
+				
+				List<ChangedBlock> changedBlocks = new ArrayList<ChangedBlock>();
+				
+				for(Block b : blocksToReplace) {
+					
+					boolean canReplace = true;
+					
+					for(List<ChangedBlock> cbs : OlympicHeroes.changedBlocksList) {
+						for(ChangedBlock cb : cbs) {
+							Location l = cb.location;
+							if(l.equals(b.getLocation())) {
+								canReplace = false;
+							}
+						}
+					}
+					
+					if(canReplace) {
+						Material oldType = b.getType();
+						byte oldData = b.getData();
+						b.setType(Material.WATER);
+						b.setData((byte) 8);
+						changedBlocks.add(new ChangedBlock(b.getLocation(),oldType,b.getType(), oldData));
+					}
+				}
+				
+				OlympicHeroes.changedBlocksList.add(changedBlocks);
+				OlympicHeroes.regenerateTerrain(plugin, changedBlocks, 100L);
+			}
+		}
+	}
 }

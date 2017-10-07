@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.command;
+package me.NodeDigital.OlympicHeroes.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.TehGoldyLockz.OlympicHeroes.Variables;
-import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
+import me.NodeDigital.OlympicHeroes.Variables;
+import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class OHCommand implements CommandExecutor{
 

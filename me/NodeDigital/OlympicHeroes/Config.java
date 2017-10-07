@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes;
+package me.NodeDigital.OlympicHeroes;
 
 import java.io.File;
 import java.io.FileNotFoundException;

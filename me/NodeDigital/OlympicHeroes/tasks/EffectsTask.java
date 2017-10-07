@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.tasks;
+package me.NodeDigital.OlympicHeroes.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -7,8 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
-import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
+import me.NodeDigital.OlympicHeroes.item.OHItems;
+import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class EffectsTask implements Runnable {
 	

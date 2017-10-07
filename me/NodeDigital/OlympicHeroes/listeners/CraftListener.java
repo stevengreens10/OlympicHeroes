@@ -1,4 +1,4 @@
-package me.TehGoldyLockz.OlympicHeroes.listeners;
+package me.NodeDigital.OlympicHeroes.listeners;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -12,9 +12,9 @@ import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import me.TehGoldyLockz.OlympicHeroes.OlympicHeroes;
-import me.TehGoldyLockz.OlympicHeroes.item.OHItems;
-import me.TehGoldyLockz.OlympicHeroes.player.OHPlayer;
+import me.NodeDigital.OlympicHeroes.OlympicHeroes;
+import me.NodeDigital.OlympicHeroes.item.OHItems;
+import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class CraftListener implements Listener{
 

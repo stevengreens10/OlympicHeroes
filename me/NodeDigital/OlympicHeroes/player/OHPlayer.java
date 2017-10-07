@@ -1,10 +1,10 @@
-package me.TehGoldyLockz.OlympicHeroes.player;
+package me.NodeDigital.OlympicHeroes.player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import me.TehGoldyLockz.OlympicHeroes.Config;
-import me.TehGoldyLockz.OlympicHeroes.Variables;
+import me.NodeDigital.OlympicHeroes.Config;
+import me.NodeDigital.OlympicHeroes.Variables;
 
 public class OHPlayer {
 	
