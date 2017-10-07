@@ -102,7 +102,7 @@ public class MultiBlockListener implements Listener{
 	}
 	
 	@EventHandler
-	public void onInteract(PlayerInteractEvent e) {
+	public void onPray(PlayerInteractEvent e) {
 		Block block = e.getClickedBlock();
 		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getHand() == EquipmentSlot.HAND) {
 			if(MultiBlocks.isBlockInMultiBlock(block)) {
@@ -141,6 +141,20 @@ public class MultiBlockListener implements Listener{
 								}
 								
 								if(canPray) {
+									
+									boolean firstPray = true;
+									for(String god : Variables.GODS) {
+										if(player.getXP(god) > 0) {
+											firstPray = false;
+											break;
+										}
+									}
+									
+									if(firstPray) {
+										Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + e.getPlayer().getName() + " group add Follower");
+										e.getPlayer().sendMessage("You are now a follower!");
+									}
+									
 									e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
 									e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
 									int levelBefore = player.getLevel(mb.god);
