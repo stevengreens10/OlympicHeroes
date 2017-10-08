@@ -372,21 +372,30 @@ public class PlayerListener implements Listener{
 	}
 	
 	@EventHandler
-	public void onPlayerDeath(EntityDeathEvent e) {
-		if(e.getEntity() instanceof Player) {
-			for(int i = e.getDrops().size() - 1; i >= 0; i--) {
-				ItemStack item = e.getDrops().get(i);
-				boolean remove = false;
-				
-				for(ItemStack it : OHItems.DISALLOWED_ITEMS) {
-					if(OHItems.isItemSimilarTo(item, it, false)) {
-						remove = true;
-						break;
-					}
+	public void onPlayerDeath(PlayerDeathEvent e) {
+		
+		Player player = e.getEntity();
+		
+		for(int i = e.getDrops().size() - 1; i >= 0; i--) {
+			ItemStack item = e.getDrops().get(i);
+			boolean remove = false;
+			
+			for(ItemStack it : OHItems.DISALLOWED_ITEMS) {
+				if(OHItems.isItemSimilarTo(item, it, false)) {
+					remove = true;
+					break;
 				}
+			}
+			
+			if(remove) {
+				e.getDrops().remove(i);
 				
-				if(remove) {
-					e.getDrops().remove(i);
+				if(OHItems.isItemSimilarTo(item, OHItems.HERMES_ELYTRA, false)) {
+					e.getDrops().add(GodData.hermesChestplateMap.get(player));
+					GodData.hermesChestplateMap.remove(player);
+				}else if(OHItems.isItemSimilarTo(item, OHItems.POSEIDON_BOOTS, false)) {
+					e.getDrops().add(GodData.poseidonBootsMap.get(player));
+					GodData.poseidonBootsMap.remove(player);
 				}
 			}
 		}
