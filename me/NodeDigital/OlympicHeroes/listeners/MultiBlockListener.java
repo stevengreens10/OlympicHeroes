@@ -141,24 +141,10 @@ public class MultiBlockListener implements Listener{
 								}
 								
 								if(canPray) {
-									
-									boolean firstPray = true;
-									for(String god : Variables.GODS) {
-										if(player.getXP(god) > 0) {
-											firstPray = false;
-											break;
-										}
-									}
-									
-									if(firstPray) {
-										Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + e.getPlayer().getName() + " group add Follower");
-										e.getPlayer().sendMessage("You are now a follower!");
-									}
-									
 									e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
 									e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
 									int levelBefore = player.getLevel(mb.god);
-									player.setXP(player.getXP(mb.god)+xpInc, mb.god);
+									player.setXP(player.getXP(mb.god)+xpInc, mb.god, false);
 									e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
 									
 									if(levelBefore != player.getLevel(mb.god)) {

@@ -322,10 +322,9 @@ public class PlayerListener implements Listener{
 			Player player = e.getPlayer();
 			OHPlayer ohPlayer = new OHPlayer(player);
 			
+			// HERMES GLIDE ABILITY
+			
 			if(ohPlayer.getLevel("Hermes") >= 5 && !Cooldowns.hermesGlideCooldown.contains(player)) {
-				Cooldowns.hermesGlideCooldown.add(player);
-				OlympicHeroes.removeCooldown(plugin, Cooldowns.hermesGlideCooldown, player, Variables.HERMES_GLIDE_COOLDOWN);
-				
 				player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,80,14));
 			}
 		}
@@ -352,6 +351,10 @@ public class PlayerListener implements Listener{
 				
 				if(giveElytra) {
 					if(!OHItems.isItemSimilarTo(player.getInventory().getChestplate(), OHItems.HERMES_ELYTRA, false)) {
+						
+						Cooldowns.hermesGlideCooldown.add(player);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.hermesGlideCooldown, player, Variables.HERMES_GLIDE_COOLDOWN);
+						
 						GodData.hermesChestplateMap.put(player,player.getInventory().getChestplate());
 						player.getInventory().setChestplate(OHItems.HERMES_ELYTRA);
 					}

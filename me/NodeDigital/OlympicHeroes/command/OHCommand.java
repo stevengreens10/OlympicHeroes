@@ -40,7 +40,7 @@ public class OHCommand implements CommandExecutor{
 						if(validGod) {
 							try {
 								int xp = Integer.parseInt(args[3]);
-								new OHPlayer(p).setXP(xp, godName);
+								new OHPlayer(p).setXP(xp, godName, true);
 								player.sendMessage("You set " + playerName + "'s XP for " + godName + " to " + xp + ".");
 							}catch(Exception e) {
 								player.sendMessage("The XP amount must be a valid number!");
@@ -59,7 +59,7 @@ public class OHCommand implements CommandExecutor{
 					if(p != null) {
 						OHPlayer ohP = new OHPlayer(p);
 						for(String god : Variables.GODS) {
-							ohP.setXP(0, god);
+							ohP.setXP(0, god, true);
 						}
 						player.sendMessage(playerName + "'s XP has been reset!");
 					}else {
