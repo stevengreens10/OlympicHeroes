@@ -46,7 +46,10 @@ public class EffectsTask implements Runnable {
 			
 			if(ohPlayer.getLevel("Zeus") >= 3) {
 				int jumpLevel = Math.min(ohPlayer.getLevel("Zeus") - 3, 1);
-				p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, jumpLevel), true);
+
+				if(shouldApply(p, PotionEffectType.JUMP, jumpLevel)) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 20, jumpLevel), true);
+				}
 
 			}
 			
@@ -55,23 +58,26 @@ public class EffectsTask implements Runnable {
 				   p.getLocation().getBlock().getType() == Material.STATIONARY_WATER){
 					int strengthLevel = Math.min(ohPlayer.getLevel("Poseidon")-2, 1);
 					
-					boolean apply = true;
-					for(PotionEffect e : p.getActivePotionEffects()) {
-						if(e.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
-							if(e.getAmplifier() > strengthLevel) {
-								apply = false;
-							}
-						}
-					}
-					if(apply) {
+					if(shouldApply(p, PotionEffectType.INCREASE_DAMAGE, strengthLevel)) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
 					}
 				}
 			}
 			
 			if(ohPlayer.getLevel("Artemis") >= 2 ) {
-				if(time >= 13500 && time <= 23000) {
-					p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 20, 0), true);
+				
+				
+				boolean apply = true;
+				for(PotionEffect e : p.getActivePotionEffects()) {
+					if(e.getType().equals(PotionEffectType.NIGHT_VISION)) {
+						if(e.getDuration() > 240) {
+							apply = false;
+						}
+					}
+				}
+				
+				if(time >= 13500 && time <= 23000 && apply) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 400, 0), true);
 				}
 			}
 			
@@ -81,8 +87,7 @@ public class EffectsTask implements Runnable {
 				}
 			}
 			
-			if(ohPlayer.getLevel("Apollo") >= 5) {
-				
+			if(ohPlayer.getLevel("Apollo") >= 5) {			
 				boolean apply = true;
 				for(PotionEffect e : p.getActivePotionEffects()) {
 					if(e.getType().equals(PotionEffectType.REGENERATION)) {
@@ -97,13 +102,18 @@ public class EffectsTask implements Runnable {
 			
 			if(ohPlayer.getLevel("Aphrodite") >= 3) {
 				int absLevel = Math.min(ohPlayer.getLevel("Aphrodite") - 3, 1);
-				p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, absLevel), false);
+				
+				if(shouldApply(p,PotionEffectType.ABSORPTION,absLevel)) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, absLevel), false);
+				}
 			}
 			
 			if(ohPlayer.getLevel("Athena") >= 3) {
 				if(swordInMain) {
 					int hasteLevel = Math.min(ohPlayer.getLevel("Athena")-3, 2);
-					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
+					if(shouldApply(p,PotionEffectType.FAST_DIGGING,hasteLevel)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
+					}
 				}
 			}
 			
@@ -128,33 +138,31 @@ public class EffectsTask implements Runnable {
 				int speedLevel = ohPlayer.getLevel("Hermes") - 2;
 				speedLevel = Math.min(speedLevel, 3);
 				
-				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20, speedLevel), true);
+				if(shouldApply(p,PotionEffectType.SPEED,speedLevel)) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20, speedLevel), true);
+				}
 			}
 			
 			if(ohPlayer.getXP("Hades") > 0) {
 				int luckLevel = Math.min(ohPlayer.getLevel("Hades")-1, 1);
-				p.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, 20, luckLevel), true);
+				if(shouldApply(p,PotionEffectType.LUCK,luckLevel)) {
+					p.addPotionEffect(new PotionEffect(PotionEffectType.LUCK, 20, luckLevel), true);
+				}
 			}
 			
 			if(ohPlayer.getLevel("Hades") >= 3) {
 				if(pickInMain) {
 					int hasteLevel = Math.min(ohPlayer.getLevel("Hades")-4, 1);
-					p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
+					if(shouldApply(p,PotionEffectType.FAST_DIGGING,hasteLevel)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20, hasteLevel), true);
+					}
 				}
 			}
 			
 			if(ohPlayer.getLevel("Ares") >= 3) {
 				int strengthLevel = Math.min(ohPlayer.getLevel("Ares") - 3, 1);
 				if(axeInMain) {
-					boolean apply = true;
-					for(PotionEffect e : p.getActivePotionEffects()) {
-						if(e.getType().equals(PotionEffectType.INCREASE_DAMAGE)) {
-							if(e.getAmplifier() > strengthLevel) {
-								apply = false;
-							}
-						}
-					}
-					if(apply) {
+					if(shouldApply(p,PotionEffectType.INCREASE_DAMAGE,strengthLevel)) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20, strengthLevel), true);
 					}
 				}
@@ -163,6 +171,19 @@ public class EffectsTask implements Runnable {
 
 		}
 
+	}
+	
+	public static boolean shouldApply(Player player, PotionEffectType type, int level) {
+		boolean apply = true;
+		for(PotionEffect e : player.getActivePotionEffects()) {
+			if(e.getType().equals(type)) {
+				if(e.getAmplifier() > level) {
+					apply = false;
+				}
+			}
+		}
+		
+		return apply;
 	}
 
 }

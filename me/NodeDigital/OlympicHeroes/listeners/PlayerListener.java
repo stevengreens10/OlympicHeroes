@@ -20,7 +20,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -410,7 +409,7 @@ public class PlayerListener implements Listener{
 			// HERMES GLIDE ABILITY
 			
 			if(ohPlayer.getLevel("Hermes") >= 5 && !Cooldowns.hermesGlideCooldown.contains(player)) {
-				player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,80,14));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,80,14), true);
 			}
 		}
 	}
