@@ -154,7 +154,7 @@ public class MultiBlockListener implements Listener{
 									e.getItem().setAmount(e.getItem().getAmount()-1);
 									
 									Cooldowns.prayCooldown.add(e.getPlayer());
-									OlympicHeroes.removeCooldown(plugin, Cooldowns.prayCooldown, e.getPlayer(), Variables.PRAYER_COOLDOWN);
+									Cooldowns.removeCooldown(plugin, Cooldowns.prayCooldown, e.getPlayer(), Variables.PRAYER_COOLDOWN);
 								
 								}else {
 									e.getPlayer().sendMessage("You can not pray to this god!");

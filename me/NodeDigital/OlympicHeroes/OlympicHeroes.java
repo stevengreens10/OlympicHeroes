@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.NodeDigital.OlympicHeroes.block.ChangedBlock;
@@ -36,14 +35,6 @@ public class OlympicHeroes extends JavaPlugin{
 		OHItems.constructItems();
 		
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new EffectsTask(), 0L, 10L);
-	}
-	
-	public static void removeCooldown(OlympicHeroes plugin, List<Player> cooldown, Player p, long ticks) {
-		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-			public void run() {
-				cooldown.remove(p.getPlayer());
-			}
-		}, ticks);
 	}
 	
 	public static void regenerateTerrain(OlympicHeroes plugin, List<ChangedBlock> blocks, long ticks) {

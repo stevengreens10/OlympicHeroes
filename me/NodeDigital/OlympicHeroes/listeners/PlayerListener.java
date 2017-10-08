@@ -22,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -69,7 +70,7 @@ public class PlayerListener implements Listener{
 						Cooldowns.aphroditeResCooldown.add(player.getPlayer());
 						player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1));
 						
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.aphroditeResCooldown, player.getPlayer(), Variables.APHRODITE_RES_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.aphroditeResCooldown, player.getPlayer(), Variables.APHRODITE_RES_COOLDOWN);
 					}
 				}
 			}
@@ -144,7 +145,7 @@ public class PlayerListener implements Listener{
 						Location l = block.getLocation();
 						e.getPlayer().getWorld().strikeLightning(l);
 						Cooldowns.zeusLightningCooldown.add(player);
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.zeusLightningCooldown, player, Variables.ZEUS_LIGHTNING_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.zeusLightningCooldown, player, Variables.ZEUS_LIGHTNING_COOLDOWN);
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
@@ -156,7 +157,7 @@ public class PlayerListener implements Listener{
 					
 					if(!Cooldowns.hadesSpawnCooldown.contains(player)) {
 						Cooldowns.hadesSpawnCooldown.add(player);
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.hadesSpawnCooldown, player, Variables.HADES_SPAWN_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.hadesSpawnCooldown, player, Variables.HADES_SPAWN_COOLDOWN);
 						Location loc = player.getLocation();
 						int x = loc.getBlockX();
 						int y = loc.getBlockY();
@@ -180,7 +181,7 @@ public class PlayerListener implements Listener{
 						int playerZ = player.getLocation().getBlockZ();
 						
 						Cooldowns.poseidonSurgeCooldown.add(player);
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.poseidonSurgeCooldown, player, Variables.POSEIDON_SURGE_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.poseidonSurgeCooldown, player, Variables.POSEIDON_SURGE_COOLDOWN);
 						
 						List<Block> blocksToReplace = new ArrayList<Block>();
 							
@@ -222,7 +223,7 @@ public class PlayerListener implements Listener{
 						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 3), true);
 						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 100, 1));
 						
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.aresRageCooldown, e.getPlayer(), Variables.ARES_RAGE_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.aresRageCooldown, e.getPlayer(), Variables.ARES_RAGE_COOLDOWN);
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
@@ -280,7 +281,7 @@ public class PlayerListener implements Listener{
 					if(applied) {
 						player.sendMessage("You have bestowed wellness on " + entity.getName());
 						Cooldowns.heraBestowCooldown.add(player);
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.heraBestowCooldown, player, Variables.HERA_BESTOW_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.heraBestowCooldown, player, Variables.HERA_BESTOW_COOLDOWN);
 					}
 				}else {
 					player.sendMessage("That ability is on cooldown.");
@@ -308,11 +309,45 @@ public class PlayerListener implements Listener{
 					if(applied) {
 						player.sendMessage("You have bestowed harmful effects on " + entity.getName());
 						Cooldowns.dionysusPoisonCooldown.add(player);
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.dionysusPoisonCooldown, player, Variables.DIONYSUS_POISON_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.dionysusPoisonCooldown, player, Variables.DIONYSUS_POISON_COOLDOWN);
 					}
 					
 				}else {
 					player.sendMessage("That ability is on cooldown.");
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onKill(PlayerDeathEvent e) {
+		Player player = e.getEntity();
+		
+		if(player.getKiller() instanceof Player) {
+			Player killer = (Player) player.getKiller();
+			OHPlayer ohPlayer = new OHPlayer(player);
+			OHPlayer ohKiller = new OHPlayer(killer);
+			
+			for(String god : Variables.GODS) {
+				if(!Cooldowns.killCooldownMap.get(killer).contains(player)) {
+					boolean gotXP = false;
+					for(String oppGod : Variables.OPPOSING_GODS.get(god)) {
+						if(ohKiller.getLevel(god) >= 3 && ohPlayer.getLevel(oppGod) >= 3) {
+							
+							gotXP = true;
+							
+							ohKiller.setXP(ohKiller.getXP(god)+50, god, false);
+							ohPlayer.setXP(ohPlayer.getXP(oppGod)-20,oppGod,false);
+							
+							killer.sendMessage("You gained 50 XP for " + god);
+							player.sendMessage("You lost 20 XP for " + oppGod);
+						}
+						
+						if(gotXP) {
+							Cooldowns.killCooldownMap.get(killer).add(player);
+							Cooldowns.removePlayerFromKillCooldown(plugin, killer, player, Variables.KILL_COOLDOWN);
+						}
+					}
 				}
 			}
 		}
@@ -394,7 +429,7 @@ public class PlayerListener implements Listener{
 					if(!OHItems.isItemSimilarTo(player.getInventory().getChestplate(), OHItems.HERMES_ELYTRA, false)) {
 						
 						Cooldowns.hermesGlideCooldown.add(player);
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.hermesGlideCooldown, player, Variables.HERMES_GLIDE_COOLDOWN);
+						Cooldowns.removeCooldown(plugin, Cooldowns.hermesGlideCooldown, player, Variables.HERMES_GLIDE_COOLDOWN);
 						
 						GodData.hermesChestplateMap.put(player,player.getInventory().getChestplate());
 						player.getInventory().setChestplate(OHItems.HERMES_ELYTRA);

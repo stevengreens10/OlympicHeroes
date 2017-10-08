@@ -18,6 +18,7 @@ public class Variables {
 	public static final long POSEIDON_SURGE_COOLDOWN = 200L;
 	public static final long HADES_SPAWN_COOLDOWN = 200L;
 	public static final long HERMES_GLIDE_COOLDOWN = 200L;
+	public static final long KILL_COOLDOWN = 200L;
 	
 	
 	public static final String[] GODS = {"Zeus", "Poseidon", "Hades", "Hera",
