@@ -12,6 +12,7 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Arrow.PickupStatus;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -258,21 +259,61 @@ public class PlayerListener implements Listener{
 				e.getPlayer().sendMessage(ChatColor.AQUA + "That is a Vault Manager");
 				
 			}
-		}else if(e.getRightClicked() instanceof Player) {
+		}else if(e.getHand() == EquipmentSlot.HAND && e.getRightClicked() instanceof LivingEntity) {
 			OHPlayer ohPlayer = new OHPlayer(player);
-			Player otherPlayer = (Player) e.getRightClicked();
-			if(!Cooldowns.heraBestowCooldown.contains(player)) {
-				if(ohPlayer.getLevel("Hera") >= 3) {
-					otherPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
-				}
-				if(ohPlayer.getLevel("Hera") >= 5) {
-					otherPlayer.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1));
+			LivingEntity entity = (LivingEntity) e.getRightClicked();
+			ItemStack item = player.getInventory().getItemInMainHand();
+			if(item != null && item.getType() == Material.STICK) {
+				
+				if(!Cooldowns.heraBestowCooldown.contains(player)) {
+					
+					boolean applied = false;
+					
+					if(ohPlayer.getLevel("Hera") >= 3) {
+						entity.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+						applied = true;
+					}
+					if(ohPlayer.getLevel("Hera") >= 5) {
+						entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1));
+					}
+					
+					if(applied) {
+						player.sendMessage("You have bestowed wellness on " + entity.getName());
+						Cooldowns.heraBestowCooldown.add(player);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.heraBestowCooldown, player, Variables.HERA_BESTOW_COOLDOWN);
+					}
+				}else {
+					player.sendMessage("That ability is on cooldown.");
 				}
 				
-				player.sendMessage("You have bestowed wellness on " + otherPlayer.getName());
-				
-				Cooldowns.heraBestowCooldown.add(player);
-				OlympicHeroes.removeCooldown(plugin, Cooldowns.heraBestowCooldown, player, Variables.HERA_BESTOW_COOLDOWN);
+				if(!Cooldowns.dionysusPoisonCooldown.contains(player)) {
+					boolean applied = false;
+					
+					if(ohPlayer.getLevel("Dionysus") >= 3) {
+						int duration = 300;
+						if(ohPlayer.getLevel("Dionysus") >= 4) {
+							duration = 600;
+						}
+						entity.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration, 1));
+						
+						applied = true;
+					}
+					if(ohPlayer.getLevel("Dionsysus") >= 4) {
+						
+						int level = Math.min(ohPlayer.getLevel("Dionysus")-4, 1);
+						
+						entity.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, level));
+					}
+					
+					if(applied) {
+						player.sendMessage("You have bestowed harmful effects on " + entity.getName());
+						Cooldowns.dionysusPoisonCooldown.add(player);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.dionysusPoisonCooldown, player, Variables.DIONYSUS_POISON_COOLDOWN);
+					}
+					
+				}else {
+					player.sendMessage("That ability is on cooldown.");
+				}
 			}
 		}
 	}
