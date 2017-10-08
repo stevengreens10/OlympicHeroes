@@ -8,10 +8,16 @@ public class Variables {
 	public static final int DIAMOND_XP = 50;
 	public static final int EMERALD_XP = 70;
 	public static final int[] LEVEL_CUTOFFS = {1000, 2500, 4500, 8000};
+	
 	public static final long PRAYER_COOLDOWN = 200L;
-	public static final long LIGHTNING_COOLDOWN = 200L;
-	public static final long RAGE_COOLDOWN = 200L;
-	public static final long RES_COOLDOWN = 6000L;
+	public static final long ZEUS_LIGHTNING_COOLDOWN = 200L;
+	public static final long ARES_RAGE_COOLDOWN = 200L;
+	public static final long APHRODITE_RES_COOLDOWN = 6000L;
+	public static final long HERA_BESTOW_COOLDOWN = 200L;
+	public static final long POSEIDON_SURGE_COOLDOWN = 200L;
+	public static final long HADES_SPAWN_COOLDOWN = 200L;
+	public static final long HERMES_GLIDE_COOLDOWN = 200L;
+	
 	
 	public static final String[] GODS = {"Zeus", "Poseidon", "Hades", "Hera",
 										"Demeter", "Aphrodite", "Artemis", "Apollo",

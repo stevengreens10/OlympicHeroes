@@ -25,6 +25,7 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -36,6 +37,7 @@ import me.NodeDigital.OlympicHeroes.Cooldowns;
 import me.NodeDigital.OlympicHeroes.OlympicHeroes;
 import me.NodeDigital.OlympicHeroes.Variables;
 import me.NodeDigital.OlympicHeroes.block.ChangedBlock;
+import me.NodeDigital.OlympicHeroes.gods.GodData;
 import me.NodeDigital.OlympicHeroes.item.OHItems;
 import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
@@ -63,11 +65,11 @@ public class PlayerListener implements Listener{
 			
 			if(e.getCause() == DamageCause.ENTITY_ATTACK) {
 				if(ohPlayer.getLevel("Aphrodite") >= 5) {
-					if(!Cooldowns.resCooldown.contains(player.getPlayer())) {
-						Cooldowns.resCooldown.add(player.getPlayer());
+					if(!Cooldowns.aphroditeResCooldown.contains(player.getPlayer())) {
+						Cooldowns.aphroditeResCooldown.add(player.getPlayer());
 						player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1));
 						
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.resCooldown, player.getPlayer(), Variables.RES_COOLDOWN);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.aphroditeResCooldown, player.getPlayer(), Variables.APHRODITE_RES_COOLDOWN);
 					}
 				}
 			}
@@ -134,12 +136,12 @@ public class PlayerListener implements Listener{
 				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
 				if(ohPlayer.getLevel("Zeus") >= 5) {
 					
-					if(!Cooldowns.lightningCooldown.contains(e.getPlayer())) {
+					if(!Cooldowns.zeusLightningCooldown.contains(e.getPlayer())) {
 						Block block = e.getPlayer().getTargetBlock(null, 100);
 						Location l = block.getLocation();
 						e.getPlayer().getWorld().strikeLightning(l);
-						Cooldowns.lightningCooldown.add(e.getPlayer());
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.lightningCooldown, e.getPlayer(), Variables.LIGHTNING_COOLDOWN);
+						Cooldowns.zeusLightningCooldown.add(e.getPlayer());
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.zeusLightningCooldown, e.getPlayer(), Variables.ZEUS_LIGHTNING_COOLDOWN);
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
@@ -158,12 +160,12 @@ public class PlayerListener implements Listener{
 				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
 				if(ohPlayer.getLevel("Ares") >= 5) {
 					
-					if(!Cooldowns.rageCooldown.contains(e.getPlayer())) {
-						Cooldowns.rageCooldown.add(e.getPlayer());
+					if(!Cooldowns.aresRageCooldown.contains(e.getPlayer())) {
+						Cooldowns.aresRageCooldown.add(e.getPlayer());
 						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 3), true);
 						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 100, 1));
 						
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.rageCooldown, e.getPlayer(), Variables.RAGE_COOLDOWN);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.aresRageCooldown, e.getPlayer(), Variables.ARES_RAGE_COOLDOWN);
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
@@ -174,7 +176,17 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void onInvClick(InventoryClickEvent e) {
-		if(OHItems.isItemSimilarTo(e.getCurrentItem(), OHItems.AEGIS_SHIELD, false)) {
+		
+		boolean allowed = true;
+		
+		for(ItemStack it : OHItems.DISALLOWED_ITEMS) {
+			if(OHItems.isItemSimilarTo(e.getCurrentItem(), it, false)) {
+				allowed = false;
+				break;
+			}
+		}
+		
+		if(!allowed) {
 			e.setCancelled(true);
 		}
 	}
@@ -193,7 +205,7 @@ public class PlayerListener implements Listener{
 		}else if(e.getRightClicked() instanceof Player) {
 			OHPlayer ohPlayer = new OHPlayer(player);
 			Player otherPlayer = (Player) e.getRightClicked();
-			if(!Cooldowns.heraCooldown.contains(player)) {
+			if(!Cooldowns.heraBestowCooldown.contains(player)) {
 				if(ohPlayer.getLevel("Hera") >= 3) {
 					otherPlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
 				}
@@ -203,16 +215,26 @@ public class PlayerListener implements Listener{
 				
 				player.sendMessage("You have bestowed wellness on " + otherPlayer.getName());
 				
-				Cooldowns.heraCooldown.add(player);
-				OlympicHeroes.removeCooldown(plugin, Cooldowns.heraCooldown, player, 200);
+				Cooldowns.heraBestowCooldown.add(player);
+				OlympicHeroes.removeCooldown(plugin, Cooldowns.heraBestowCooldown, player, Variables.HERA_BESTOW_COOLDOWN);
 			}
 		}
 	}
 	
 	@EventHandler
 	public void onSwapItem(PlayerSwapHandItemsEvent e) {
-		if(OHItems.isItemSimilarTo(e.getOffHandItem(), OHItems.AEGIS_SHIELD, false) ||
-		   OHItems.isItemSimilarTo(e.getMainHandItem(), OHItems.AEGIS_SHIELD, false)) {
+		
+		boolean allowed = true;
+		
+		for(ItemStack it : OHItems.DISALLOWED_ITEMS) {
+			if(OHItems.isItemSimilarTo(e.getMainHandItem(), it, false) ||
+			   OHItems.isItemSimilarTo(e.getOffHandItem(), it, false)) {
+				allowed = false;
+				break;
+			}
+		}
+		
+		if(!allowed) {
 			e.setCancelled(true);
 		}
 	}
@@ -222,8 +244,16 @@ public class PlayerListener implements Listener{
 		if(e.getEntity() instanceof Player) {
 			for(int i = e.getDrops().size() - 1; i >= 0; i--) {
 				ItemStack item = e.getDrops().get(i);
+				boolean remove = false;
 				
-				if(OHItems.isItemSimilarTo(item, OHItems.AEGIS_SHIELD, false)) {
+				for(ItemStack it : OHItems.DISALLOWED_ITEMS) {
+					if(OHItems.isItemSimilarTo(item, it, false)) {
+						remove = true;
+						break;
+					}
+				}
+				
+				if(remove) {
 					e.getDrops().remove(i);
 				}
 			}
@@ -237,11 +267,14 @@ public class PlayerListener implements Listener{
 			Player player = e.getPlayer();
 			OHPlayer ohPlayer = new OHPlayer(player);
 			
-			if(ohPlayer.getLevel("Poseidon") >= 5) {
+			if(ohPlayer.getLevel("Poseidon") >= 5 && !Cooldowns.poseidonSurgeCooldown.contains(player)) {
 				int radius = 5;
 				int playerX = player.getLocation().getBlockX();
 				int playerY = player.getLocation().getBlockY();
 				int playerZ = player.getLocation().getBlockZ();
+				
+				Cooldowns.poseidonSurgeCooldown.add(player);
+				OlympicHeroes.removeCooldown(plugin, Cooldowns.poseidonSurgeCooldown, player, Variables.POSEIDON_SURGE_COOLDOWN);
 				
 				List<Block> blocksToReplace = new ArrayList<Block>();
 					
@@ -278,6 +311,78 @@ public class PlayerListener implements Listener{
 				
 				OlympicHeroes.changedBlocksList.add(changedBlocks);
 				OlympicHeroes.regenerateTerrain(plugin, changedBlocks, 100L);
+			}else if(ohPlayer.getLevel("Hades") >= 5 && !Cooldowns.hadesSpawnCooldown.contains(player)) {
+				Cooldowns.hadesSpawnCooldown.add(player);
+				OlympicHeroes.removeCooldown(plugin, Cooldowns.hadesSpawnCooldown, player, Variables.HADES_SPAWN_COOLDOWN);
+				Location loc = player.getLocation();
+				int x = loc.getBlockX();
+				int y = loc.getBlockY();
+				int z = loc.getBlockZ();
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), 
+						String.format("mm mobs spawn HadesSkeles 1 %s,%d,%d,%d",
+						player.getWorld().getName(), x, y, z));
+			}else if(ohPlayer.getLevel("Hermes") >= 5 && !Cooldowns.hermesGlideCooldown.contains(player)) {
+				Cooldowns.hermesGlideCooldown.add(player);
+				OlympicHeroes.removeCooldown(plugin, Cooldowns.hermesGlideCooldown, player, Variables.HERMES_GLIDE_COOLDOWN);
+				
+				player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP,80,14));
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onMove(PlayerMoveEvent e) {
+		Player player = e.getPlayer();
+		OHPlayer ohPlayer = new OHPlayer(player);
+		
+		
+		// ON JUMP WITH HERMES JUMP BOOST
+		if(player.getVelocity().getY() > 0 && player.getLocation().add(0, -1, 0).getBlock().getType() == Material.AIR) {
+			if(ohPlayer.getLevel("Hermes") >= 5) {
+				boolean giveElytra = false;
+				
+				for(PotionEffect eff : player.getActivePotionEffects()) {
+					if(eff.getType().equals(PotionEffectType.JUMP)) {
+						if(eff.getAmplifier() == 14) {
+							giveElytra = true;
+						}
+					}
+				}
+				
+				if(giveElytra) {
+					if(!OHItems.isItemSimilarTo(player.getInventory().getChestplate(), OHItems.HERMES_ELYTRA, false)) {
+						GodData.hermesChestplateMap.put(player,player.getInventory().getChestplate());
+						player.getInventory().setChestplate(OHItems.HERMES_ELYTRA);
+					}
+				}
+			}
+		}
+		
+		// ON HERMES LAND FROM GLIDE
+		
+		if(player.getLocation().add(0,-1,0).getBlock().getType() != Material.AIR) {
+			if(ohPlayer.getLevel("Hermes") >= 5) {
+				if(OHItems.isItemSimilarTo(player.getInventory().getChestplate(), OHItems.HERMES_ELYTRA, false)) {
+					player.getInventory().setChestplate(GodData.hermesChestplateMap.get(player));
+					GodData.hermesChestplateMap.remove(player);
+				}
+			}
+		}
+		
+		// CHECK IF POSEIDON IS IN WATER
+		
+		if(ohPlayer.getXP("Poseidon")> 0) {
+			if(player.getLocation().getBlock().getType() == Material.WATER || player.getLocation().getBlock().getType() == Material.STATIONARY_WATER) {
+				if(!OHItems.isItemSimilarTo(player.getInventory().getBoots(), OHItems.POSEIDON_BOOTS, false)) {
+					GodData.poseidonBootsMap.put(player, player.getInventory().getBoots());
+					player.getInventory().setBoots(OHItems.POSEIDON_BOOTS);
+					player.getInventory().getBoots().addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, Math.min(ohPlayer.getLevel("Poseidon")+1, 3));
+				}
+			}else {
+				if(OHItems.isItemSimilarTo(player.getInventory().getBoots(), OHItems.POSEIDON_BOOTS, false)) {
+					player.getInventory().setBoots(GodData.poseidonBootsMap.get(player));
+					GodData.poseidonBootsMap.remove(player);
+				}
 			}
 		}
 	}

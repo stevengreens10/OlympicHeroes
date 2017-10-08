@@ -36,9 +36,13 @@ public class OHItems {
 	public static ItemStack AEGIS_CAPE;
 	public static ItemStack SILVER_DRACHMA;
 	public static ItemStack GOLDEN_DRACHMA;
+	public static ItemStack HERMES_ELYTRA;
+	public static ItemStack POSEIDON_BOOTS;
 	//public static MaterialData LAMINATED_STICK_MAT;
 	//public static ItemStack LAMINATED_LONGBOW;
 	//public static ItemStack LAMINATED_RECURVE;
+	
+	public static ItemStack[] DISALLOWED_ITEMS;
 	
 	private static List<ItemStack> items = new ArrayList<ItemStack>();
 	
@@ -117,6 +121,10 @@ public class OHItems {
 		SILVER_DRACHMA = createItem(Material.IRON_NUGGET, ChatColor.GRAY + "Silver Drachma", new String[] {"The common currency of the greek world."});
 		GOLDEN_DRACHMA = createItem(Material.GOLD_NUGGET, ChatColor.GOLD + "Golden Drachma", new String[] {"The advanced currency of the greek world"});
 		
+		HERMES_ELYTRA = createItem(Material.ELYTRA, ChatColor.DARK_PURPLE + "Hermes Elytra", new String[] {});
+		POSEIDON_BOOTS = createItem(Material.LEATHER_BOOTS, ChatColor.AQUA + "Poseidon Boots", new String[] {});
+		
+		DISALLOWED_ITEMS = new ItemStack[]{AEGIS_SHIELD,HERMES_ELYTRA,POSEIDON_BOOTS};
 	}
 	
 	public static List<ItemStack> getItems(){
