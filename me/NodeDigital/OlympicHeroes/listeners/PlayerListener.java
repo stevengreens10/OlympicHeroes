@@ -36,7 +36,6 @@ import org.bukkit.potion.PotionEffectType;
 import me.NodeDigital.OlympicHeroes.Cooldowns;
 import me.NodeDigital.OlympicHeroes.OlympicHeroes;
 import me.NodeDigital.OlympicHeroes.Variables;
-import me.NodeDigital.OlympicHeroes.block.ChangedBlock;
 import me.NodeDigital.OlympicHeroes.gods.GodData;
 import me.NodeDigital.OlympicHeroes.item.OHItems;
 import me.NodeDigital.OlympicHeroes.player.OHPlayer;
@@ -122,26 +121,83 @@ public class PlayerListener implements Listener{
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		
-		//HANDLE ZEUS ABILITY
+		Player player = e.getPlayer();
 		
-		if(e.getAction() == Action.RIGHT_CLICK_AIR && e.getHand() == EquipmentSlot.HAND) {
+		if((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
 			ItemStack item = e.getItem();
 			
 			if((item != null) && (item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
 			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
 			   item.getType() == Material.WOOD_SWORD) ) {
-				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
-				if(ohPlayer.getLevel("Zeus") >= 5) {
+				OHPlayer ohPlayer = new OHPlayer(player);
+				
+				if(e.getAction() == Action.RIGHT_CLICK_AIR && ohPlayer.getLevel("Zeus") >= 5) {
 					
-					if(!Cooldowns.zeusLightningCooldown.contains(e.getPlayer())) {
-						Block block = e.getPlayer().getTargetBlock(null, 100);
+					//HANDLE ZEUS ABILITY
+					if(!Cooldowns.zeusLightningCooldown.contains(player)) {
+						Block block = player.getTargetBlock(null, 100);
 						Location l = block.getLocation();
 						e.getPlayer().getWorld().strikeLightning(l);
-						Cooldowns.zeusLightningCooldown.add(e.getPlayer());
-						OlympicHeroes.removeCooldown(plugin, Cooldowns.zeusLightningCooldown, e.getPlayer(), Variables.ZEUS_LIGHTNING_COOLDOWN);
+						Cooldowns.zeusLightningCooldown.add(player);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.zeusLightningCooldown, player, Variables.ZEUS_LIGHTNING_COOLDOWN);
+					}else {
+						e.getPlayer().sendMessage("That ability is on cooldown.");
+					}
+				}
+				
+				if(ohPlayer.getLevel("Hades") >= 5) {
+					
+					//HANDLE HADES ABILITY
+					
+					if(!Cooldowns.hadesSpawnCooldown.contains(player)) {
+						Cooldowns.hadesSpawnCooldown.add(player);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.hadesSpawnCooldown, player, Variables.HADES_SPAWN_COOLDOWN);
+						Location loc = player.getLocation();
+						int x = loc.getBlockX();
+						int y = loc.getBlockY();
+						int z = loc.getBlockZ();
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), 
+								String.format("mm mobs spawn HadesSkeles 1 %s,%d,%d,%d",
+								player.getWorld().getName(), x, y, z));
+					}else {
+						e.getPlayer().sendMessage("That ability is on cooldown.");
+					}
+				}
+				
+				if(ohPlayer.getLevel("Poseidon") >= 5 ) {
+					
+					//HANDLE POSEIDON ABILITY
+					
+					if(!Cooldowns.poseidonSurgeCooldown.contains(player)) {
+						int radius = 5;
+						int playerX = player.getLocation().getBlockX();
+						int playerY = player.getLocation().getBlockY();
+						int playerZ = player.getLocation().getBlockZ();
+						
+						Cooldowns.poseidonSurgeCooldown.add(player);
+						OlympicHeroes.removeCooldown(plugin, Cooldowns.poseidonSurgeCooldown, player, Variables.POSEIDON_SURGE_COOLDOWN);
+						
+						List<Block> blocksToReplace = new ArrayList<Block>();
+							
+						for(int x = playerX - radius; x <= playerX + radius; x++) {
+							for(int z = playerZ - radius; z <= playerZ + radius; z++) {
+								Block block = player.getLocation().getWorld().getBlockAt(x, playerY, z);
+								if(block.getType() == Material.AIR || block.getType() == Material.DOUBLE_PLANT ||
+								   block.getType() == Material.LONG_GRASS || block.getType() == Material.YELLOW_FLOWER ||
+								   block.getType() == Material.RED_ROSE) {
+									blocksToReplace.add(block);
+								}
+							}
+						}
+						
+						for(Block b : blocksToReplace) {
+							b.setType(Material.WATER);
+							b.setData((byte) 8);
+						}
 					}else {
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
@@ -260,68 +316,13 @@ public class PlayerListener implements Listener{
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onShift(PlayerToggleSneakEvent e) {
 		if(e.isSneaking()) {
 			Player player = e.getPlayer();
 			OHPlayer ohPlayer = new OHPlayer(player);
 			
-			if(ohPlayer.getLevel("Poseidon") >= 5 && !Cooldowns.poseidonSurgeCooldown.contains(player)) {
-				int radius = 5;
-				int playerX = player.getLocation().getBlockX();
-				int playerY = player.getLocation().getBlockY();
-				int playerZ = player.getLocation().getBlockZ();
-				
-				Cooldowns.poseidonSurgeCooldown.add(player);
-				OlympicHeroes.removeCooldown(plugin, Cooldowns.poseidonSurgeCooldown, player, Variables.POSEIDON_SURGE_COOLDOWN);
-				
-				List<Block> blocksToReplace = new ArrayList<Block>();
-					
-				for(int x = playerX - radius; x <= playerX + radius; x++) {
-					for(int z = playerZ - radius; z <= playerZ + radius; z++) {
-						Block block = player.getLocation().getWorld().getBlockAt(x, playerY, z);
-						blocksToReplace.add(block);
-					}
-				}
-				
-				List<ChangedBlock> changedBlocks = new ArrayList<ChangedBlock>();
-				
-				for(Block b : blocksToReplace) {
-					
-					boolean canReplace = true;
-					
-					for(List<ChangedBlock> cbs : OlympicHeroes.changedBlocksList) {
-						for(ChangedBlock cb : cbs) {
-							Location l = cb.location;
-							if(l.equals(b.getLocation())) {
-								canReplace = false;
-							}
-						}
-					}
-					
-					if(canReplace) {
-						Material oldType = b.getType();
-						byte oldData = b.getData();
-						b.setType(Material.WATER);
-						b.setData((byte) 8);
-						changedBlocks.add(new ChangedBlock(b.getLocation(),oldType,b.getType(), oldData));
-					}
-				}
-				
-				OlympicHeroes.changedBlocksList.add(changedBlocks);
-				OlympicHeroes.regenerateTerrain(plugin, changedBlocks, 100L);
-			}else if(ohPlayer.getLevel("Hades") >= 5 && !Cooldowns.hadesSpawnCooldown.contains(player)) {
-				Cooldowns.hadesSpawnCooldown.add(player);
-				OlympicHeroes.removeCooldown(plugin, Cooldowns.hadesSpawnCooldown, player, Variables.HADES_SPAWN_COOLDOWN);
-				Location loc = player.getLocation();
-				int x = loc.getBlockX();
-				int y = loc.getBlockY();
-				int z = loc.getBlockZ();
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), 
-						String.format("mm mobs spawn HadesSkeles 1 %s,%d,%d,%d",
-						player.getWorld().getName(), x, y, z));
-			}else if(ohPlayer.getLevel("Hermes") >= 5 && !Cooldowns.hermesGlideCooldown.contains(player)) {
+			if(ohPlayer.getLevel("Hermes") >= 5 && !Cooldowns.hermesGlideCooldown.contains(player)) {
 				Cooldowns.hermesGlideCooldown.add(player);
 				OlympicHeroes.removeCooldown(plugin, Cooldowns.hermesGlideCooldown, player, Variables.HERMES_GLIDE_COOLDOWN);
 				
