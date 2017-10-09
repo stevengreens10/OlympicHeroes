@@ -178,7 +178,7 @@ public class PlayerListener implements Listener{
 					//HANDLE POSEIDON ABILITY
 					
 					if(!Cooldowns.poseidonSurgeCooldown.contains(player)) {
-						int radius = 5;
+						int radius = 4;
 						int playerX = player.getLocation().getBlockX();
 						int playerY = player.getLocation().getBlockY();
 						int playerZ = player.getLocation().getBlockZ();
@@ -340,11 +340,11 @@ public class PlayerListener implements Listener{
 							
 							gotXP = true;
 							
-							ohKiller.setXP(ohKiller.getXP(god)+50, god, false);
-							ohPlayer.setXP(ohPlayer.getXP(oppGod)-20,oppGod,false);
+							ohKiller.setXP(ohKiller.getXP(god)+100, god, false);
+							ohPlayer.setXP(ohPlayer.getXP(oppGod)-70,oppGod,false);
 							
-							killer.sendMessage("You gained 50 XP for " + god);
-							player.sendMessage("You lost 20 XP for " + oppGod);
+							killer.sendMessage("You gained 100 XP for " + god);
+							player.sendMessage("You lost 70 XP for " + oppGod);
 						}
 					}
 				}
