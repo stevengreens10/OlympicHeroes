@@ -115,7 +115,7 @@ public class PlayerListener implements Listener{
 			
 			if(ohPlayer.getLevel("Apollo") >= 3) {
 				long time = player.getWorld().getTime();
-				if(time <= 13500 || time >= 23000) {
+				if(e.getHitEntity() != null && ( time <= 13500 || time >= 23000 )) {
 					e.getHitEntity().setFireTicks(300);
 				}
 			}
@@ -327,9 +327,10 @@ public class PlayerListener implements Listener{
 			OHPlayer ohPlayer = new OHPlayer(player);
 			OHPlayer ohKiller = new OHPlayer(killer);
 			
+			boolean gotXP = false;
+			
 			for(String god : Variables.GODS) {
-				if(!Cooldowns.killCooldownMap.get(killer).contains(player)) {
-					boolean gotXP = false;
+				if(!Cooldowns.killCooldownMap.containsKey(killer) || !Cooldowns.killCooldownMap.get(killer).contains(player)) {
 					for(String oppGod : Variables.OPPOSING_GODS.get(god)) {
 						if(ohKiller.getLevel(god) >= 3 && ohPlayer.getLevel(oppGod) >= 3) {
 							
@@ -341,13 +342,18 @@ public class PlayerListener implements Listener{
 							killer.sendMessage("You gained 50 XP for " + god);
 							player.sendMessage("You lost 20 XP for " + oppGod);
 						}
-						
-						if(gotXP) {
-							Cooldowns.killCooldownMap.get(killer).add(player);
-							Cooldowns.removePlayerFromKillCooldown(plugin, killer, player, Variables.KILL_COOLDOWN);
-						}
 					}
 				}
+			}
+			
+			if(gotXP) {
+				if(!Cooldowns.killCooldownMap.containsKey(killer)) {
+					List<Player> playerList = new ArrayList<Player>();
+					Cooldowns.killCooldownMap.put(killer, playerList);
+				}else {
+					Cooldowns.killCooldownMap.get(killer).add(player);
+				}
+				Cooldowns.removePlayerFromKillCooldown(plugin, killer, player, Variables.KILL_COOLDOWN);
 			}
 		}
 	}
