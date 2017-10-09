@@ -73,6 +73,10 @@ public class PlayerListener implements Listener{
 					}
 				}
 			}
+			
+			if(e.getCause() == DamageCause.LIGHTNING) {
+				e.setDamage(e.getFinalDamage()+1);
+			}
 		}
 	}
 	
