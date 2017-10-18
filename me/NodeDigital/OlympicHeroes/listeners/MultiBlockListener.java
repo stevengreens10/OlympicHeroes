@@ -192,9 +192,9 @@ public class MultiBlockListener implements Listener{
 	}
 	
 	@SuppressWarnings("deprecation")
-	public boolean isShrine(Block block, Material exterior, byte exteriorData, Material stair, String god) {
-		World w = block.getWorld();
-		Location l = block.getLocation();
+	public boolean isShrine(Block triggerBlock, Material exterior, byte exteriorData, Material stair, String god) {
+		World w = triggerBlock.getWorld();
+		Location l = triggerBlock.getLocation();
 		if(w.getBlockAt(l.clone().add(0, 1, 0)).getType() == exterior && w.getBlockAt(l.clone().add(0, -1, 0)).getType() == exterior) {
 			boolean isShrine = false;
 			
@@ -226,7 +226,7 @@ public class MultiBlockListener implements Listener{
 							
 							if(isShrine) {
 								List<Block> blocks = new ArrayList<Block>();
-								blocks.add(block);
+								blocks.add(triggerBlock);
 								blocks.add(w.getBlockAt(l.clone().add(0, 1, 0)));
 								blocks.add(w.getBlockAt(l.clone().add(0, -1, 0)));
 								blocks.add(w.getBlockAt(l.clone().add(1, 0, 0)));
@@ -244,7 +244,7 @@ public class MultiBlockListener implements Listener{
 								}
 								
 								if(!partOfMultiBlock) {
-									MultiBlocks.addMultiBlock(block, blocks, god, facing);
+									MultiBlocks.addMultiBlock(triggerBlock, blocks, god, facing);
 								}else {
 									isShrine = false;
 								}
@@ -282,7 +282,7 @@ public class MultiBlockListener implements Listener{
 							
 							if(isShrine) {
 								List<Block> blocks = new ArrayList<Block>();
-								blocks.add(block);
+								blocks.add(triggerBlock);
 								blocks.add(w.getBlockAt(l.clone().add(0, 1, 0)));
 								blocks.add(w.getBlockAt(l.clone().add(0, -1, 0)));
 								blocks.add(w.getBlockAt(l.clone().add(0, 0, 1)));
@@ -300,7 +300,7 @@ public class MultiBlockListener implements Listener{
 								}
 								
 								if(!partOfMultiBlock) {
-									MultiBlocks.addMultiBlock(block, blocks, god, facing);
+									MultiBlocks.addMultiBlock(triggerBlock, blocks, god, facing);
 								}else {
 									isShrine = false;
 								}
