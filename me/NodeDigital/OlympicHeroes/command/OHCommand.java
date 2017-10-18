@@ -80,8 +80,8 @@ public class OHCommand implements CommandExecutor{
 					if(player.hasPermission("oh.admin")) {
 						String playerName = args[1];
 						Player p = Bukkit.getServer().getPlayer(playerName);
-						OHPlayer ohP = new OHPlayer(p);
 						if(p != null) {
+							OHPlayer ohP = new OHPlayer(p);
 							player.sendMessage("---------" + p.getName() + "---------");
 							for(String god : Variables.GODS) {
 								player.sendMessage(god + " : " + ohP.getXP(god) + " XP : " + "Lvl " + ohP.getLevel(god));
