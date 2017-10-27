@@ -18,6 +18,7 @@ public class Cooldowns {
 	public static List<Player> poseidonSurgeCooldown = new ArrayList<Player>();
 	public static List<Player> hadesSpawnCooldown = new ArrayList<Player>();
 	public static List<Player> hermesGlideCooldown = new ArrayList<Player>();
+	public static List<Player> demeterBonemealCooldown = new ArrayList<Player>();
 	public static Map<Player, List<Player>> killCooldownMap = new HashMap<Player, List<Player>>();
 	
 	public static void removeCooldown(OlympicHeroes plugin, List<Player> cooldown, Player p, long ticks) {

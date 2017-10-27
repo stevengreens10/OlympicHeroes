@@ -15,6 +15,7 @@ public class Variables {
 	public static final long APHRODITE_RES_COOLDOWN = 6000L;
 	public static final long HERA_BESTOW_COOLDOWN = 200L;
 	public static final long DIONYSUS_POISON_COOLDOWN = 200L;
+	public static final long DEMETER_BONEMEAL_COOLDOWN = 200L;
 	public static final long POSEIDON_SURGE_COOLDOWN = 200L;
 	public static final long HADES_SPAWN_COOLDOWN = 200L;
 	public static final long HERMES_GLIDE_COOLDOWN = 200L;

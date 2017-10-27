@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.TreeType;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
@@ -132,13 +132,13 @@ public class PlayerListener implements Listener{
 	public void onInteract(PlayerInteractEvent e) {
 		
 		Player player = e.getPlayer();
+		OHPlayer ohPlayer = new OHPlayer(player);
 		
 		if((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
 			ItemStack item = e.getItem();
 			if((item != null) && (item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
 			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
 			   item.getType() == Material.WOOD_SWORD) ) {
-				OHPlayer ohPlayer = new OHPlayer(player);
 				
 				if(e.getAction() == Action.RIGHT_CLICK_AIR && ohPlayer.getLevel("Zeus") >= 5) {
 					
@@ -207,6 +207,47 @@ public class PlayerListener implements Listener{
 						e.getPlayer().sendMessage("That ability is on cooldown.");
 					}
 				}
+			}else if(item != null && item.getType() == Material.BONE) {
+				if(ohPlayer.getLevel("Demeter") >= 3) {
+					if(!Cooldowns.demeterBonemealCooldown.contains(player)) {
+						
+						int radius = Math.min(ohPlayer.getLevel("Demeter"), 4);
+						
+						Location l = player.getLocation();
+						int xp = l.getBlockX();
+						int yp = l.getBlockY();
+						int zp = l.getBlockZ();
+						
+						for(int x = xp - radius; x <= xp + radius; x++) {
+							for(int y = yp - 1; y <= yp + 1; y++) {
+								for(int z = zp - radius; z <= zp + radius; z++) {
+									Block b = new Location(player.getWorld(),x,y,z).getBlock();
+									if(b.getType() == Material.CROPS || b.getType() == Material.MELON_STEM 
+										|| b.getType() == Material.BEETROOT_BLOCK || b.getType() == Material.POTATO 
+										|| b.getType() == Material.CARROT || b.getType() == Material.PUMPKIN_STEM) {
+										byte newData = (b.getType() == Material.BEETROOT_BLOCK) ? (byte) 3 : (byte) 7;
+										b.setData(newData);
+										b.getWorld().playEffect(b.getLocation(), Effect.VILLAGER_PLANT_GROW, 10);
+									}else if(b.getType() == Material.SUGAR_CANE_BLOCK) {
+										if(b.getLocation().clone().subtract(0, 1, 0).getBlock().getType() != Material.SUGAR_CANE_BLOCK) {
+											b.getWorld().playEffect(b.getLocation(), Effect.VILLAGER_PLANT_GROW, 10);
+											for(int yb = 0; yb <= 2; yb++) {
+												Block above = new Location(b.getWorld(),x,y+yb,z).getBlock();
+												if(above == null || above.getType() == Material.AIR) {
+													above.setType(Material.SUGAR_CANE_BLOCK);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						Cooldowns.demeterBonemealCooldown.add(player);
+						Cooldowns.removeCooldown(plugin, Cooldowns.demeterBonemealCooldown, player, Variables.DEMETER_BONEMEAL_COOLDOWN);
+					}else {
+						player.sendMessage("That ability is on cooldown.");
+					}
+				}
 			}
 		}
 		
@@ -218,7 +259,6 @@ public class PlayerListener implements Listener{
 			if((item != null) && (item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE ||
 			   item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE ||
 			   item.getType() == Material.WOOD_AXE) ) {
-				OHPlayer ohPlayer = new OHPlayer(e.getPlayer());
 				if(ohPlayer.getLevel("Ares") >= 5) {
 					
 					if(!Cooldowns.aresRageCooldown.contains(e.getPlayer())) {
