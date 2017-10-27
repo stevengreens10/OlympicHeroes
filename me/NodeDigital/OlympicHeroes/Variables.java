@@ -20,6 +20,8 @@ public class Variables {
 	public static final long HERMES_GLIDE_COOLDOWN = 200L;
 	public static final long KILL_COOLDOWN = 216000L;
 	
+	public static final HashMap<String, String[]> GOD_INFO = new HashMap<String, String[]>();
+	
 	
 	public static final String[] GODS = {"Zeus", "Poseidon", "Hades", "Hera",
 										"Demeter", "Aphrodite", "Artemis", "Apollo",
@@ -41,5 +43,19 @@ public class Variables {
 		OPPOSING_GODS.put("Apollo", new String[]{"Artemis"});
 		OPPOSING_GODS.put("Hermes", new String[]{"Demeter"});
 		OPPOSING_GODS.put("Demeter", new String[] {"Hermes"});
+		
+		GOD_INFO.put("Zeus", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Poseidon", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Hades", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Hera", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Hephaestus", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Dionysus", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Aphrodite", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Athena", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Ares", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Artemis", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Apollo", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Hermes", new String[] {"Logan","Write These","Please"});
+		GOD_INFO.put("Demeter", new String[] {"Logan","Write These","Please"});
 	}
 }

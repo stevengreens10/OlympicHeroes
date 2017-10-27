@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.TreeType;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
@@ -134,7 +135,6 @@ public class PlayerListener implements Listener{
 		
 		if((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
 			ItemStack item = e.getItem();
-			
 			if((item != null) && (item.getType() == Material.DIAMOND_SWORD || item.getType() == Material.GOLD_SWORD ||
 			   item.getType() == Material.IRON_SWORD || item.getType() == Material.STONE_SWORD ||
 			   item.getType() == Material.WOOD_SWORD) ) {

@@ -125,40 +125,44 @@ public class MultiBlockListener implements Listener{
 							prayed = true;
 							xpInc = Variables.EMERALD_XP;
 						}
+					}
 						
-						if(prayed) {
-							if(!Cooldowns.prayCooldown.contains(e.getPlayer())) {
-								
-								OHPlayer player = new OHPlayer(e.getPlayer());
-								boolean canPray = true;
-								
-								for(String god : Variables.OPPOSING_GODS.get(mb.god)) {
-									if(player.getXP(god) > 0)
-										canPray = false;
-								}
-								
-								if(canPray) {
-									e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
-									e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
-									int levelBefore = player.getLevel(mb.god);
-									player.setXP(player.getXP(mb.god)+xpInc, mb.god, false);
-									e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
-									
-									if(levelBefore != player.getLevel(mb.god)) {
-										e.getPlayer().sendMessage("Your level for " + mb.god + " has just increased to " + player.getLevel(mb.god));
-									}
-									
-									e.getItem().setAmount(e.getItem().getAmount()-1);
-									
-									Cooldowns.prayCooldown.add(e.getPlayer());
-									Cooldowns.removeCooldown(plugin, Cooldowns.prayCooldown, e.getPlayer(), Variables.PRAYER_COOLDOWN);
-								
-								}else {
-									e.getPlayer().sendMessage("You can not pray to this god!");
-								}
-							}else {
-								e.getPlayer().sendMessage("You must wait to pray again!");
+					if(prayed) {
+						if(!Cooldowns.prayCooldown.contains(e.getPlayer())) {
+							
+							OHPlayer player = new OHPlayer(e.getPlayer());
+							boolean canPray = true;
+							
+							for(String god : Variables.OPPOSING_GODS.get(mb.god)) {
+								if(player.getXP(god) > 0)
+									canPray = false;
 							}
+							
+							if(canPray) {
+								e.getPlayer().sendMessage("You just prayed to " + mb.god + "!");
+								e.getPlayer().sendMessage("You gained " + xpInc + " xp for " + mb.god + ".");
+								int levelBefore = player.getLevel(mb.god);
+								player.setXP(player.getXP(mb.god)+xpInc, mb.god, false);
+								e.getPlayer().sendMessage("You now have " + player.getXP(mb.god) + " xp!");
+								
+								if(levelBefore != player.getLevel(mb.god)) {
+									e.getPlayer().sendMessage("Your level for " + mb.god + " has just increased to " + player.getLevel(mb.god));
+								}
+								
+								e.getItem().setAmount(e.getItem().getAmount()-1);
+								
+								Cooldowns.prayCooldown.add(e.getPlayer());
+								Cooldowns.removeCooldown(plugin, Cooldowns.prayCooldown, e.getPlayer(), Variables.PRAYER_COOLDOWN);
+							
+							}else {
+								e.getPlayer().sendMessage("You can not pray to this god!");
+							}
+						}else {
+							e.getPlayer().sendMessage("You must wait to pray again!");
+						}
+					}else {
+						for(String s : Variables.GOD_INFO.get(mb.god)) {
+							e.getPlayer().sendMessage(s);
 						}
 					}
 				}
