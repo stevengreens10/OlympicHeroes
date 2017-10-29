@@ -9,9 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.NodeDigital.OlympicHeroes.block.ChangedBlock;
 import me.NodeDigital.OlympicHeroes.command.OHCommand;
 import me.NodeDigital.OlympicHeroes.item.OHItems;
-import me.NodeDigital.OlympicHeroes.listeners.CraftListener;
-import me.NodeDigital.OlympicHeroes.listeners.MultiBlockListener;
-import me.NodeDigital.OlympicHeroes.listeners.PlayerListener;
+import me.NodeDigital.OlympicHeroes.listeners.Listeners;
 import me.NodeDigital.OlympicHeroes.multiblock.MultiBlocks;
 import me.NodeDigital.OlympicHeroes.tasks.EffectsTask;
 
@@ -26,9 +24,7 @@ public class OlympicHeroes extends JavaPlugin{
 		mbConfig = new Config("storage/mb.yml");
 		MultiBlocks.load();
 		
-		new CraftListener(this);
-		new MultiBlockListener(this);
-		new PlayerListener(this);
+		Listeners.initializeListeners(this);
 		
 		getCommand("oh").setExecutor(new OHCommand());
 		
