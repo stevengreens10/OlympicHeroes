@@ -98,38 +98,37 @@ public class OHCommand implements CommandExecutor{
 				} 
 			} else if(args.length == 1){
 				
-				if(args[0].equalsIgnoreCase("help")) {
-					for(String s : Variables.HELP_MESSAGE) {
-						player.sendMessage(s);
+				String arg = args[0];
+				
+				String god = "";
+				
+				for(String g : Variables.GODS) {
+					if(arg.equalsIgnoreCase(g)) {
+						god = g;
+						break;
 					}
+				}
+				
+				if(god.length() >= 1) {
 					successfulCommand = true;
-				} else {
-					String arg = args[0];
-					
-					String god = "";
-					
-					for(String g : Variables.GODS) {
-						if(arg.equalsIgnoreCase(g)) {
-							god = g;
-							break;
-						}
-					}
-					
-					if(god.length() >= 1) {
-						successfulCommand = true;
-						god = god.toLowerCase();
-						god = god.replaceFirst(".", "" + Character.toUpperCase(god.charAt(0)));
-						player.sendMessage("-----" + god + "-----");
-						for(int i = 1; i < Variables.GOD_INFO.get(god).length; i++) {
-							player.sendMessage(Variables.GOD_INFO.get(god)[i]);
-						}
+					god = god.toLowerCase();
+					god = god.replaceFirst(".", "" + Character.toUpperCase(god.charAt(0)));
+					player.sendMessage("-----" + god + "-----");
+					for(int i = 1; i < Variables.GOD_INFO.get(god).length; i++) {
+						player.sendMessage(Variables.GOD_INFO.get(god)[i]);
 					}
 				}
 			}
 			
 			if(!successfulCommand) {
-				for(String s : Variables.HELP_MESSAGE) {
-					player.sendMessage(s);
+				if(player.hasPermission("oh.admin")) {
+					for(String s : Variables.ADMIN_HELP_MESSAGE) {
+						player.sendMessage(s);
+					} 
+				} else {
+					for(String s : Variables.HELP_MESSAGE) {
+						player.sendMessage(s);
+					} 
 				}
 			}
 			

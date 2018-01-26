@@ -24,7 +24,7 @@ public class ApolloListener implements Listener{
 	
 	public ApolloListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
 	@EventHandler
