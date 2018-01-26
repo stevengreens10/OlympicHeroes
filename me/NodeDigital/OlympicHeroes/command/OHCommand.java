@@ -92,22 +92,22 @@ public class OHCommand implements CommandExecutor{
 					}else {
 						player.sendMessage("You do not have permission!");
 					}
-				} else {
-					String arg = args[0];
-					
-					String god = "";
-					
-					for(String g : Variables.GODS) {
-						if(arg.equalsIgnoreCase(g)) {
-							god = g;
-							break;
-						}
+				} 
+			} else {
+				String arg = args[0];
+				
+				String god = "";
+				
+				for(String g : Variables.GODS) {
+					if(arg.equalsIgnoreCase(g)) {
+						god = g;
+						break;
 					}
-					
-					if(god.length() >= 1) {
-						for(String s : Variables.GOD_INFO.get(god)) {
-							player.sendMessage(s);
-						}
+				}
+				
+				if(god.length() >= 1) {
+					for(String s : Variables.GOD_INFO.get(god)) {
+						player.sendMessage(s);
 					}
 				}
 			}
