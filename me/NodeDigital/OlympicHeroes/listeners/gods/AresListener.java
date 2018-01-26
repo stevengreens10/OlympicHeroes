@@ -18,7 +18,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class AresListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public AresListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

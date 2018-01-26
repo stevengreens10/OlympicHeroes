@@ -18,7 +18,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class HadesListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public HadesListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

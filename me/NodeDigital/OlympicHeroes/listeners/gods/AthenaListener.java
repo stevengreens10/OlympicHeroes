@@ -6,7 +6,7 @@ import me.NodeDigital.OlympicHeroes.OlympicHeroes;
 
 public class AthenaListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public AthenaListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

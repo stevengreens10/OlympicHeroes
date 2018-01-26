@@ -18,7 +18,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class HeraListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public HeraListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

@@ -18,7 +18,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class DionysusListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public DionysusListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

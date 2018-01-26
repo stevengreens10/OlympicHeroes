@@ -24,8 +24,8 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class DemeterListener implements Listener{
 
-	OlympicHeroes plugin;
-	public List<Material> growableCrops = new ArrayList<Material>();
+	private OlympicHeroes plugin;
+	private List<Material> growableCrops = new ArrayList<Material>();
 	
 	public DemeterListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
@@ -110,8 +110,11 @@ public class DemeterListener implements Listener{
 				double chance = Math.min((double) ohPlayer.getXP("Demeter")/10000, 0.8);
 				
 				if(Math.random() < chance && b.getData() == ((b.getType() == Material.BEETROOT_BLOCK) ? (byte) 3 : (byte) 7)) {
-				
+					
 					e.setCancelled(true);
+					
+					// THIS IS BAD CODE, b.getDrops() doesn't give correct amounts of items, nor even seeds for breaking wheat
+					
 					List<ItemStack> items = new ArrayList<ItemStack>(b.getDrops(player.getInventory().getItemInMainHand()));
 					
 					items.add(items.get(0));

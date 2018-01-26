@@ -18,7 +18,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class HermesListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public HermesListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

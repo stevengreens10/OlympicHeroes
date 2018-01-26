@@ -24,7 +24,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class PoseidonListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public PoseidonListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

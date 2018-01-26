@@ -15,7 +15,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class AphroditeListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public AphroditeListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

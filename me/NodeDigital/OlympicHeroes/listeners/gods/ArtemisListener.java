@@ -16,7 +16,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class ArtemisListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public ArtemisListener(OlympicHeroes plugin) {
 		this.plugin = plugin;

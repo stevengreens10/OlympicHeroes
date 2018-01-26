@@ -15,7 +15,7 @@ import me.NodeDigital.OlympicHeroes.player.OHPlayer;
 
 public class HephaestusListener implements Listener{
 
-	OlympicHeroes plugin;
+	private OlympicHeroes plugin;
 	
 	public HephaestusListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
