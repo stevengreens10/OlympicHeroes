@@ -106,7 +106,9 @@ public class OHCommand implements CommandExecutor{
 				}
 				
 				if(god.length() >= 1) {
-					for(String s : Variables.GOD_INFO.get(god)) {
+					player.sendMessage("-----" + god + "-----");
+					for(int i = 1; i < Variables.GOD_INFO.size(); i++) {
+						
 						player.sendMessage(s);
 					}
 				}
