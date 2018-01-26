@@ -27,6 +27,8 @@ public class Variables {
 	public static final String[] GODS = {"Zeus", "Poseidon", "Hades", "Hera",
 										"Demeter", "Aphrodite", "Artemis", "Apollo",
 										"Dionysus", "Athena", "Ares", "Hephaestus", "Hermes"};
+	public static final String[] HELP_MESSAGE = { "-------Help-------", "- /oh : View your devotion to the gods",
+			"- /oh <god> : View the characteristics of any god", "- /oh help : Display this help menu"};
 	public static HashMap<String, String[]> OPPOSING_GODS = new HashMap<String, String[]>();
 	
 	public static void setup() {

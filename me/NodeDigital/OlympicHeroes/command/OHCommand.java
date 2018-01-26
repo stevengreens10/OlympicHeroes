@@ -17,16 +17,17 @@ public class OHCommand implements CommandExecutor{
 			Player player = (Player) sender;
 			OHPlayer ohPlayer = new OHPlayer(player);
 			
-			
-			
+			boolean successfulCommand = false;
 			
 			if(args.length == 0) {
 				player.sendMessage("---------------------");
 				for(String god : Variables.GODS) {
 					player.sendMessage(god + " : " + ohPlayer.getXP(god) + " XP : " + "Lvl " + ohPlayer.getLevel(god));
 				}
+				successfulCommand = true;
 			}else if(args.length >= 3) {
 				if(args[0].equalsIgnoreCase("set")) {
+					successfulCommand = true;
 					if(player.hasPermission("oh.admin")) {
 						String playerName = args[1];
 						Player p = Bukkit.getServer().getPlayer(playerName);
@@ -61,6 +62,7 @@ public class OHCommand implements CommandExecutor{
 				}
 			}else if(args.length >= 2) {
 				if(args[0].equalsIgnoreCase("reset")) {
+					successfulCommand = true;
 					if(player.hasPermission("oh.admin")) {
 						String playerName = args[1];
 						Player p = Bukkit.getServer().getPlayer(playerName);
@@ -77,6 +79,7 @@ public class OHCommand implements CommandExecutor{
 						player.sendMessage("You do not have permission!");
 					}
 				}else if(args[0].equalsIgnoreCase("view")) {
+					successfulCommand = true;
 					if(player.hasPermission("oh.admin")) {
 						String playerName = args[1];
 						Player p = Bukkit.getServer().getPlayer(playerName);
@@ -93,28 +96,43 @@ public class OHCommand implements CommandExecutor{
 						player.sendMessage("You do not have permission!");
 					}
 				} 
-			} else {
-				String arg = args[0];
+			} else if(args.length == 1){
 				
-				String god = "";
-				
-				for(String g : Variables.GODS) {
-					if(arg.equalsIgnoreCase(g)) {
-						god = g;
-						break;
+				if(args[0].equalsIgnoreCase("help")) {
+					for(String s : Variables.HELP_MESSAGE) {
+						player.sendMessage(s);
 					}
-				}
-				
-				if(god.length() >= 1) {
-					god = god.toLowerCase();
-					god = god.replaceFirst(".", "" + Character.toUpperCase(god.charAt(0)));
-//					god = god.substring(0, 1).toUpperCase() + god.substring(1);
-					player.sendMessage("-----" + god + "-----");
-					for(int i = 1; i < Variables.GOD_INFO.get(god).length; i++) {
-						player.sendMessage(Variables.GOD_INFO.get(god)[i]);
+					successfulCommand = true;
+				} else {
+					String arg = args[0];
+					
+					String god = "";
+					
+					for(String g : Variables.GODS) {
+						if(arg.equalsIgnoreCase(g)) {
+							god = g;
+							break;
+						}
+					}
+					
+					if(god.length() >= 1) {
+						successfulCommand = true;
+						god = god.toLowerCase();
+						god = god.replaceFirst(".", "" + Character.toUpperCase(god.charAt(0)));
+						player.sendMessage("-----" + god + "-----");
+						for(int i = 1; i < Variables.GOD_INFO.get(god).length; i++) {
+							player.sendMessage(Variables.GOD_INFO.get(god)[i]);
+						}
 					}
 				}
 			}
+			
+			if(!successfulCommand) {
+				for(String s : Variables.HELP_MESSAGE) {
+					player.sendMessage(s);
+				}
+			}
+			
 		}
 		return false;
 	}

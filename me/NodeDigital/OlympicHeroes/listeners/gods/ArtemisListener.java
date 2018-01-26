@@ -20,7 +20,7 @@ public class ArtemisListener implements Listener{
 	
 	public ArtemisListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
 	@EventHandler

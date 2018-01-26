@@ -10,7 +10,7 @@ public class AthenaListener implements Listener{
 	
 	public AthenaListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
 	// Placeholder for any future events
