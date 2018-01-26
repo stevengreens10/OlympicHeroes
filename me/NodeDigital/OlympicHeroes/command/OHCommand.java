@@ -106,10 +106,12 @@ public class OHCommand implements CommandExecutor{
 				}
 				
 				if(god.length() >= 1) {
+					god = god.toLowerCase();
+					god = god.replaceFirst(".", "" + Character.toUpperCase(god.charAt(0)));
+//					god = god.substring(0, 1).toUpperCase() + god.substring(1);
 					player.sendMessage("-----" + god + "-----");
-					for(int i = 1; i < Variables.GOD_INFO.size(); i++) {
-						
-						player.sendMessage(s);
+					for(int i = 1; i < Variables.GOD_INFO.get(god).length; i++) {
+						player.sendMessage(Variables.GOD_INFO.get(god)[i]);
 					}
 				}
 			}
