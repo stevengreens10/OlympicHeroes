@@ -40,23 +40,23 @@ public class Variables {
 			"- /oh set <player> <god> <xp> : Sets a player's xp level for a god",
 			"- /oh view <player> - View a list of the player's devotions", 
 			"- /oh reset <player> - Resets the player's devotions"};
-	public static HashMap<String, String[]> OPPOSING_GODS = new HashMap<String, String[]>();
+	public static HashMap<String, String[]> opposingGods = new HashMap<String, String[]>();
 	
 	public static void setup() {
 
-		OPPOSING_GODS.put("Zeus", new String[] {"Poseidon", "Hades"});
-		OPPOSING_GODS.put("Poseidon", new String[] {"Zeus", "Hades"});
-		OPPOSING_GODS.put("Hades", new String[] {"Poseidon", "Zeus"});
-		OPPOSING_GODS.put("Hera", new String[]{"Hephaestus","Dionysus"});
-		OPPOSING_GODS.put("Hephaestus", new String[]{"Hera", "Dionysus"});
-		OPPOSING_GODS.put("Dionysus", new String[]{"Hera","Hephaestus"});
-		OPPOSING_GODS.put("Aphrodite", new String[] {"Athena","Ares"});
-		OPPOSING_GODS.put("Athena", new String[]{"Ares", "Aphrodite"});
-		OPPOSING_GODS.put("Ares", new String[]{"Athena","Ares"});	
-		OPPOSING_GODS.put("Artemis", new String[]{"Apollo"});
-		OPPOSING_GODS.put("Apollo", new String[]{"Artemis"});
-		OPPOSING_GODS.put("Hermes", new String[]{"Demeter"});
-		OPPOSING_GODS.put("Demeter", new String[] {"Hermes"});
+		opposingGods.put("Zeus", new String[] {"Poseidon", "Hades"});
+		opposingGods.put("Poseidon", new String[] {"Zeus", "Hades"});
+		opposingGods.put("Hades", new String[] {"Poseidon", "Zeus"});
+		opposingGods.put("Hera", new String[]{"Hephaestus","Dionysus"});
+		opposingGods.put("Hephaestus", new String[]{"Hera", "Dionysus"});
+		opposingGods.put("Dionysus", new String[]{"Hera","Hephaestus"});
+		opposingGods.put("Aphrodite", new String[] {"Athena","Ares"});
+		opposingGods.put("Athena", new String[]{"Ares", "Aphrodite"});
+		opposingGods.put("Ares", new String[]{"Athena","Ares"});	
+		opposingGods.put("Artemis", new String[]{"Apollo"});
+		opposingGods.put("Apollo", new String[]{"Artemis"});
+		opposingGods.put("Hermes", new String[]{"Demeter"});
+		opposingGods.put("Demeter", new String[] {"Hermes"});
 		
 		GOD_INFO.put("Zeus", new String[] {"Welcome to the Shrine of Zeus! These are the Powers I Grant.","lvl 1 - Fall Reduction","lvl 2 - Fall Reduction, Improved","lvl 3 - Jump Boost","lvl 4 - Jump Boost, Improved","lvl 5 - Sword of Lightning!(Right click with a sword)","I Cannot Share devotion with Poseidon or Hades!"});
 		GOD_INFO.put("Poseidon", new String[] {"Welcome to the Shrine of Poseidon! These are the Powers I Grant.","lvl 1 - Depth Strider","lvl 2 - Depth Strider, Improved","lvl 3 - Water Strength","lvl 4 - Water Strength, Improved","lvl 5 - Water Surge!(Right click with a sword)","I Cannot Share devotion with Zeus or Hades!"});

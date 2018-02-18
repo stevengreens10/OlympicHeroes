@@ -16,41 +16,58 @@ import me.nodedigital.olympicheroes.OlympicHeroes;
 import me.nodedigital.olympicheroes.Variables;
 import me.nodedigital.olympicheroes.player.OHPlayer;
 
-public class AresListener implements Listener{
+/**
+ * Listener for events related to Ares powers
+ * @author Steven Green
+ *
+ */
+public class AresListener implements Listener {
 
-	private OlympicHeroes plugin;
-	
-	public AresListener(OlympicHeroes plugin) {
-		this.plugin = plugin;
-		
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-	}
-	
-	@EventHandler
-	public void onInteract(PlayerInteractEvent e) {
-		Player player = e.getPlayer();
-		OHPlayer ohPlayer = new OHPlayer(player);
-		
-		if( (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
-			
-			ItemStack item = e.getItem();
-			if((item != null) && (item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE ||
-			   item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE ||
-			   item.getType() == Material.WOOD_AXE) ) {
-				if(ohPlayer.getLevel("Ares") >= 5) {
-					
-					if(!Cooldowns.aresRageCooldown.contains(e.getPlayer())) {
-						Cooldowns.aresRageCooldown.add(e.getPlayer());
-						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 3), true);
-						e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 100, 1));
-						
-						Cooldowns.removeCooldown(plugin, Cooldowns.aresRageCooldown, e.getPlayer(), Variables.ARES_RAGE_COOLDOWN);
-					}else {
-						e.getPlayer().sendMessage("That ability is on cooldown.");
-					}
-				}
-			}
-		}
-	}
-	
+    private OlympicHeroes plugin;
+
+    /**
+     * Initializes the listener
+     * @param plugin Reference to the main plugin class
+     */
+    public AresListener(OlympicHeroes plugin) {
+        this.plugin = plugin;
+
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    /**
+     * Event for player interaction (right clicking)
+     * If the player right clicks with an axe and their devotion to Ares is high enough,
+     * they will gain increased damage and extra health for a short time.
+     * @param e The player interact event
+     */
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        OHPlayer ohPlayer = new OHPlayer(player);
+
+        if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
+                && e.getHand() == EquipmentSlot.HAND) {
+
+            ItemStack item = e.getItem();
+            if ((item != null) && (item.getType() == Material.DIAMOND_AXE || item.getType() == Material.GOLD_AXE
+                    || item.getType() == Material.IRON_AXE || item.getType() == Material.STONE_AXE
+                    || item.getType() == Material.WOOD_AXE)) {
+                if (ohPlayer.getLevel("Ares") >= 5) {
+
+                    if (!Cooldowns.aresRageCooldown.contains(e.getPlayer())) {
+                        Cooldowns.aresRageCooldown.add(e.getPlayer());
+                        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 3), true);
+                        e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 100, 1));
+
+                        Cooldowns.removeCooldown(plugin, Cooldowns.aresRageCooldown, e.getPlayer(),
+                                Variables.ARES_RAGE_COOLDOWN);
+                    } else {
+                        e.getPlayer().sendMessage("That ability is on cooldown.");
+                    }
+                }
+            }
+        }
+    }
+
 }

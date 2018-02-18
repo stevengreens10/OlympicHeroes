@@ -59,7 +59,7 @@ public class OHPlayer {
 				if(numMax == 1) {
 					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group add Devotee");
 					player.sendMessage("You are now a devotee!");
-				}else if(numMax == 3) {
+				} else if(numMax == 3) {
 					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + player.getName() + " group add Priest");
 					player.sendMessage("You are now a priest!");
 				}

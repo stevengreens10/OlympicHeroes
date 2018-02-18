@@ -23,39 +23,33 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
 
-
-@SuppressWarnings("unused")
 public class OHItems {
-	public static ItemStack LONG_BOW;
-	public static ItemStack RECURVE;
-	public static ItemStack FIRE_STICK;
-	public static ItemStack HERMES_BOOTS;
-	public static ItemStack LAMINATED_STICK;
-	public static ItemStack AEGIS_SHIELD;
-	public static ItemStack AEGIS_CAPE;
-	public static ItemStack SILVER_DRACHMA;
-	public static ItemStack GOLDEN_DRACHMA;
-	public static ItemStack HERMES_ELYTRA;
-	public static ItemStack POSEIDON_BOOTS;
-	//public static MaterialData LAMINATED_STICK_MAT;
-	//public static ItemStack LAMINATED_LONGBOW;
-	//public static ItemStack LAMINATED_RECURVE;
+	public static ItemStack longBow;
+	public static ItemStack recurve;
+	public static ItemStack fireStick;
+	public static ItemStack hermesBoots;
+	public static ItemStack laminatedStick;
+	public static ItemStack aegisShield;
+	public static ItemStack aegisCape;
+	public static ItemStack silverDrachma;
+	public static ItemStack goldenDrachma;
+	public static ItemStack hermesElytra;
+	public static ItemStack poseidonBoots;
 	
-	public static ItemStack[] DISALLOWED_ITEMS;
+	public static ItemStack[] disallowedItems;
 	
 	private static List<ItemStack> items = new ArrayList<ItemStack>();
 	
 	@SuppressWarnings("deprecation")
 	public static void constructItems() {
 		
-		AEGIS_SHIELD = createItem(Material.SHIELD, ChatColor.AQUA + "The Aegis", new String[] {"The Shield of Athena Herself"});
-		AEGIS_SHIELD.addEnchantment(Enchantment.DURABILITY, 2);
-		AEGIS_SHIELD.addUnsafeEnchantment(Enchantment.THORNS, 1);
-		ItemMeta meta = AEGIS_SHIELD.getItemMeta();
-        BlockStateMeta AEGIS_META = (BlockStateMeta) meta;
-        Banner banner = (Banner) AEGIS_META.getBlockState();
+		aegisShield = createItem(Material.SHIELD, ChatColor.AQUA + "The Aegis", new String[] {"The Shield of Athena Herself"});
+		aegisShield.addEnchantment(Enchantment.DURABILITY, 2);
+		aegisShield.addUnsafeEnchantment(Enchantment.THORNS, 1);
+		ItemMeta meta = aegisShield.getItemMeta();
+        BlockStateMeta aegisMeta = (BlockStateMeta) meta;
+        Banner banner = (Banner) aegisMeta.getBlockState();
         banner.setBaseColor(DyeColor.YELLOW);
         banner.addPattern(new Pattern(DyeColor.SILVER, PatternType.STRIPE_DOWNLEFT));
         banner.addPattern(new Pattern(DyeColor.SILVER, PatternType.STRIPE_DOWNRIGHT));
@@ -63,69 +57,69 @@ public class OHItems {
         banner.addPattern(new Pattern(DyeColor.GREEN, PatternType.CROSS));
         banner.addPattern(new Pattern(DyeColor.GREEN, PatternType.FLOWER));
         banner.addPattern(new Pattern(DyeColor.ORANGE, PatternType.BORDER));
-        AEGIS_META.setBlockState(banner);
-        AEGIS_SHIELD.setItemMeta(AEGIS_META);
+        aegisMeta.setBlockState(banner);
+        aegisShield.setItemMeta(aegisMeta);
 		
-		LONG_BOW = createItem(Material.BOW, ChatColor.YELLOW + "LongBow", new String[]{"a Heavier Bow"});
-		LONG_BOW.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
-		ShapedRecipe longbowRecipe = new ShapedRecipe(LONG_BOW);
+		longBow = createItem(Material.BOW, ChatColor.YELLOW + "LongBow", new String[]{"a Heavier Bow"});
+		longBow.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+		ShapedRecipe longbowRecipe = new ShapedRecipe(longBow);
 		longbowRecipe.shape("SSa", "saS", "asS");
 		longbowRecipe.setIngredient('S', Material.STICK);
 		longbowRecipe.setIngredient('s', Material.STRING);
 		longbowRecipe.setIngredient('a', Material.AIR);
 		Bukkit.getServer().addRecipe(longbowRecipe);
-		items.add(LONG_BOW);
+		items.add(longBow);
 		
-		FIRE_STICK = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
-		FIRE_STICK.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
+		fireStick = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
+		fireStick.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
 		// Put attributes after changing name and adding enchants
-		FIRE_STICK = addAttribute(FIRE_STICK, "generic.attackDamage", 2, "mainhand");
+		fireStick = addAttribute(fireStick, "generic.attackDamage", 2, "mainhand");
 		// Have to put recipe after modifying attributes
-		ShapelessRecipe shapelessRecipe = new ShapelessRecipe(FIRE_STICK);
+		ShapelessRecipe shapelessRecipe = new ShapelessRecipe(fireStick);
 		shapelessRecipe.addIngredient(Material.BLAZE_POWDER);
 		shapelessRecipe.addIngredient(Material.GOLD_NUGGET);
 		shapelessRecipe.addIngredient(Material.STICK);
 		Bukkit.getServer().addRecipe(shapelessRecipe);
-		items.add(FIRE_STICK);
+		items.add(fireStick);
 		
-		HERMES_BOOTS = createItem(Material.LEATHER_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"Boots with a slight amount of Hermes's speed"});
-		HERMES_BOOTS = addAttribute(HERMES_BOOTS, "generic.movementSpeed", 0.1, "feet");
-		ShapedRecipe hermesRecipe = new ShapedRecipe(HERMES_BOOTS);
+		hermesBoots = createItem(Material.LEATHER_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"Boots with a slight amount of Hermes's speed"});
+		hermesBoots = addAttribute(hermesBoots, "generic.movementSpeed", 0.1, "feet");
+		ShapedRecipe hermesRecipe = new ShapedRecipe(hermesBoots);
 		hermesRecipe.shape("lgl","lal","faf");
 		hermesRecipe.setIngredient('g', Material.GLOWSTONE_DUST);
 		hermesRecipe.setIngredient('l', Material.LEATHER);
 		hermesRecipe.setIngredient('f', Material.FEATHER);
 		hermesRecipe.setIngredient('a', Material.AIR);
 		Bukkit.getServer().addRecipe(hermesRecipe);
-		items.add(HERMES_BOOTS);
+		items.add(hermesBoots);
 		
-		LAMINATED_STICK = createItem(Material.STICK, "Laminated Stick", new String[]{"This is a laminated stick used for bowmaking"});
-		ShapedRecipe laminateRecipe = new ShapedRecipe(LAMINATED_STICK);
+		laminatedStick = createItem(Material.STICK, "Laminated Stick", new String[]{"This is a laminated stick used for bowmaking"});
+		ShapedRecipe laminateRecipe = new ShapedRecipe(laminatedStick);
 		laminateRecipe.shape("psp","psp","aaa");
 		laminateRecipe.setIngredient('p', Material.LOG);
 		laminateRecipe.setIngredient('s', Material.STICK);
 		laminateRecipe.setIngredient('a', Material.AIR);
 		Bukkit.getServer().addRecipe(laminateRecipe);
-		items.add(LAMINATED_STICK);
+		items.add(laminatedStick);
 		
-		RECURVE = createItem(Material.BOW, ChatColor.YELLOW +  "Recurve", new String[]{"a Lightweight bow that gives mobility"});
-		RECURVE = addAttribute(RECURVE, "generic.movementSpeed", .05, "mainhand");
-		ShapedRecipe recurveRecipe = new ShapedRecipe(RECURVE);
+		recurve = createItem(Material.BOW, ChatColor.YELLOW +  "Recurve", new String[]{"a Lightweight bow that gives mobility"});
+		recurve = addAttribute(recurve, "generic.movementSpeed", .05, "mainhand");
+		ShapedRecipe recurveRecipe = new ShapedRecipe(recurve);
 		recurveRecipe.shape("sSa", "sal", "sSa");
 		recurveRecipe.setIngredient('S', Material.STICK);
 		recurveRecipe.setIngredient('s', Material.STRING);
 		recurveRecipe.setIngredient('a', Material.AIR);
 		recurveRecipe.setIngredient('l', Material.LEATHER);
 		Bukkit.getServer().addRecipe(recurveRecipe);
-		items.add(RECURVE);
+		items.add(recurve);
 		
-		SILVER_DRACHMA = createItem(Material.IRON_NUGGET, ChatColor.GRAY + "Silver Drachma", new String[] {"The common currency of the greek world."});
-		GOLDEN_DRACHMA = createItem(Material.GOLD_NUGGET, ChatColor.GOLD + "Golden Drachma", new String[] {"The advanced currency of the greek world"});
+		silverDrachma = createItem(Material.IRON_NUGGET, ChatColor.GRAY + "Silver Drachma", new String[] {"The common currency of the greek world."});
+		goldenDrachma = createItem(Material.GOLD_NUGGET, ChatColor.GOLD + "Golden Drachma", new String[] {"The advanced currency of the greek world"});
 		
-		HERMES_ELYTRA = createItem(Material.ELYTRA, ChatColor.DARK_PURPLE + "Hermes Elytra", new String[] {});
-		POSEIDON_BOOTS = createItem(Material.LEATHER_BOOTS, ChatColor.AQUA + "Poseidon Boots", new String[] {});
+		hermesElytra = createItem(Material.ELYTRA, ChatColor.DARK_PURPLE + "Hermes Elytra", new String[] {});
+		poseidonBoots = createItem(Material.LEATHER_BOOTS, ChatColor.AQUA + "Poseidon Boots", new String[] {});
 		
-		DISALLOWED_ITEMS = new ItemStack[]{AEGIS_SHIELD,HERMES_ELYTRA,POSEIDON_BOOTS};
+		disallowedItems = new ItemStack[]{aegisShield,hermesElytra,poseidonBoots};
 	}
 	
 	public static List<ItemStack> getItems(){
@@ -162,15 +156,15 @@ public class OHItems {
 							if(!checkLore || item1.getItemMeta().getLore().equals(item2.getItemMeta().getLore())) {
 								return true;
 							}
-						}else {
+						} else {
 							return (item1.getItemMeta().hasLore() == false && item2.getItemMeta().hasLore() == false);
 						}
 					}
-				}else {
+				} else {
 					return (item1.hasItemMeta() == false && item2.hasItemMeta() == false);
 				}
 			}
-		}else {
+		} else {
 			return (item1 == null && item2 == null);
 		}
 		return false;

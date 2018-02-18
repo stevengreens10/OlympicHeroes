@@ -13,15 +13,30 @@ import me.nodedigital.olympicheroes.OlympicHeroes;
 import me.nodedigital.olympicheroes.Variables;
 import me.nodedigital.olympicheroes.player.OHPlayer;
 
-public class AphroditeListener implements Listener{
+/**
+ * Listener for events related to Aphrodite's powers
+ * @author Steven Green
+ *
+ */
+public class AphroditeListener implements Listener {
 
 	private OlympicHeroes plugin;
 	
+	/**
+	 * Initializes the listener
+	 * @param plugin Reference to the main plugin class
+	 */
 	public AphroditeListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	/**
+	 * Event fired when an entity is damaged.
+	 * If a player is damaged and has enough devotion to Aphrodite,
+	 * they can get damage resistance if they haven't gotten it already recently
+	 * @param e The entity damage event
+	 */
 	@EventHandler
 	public void onDamage(EntityDamageEvent e) {
 		if(e.getEntity() instanceof Player) {
@@ -40,7 +55,7 @@ public class AphroditeListener implements Listener{
 			}
 			
 			if(e.getCause() == DamageCause.LIGHTNING) {
-				e.setDamage(e.getFinalDamage()+1);
+				e.setDamage(e.getFinalDamage() + 1);
 			}
 		}
 	}

@@ -14,28 +14,43 @@ import org.bukkit.inventory.ItemStack;
 import me.nodedigital.olympicheroes.OlympicHeroes;
 import me.nodedigital.olympicheroes.player.OHPlayer;
 
-public class ArtemisListener implements Listener{
+/**
+ * Listener for events related to Artemis's powers
+ * @author Steven Green
+ *
+ */
+public class ArtemisListener implements Listener {
 
-	private OlympicHeroes plugin;
-	
-	public ArtemisListener(OlympicHeroes plugin) {
-		this.plugin = plugin;
-		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
-	}
-	
-	@EventHandler
-	public void onBowShoot(EntityShootBowEvent e) {
-		if(e.getEntity() instanceof Player) {
-			Player player = (Player) e.getEntity();
-			OHPlayer ohPlayer = new OHPlayer(player);
+    private OlympicHeroes plugin;
 
-			if(ohPlayer.getLevel("Artemis") >= 3) {
-				if(e.getBow().containsEnchantment(Enchantment.ARROW_INFINITE) == false && player.getGameMode() != GameMode.CREATIVE) {
-					((Arrow) e.getProjectile()).setPickupStatus(PickupStatus.DISALLOWED);
-					player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(Material.ARROW, 1));
-				}
-			}
-		}
-	}
-	
+    /**
+     * Initializes the listener
+     * @param plugin Reference to the main plugin class
+     */
+    public ArtemisListener(OlympicHeroes plugin) {
+        this.plugin = plugin;
+        this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    /**
+     * Event handler for an entity shooting a bow.
+     * If the player's devotion to Artemis is high enough, they will never run out of arrows.
+     * @param e The event
+     */
+    @EventHandler
+    public void onBowShoot(EntityShootBowEvent e) {
+        if (e.getEntity() instanceof Player) {
+            Player player = (Player) e.getEntity();
+            OHPlayer ohPlayer = new OHPlayer(player);
+
+            if (ohPlayer.getLevel("Artemis") >= 3) {
+                if (!e.getBow().containsEnchantment(Enchantment.ARROW_INFINITE)
+                        && player.getGameMode() != GameMode.CREATIVE) {
+                    ((Arrow) e.getProjectile()).setPickupStatus(PickupStatus.DISALLOWED);
+                    player.getWorld().dropItemNaturally(player.getLocation(), new ItemStack(Material.ARROW, 1));
+                }
+            }
+        }
+    }
+
 }

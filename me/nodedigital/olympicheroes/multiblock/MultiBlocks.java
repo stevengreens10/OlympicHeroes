@@ -44,7 +44,7 @@ public class MultiBlocks {
 						blocks.add(l.clone().add(0, -2, -1).getBlock());
 						blocks.add(l.clone().add(1, -1, -1).getBlock());
 						blocks.add(l.clone().add(-1, -1, -1).getBlock());
-					}else if(direction.equalsIgnoreCase("EAST")) {
+					} else if(direction.equalsIgnoreCase("EAST")) {
 						blocks.add(l.clone().add(0, 1, 0).getBlock());
 						blocks.add(l.clone().add(0, -1, 0).getBlock());
 						blocks.add(l.clone().add(0, 0, 1).getBlock());
@@ -54,7 +54,7 @@ public class MultiBlocks {
 						blocks.add(l.clone().add(1, -2, 0).getBlock());
 						blocks.add(l.clone().add(1, -1, -1).getBlock());
 						blocks.add(l.clone().add(1, -1, 1).getBlock());
-					}else if(direction.equalsIgnoreCase("SOUTH")) {
+					} else if(direction.equalsIgnoreCase("SOUTH")) {
 						blocks.add(l.clone().add(0, 1, 0).getBlock());
 						blocks.add(l.clone().add(0, -1, 0).getBlock());
 						blocks.add(l.clone().add(1, 0, 0).getBlock());
@@ -64,7 +64,7 @@ public class MultiBlocks {
 						blocks.add(l.clone().add(0, -2, 1).getBlock());
 						blocks.add(l.clone().add(1, -1, 1).getBlock());
 						blocks.add(l.clone().add(-1, -1, 1).getBlock());
-					}else if(direction.equalsIgnoreCase("WEST")) {
+					} else if(direction.equalsIgnoreCase("WEST")) {
 						blocks.add(l.clone().add(0, 1, 0).getBlock());
 						blocks.add(l.clone().add(0, -1, 0).getBlock());
 						blocks.add(l.clone().add(0, 0, 1).getBlock());
@@ -119,7 +119,7 @@ public class MultiBlocks {
 	
 	public static void removeMultiBlock(MultiBlock multiBlock) {
 		FileConfiguration config = OlympicHeroes.mbConfig.getConfig();
-		config.set("multiblocks." + multiBlock.ID, null);
+		config.set("multiblocks." + multiBlock.id, null);
 		OlympicHeroes.mbConfig.save();
 		multiBlocks.remove(multiBlock);
 	}
@@ -127,9 +127,9 @@ public class MultiBlocks {
 	public static void save() {
 		FileConfiguration config = OlympicHeroes.mbConfig.getConfig();
 		for(MultiBlock multiBlock : multiBlocks) {
-			OlympicHeroes.mbConfig.setBlock("multiblocks." + multiBlock.ID + ".trigger", multiBlock.triggerBlock);
-			config.set("multiblocks." + multiBlock.ID + ".facing", multiBlock.facing.name());
-			config.set("multiblocks." + multiBlock.ID + ".god", multiBlock.god);
+			OlympicHeroes.mbConfig.setBlock("multiblocks." + multiBlock.id + ".trigger", multiBlock.triggerBlock);
+			config.set("multiblocks." + multiBlock.id + ".facing", multiBlock.facing.name());
+			config.set("multiblocks." + multiBlock.id + ".god", multiBlock.god);
 			OlympicHeroes.mbConfig.save();
 		}
 		
@@ -139,27 +139,27 @@ public class MultiBlocks {
 		FileConfiguration config = OlympicHeroes.mbConfig.getConfig();
 		int id = 0;
 		if(config.getConfigurationSection("multiblocks") != null && config.getConfigurationSection("multiblocks").getKeys(false) != null) {
-			String [] IDstr = config.getConfigurationSection("multiblocks").getKeys(false).toArray(new String[0]);
+			String [] idStr = config.getConfigurationSection("multiblocks").getKeys(false).toArray(new String[0]);
 			boolean foundID = false;
-			int[] IDs = new int[IDstr.length];
-			for(int i = 0; i < IDstr.length; i++) {
-				String s = IDstr[i];
-				IDs[i] = Integer.parseInt(s);
+			int[] ids = new int[idStr.length];
+			for(int i = 0; i < idStr.length; i++) {
+				String s = idStr[i];
+				ids[i] = Integer.parseInt(s);
 			}
 			
-			Arrays.sort(IDs);
-			for(int i = 0; i < IDs.length; i++) {
-				int ID = IDs[i];
-				if(ID != i) {
+			Arrays.sort(ids);
+			for(int i = 0; i < ids.length; i++) {
+				int id2 = ids[i];
+				if(id2 != i) {
 					id = i;
 					foundID = true;
 					break;
 				}
 			}
 			if(!foundID) {
-				id = IDs.length;
+				id = ids.length;
 			}
-		}else {
+		} else {
 			id = 0;
 		}
 		return id;

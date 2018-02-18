@@ -18,15 +18,31 @@ import org.bukkit.potion.PotionEffectType;
 import me.nodedigital.olympicheroes.OlympicHeroes;
 import me.nodedigital.olympicheroes.player.OHPlayer;
 
-public class ApolloListener implements Listener{
+/**
+ * Listener for events related to Apollo's powers
+ * @author Steven Green
+ *
+ */
+public class ApolloListener implements Listener {
 
 	private OlympicHeroes plugin;
 	
+	/**
+     * Initializes the listener
+     * @param plugin Reference to the main plugin class
+     */
 	public ApolloListener(OlympicHeroes plugin) {
 		this.plugin = plugin;
 		this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	/**
+	 * Event for a projectile hitting
+	 * If the player's devotion to apollo is high enough and the time is right,
+	 * the player can cause nearby entities to glow and hit entities to be set on fire
+	 * when shot with an arrow
+	 * @param e The projectile hit event
+	 */
 	@EventHandler
 	public void onShootEntity(ProjectileHitEvent e) {
 		
@@ -42,7 +58,7 @@ public class ApolloListener implements Listener{
 				if(e.getHitEntity() != null) {
 					w = e.getHitEntity().getWorld();
 					l = e.getHitEntity().getLocation();
-				}else {
+				} else {
 					w = e.getHitBlock().getWorld();
 					l = e.getHitBlock().getLocation();
 				}
