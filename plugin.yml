@@ -1,5 +1,5 @@
 name: OlympicHeroes
-main: me.NodeDigital.OlympicHeroes.OlympicHeroes
+main: me.nodedigital.olympicheroes.OlympicHeroes
 version: 1.0
 commands:
   oh:
