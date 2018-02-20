@@ -15,6 +15,7 @@ import me.nodedigital.olympicheroes.item.OHItems;
  * @author Steven Green
  *
  */
+@SuppressWarnings("unused")
 public class CraftListener implements Listener {
 
     /**
@@ -50,12 +51,12 @@ public class CraftListener implements Listener {
      * The player can not enchant an item unless they have a specific permission
      * @param e The enchant item event
      */
-    @EventHandler
-    public void onEnchant(EnchantItemEvent e) {
-        Player player = e.getEnchanter();
-        if (!player.hasPermission("olympicheroes.enchant")) {
-            e.setCancelled(true);
-        }
-    }
+ //   @EventHandler
+ //   public void onEnchant(EnchantItemEvent e) {
+ //       Player player = e.getEnchanter();
+  //      if (!player.hasPermission("olympicheroes.enchant")) {
+  //          e.setCancelled(true);
+  //      }
+  //  }
 
 }
