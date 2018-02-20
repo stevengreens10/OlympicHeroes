@@ -3,13 +3,13 @@ package me.nodedigital.olympicheroes;
 import java.util.HashMap;
 
 public class Variables {
-	public static final int IRON_XP = 30;
-	public static final int GOLD_XP = 60;
-	public static final int DIAMOND_XP = 140;
-	public static final int EMERALD_XP = 140;
-	public static final int[] LEVEL_CUTOFFS = {1000, 2500, 4500, 8000};
+	public static final int IRON_XP = 50;
+	public static final int GOLD_XP = 100;
+	public static final int DIAMOND_XP = 200;
+	public static final int EMERALD_XP = 200;
+	public static final int[] LEVEL_CUTOFFS = {999, 2499, 4499, 7999};
 	
-	public static final long PRAYER_COOLDOWN = 144000L;
+	public static final long PRAYER_COOLDOWN = 72000L;
 	public static final long ZEUS_LIGHTNING_COOLDOWN = 200L;
 	public static final long ARES_RAGE_COOLDOWN = 200L;
 	public static final long APHRODITE_RES_COOLDOWN = 6000L;
@@ -52,7 +52,7 @@ public class Variables {
 		opposingGods.put("Dionysus", new String[]{"Hera","Hephaestus"});
 		opposingGods.put("Aphrodite", new String[] {"Athena","Ares"});
 		opposingGods.put("Athena", new String[]{"Ares", "Aphrodite"});
-		opposingGods.put("Ares", new String[]{"Athena","Ares"});	
+		opposingGods.put("Ares", new String[]{"Athena","Aphrodite"});	
 		opposingGods.put("Artemis", new String[]{"Apollo"});
 		opposingGods.put("Apollo", new String[]{"Artemis"});
 		opposingGods.put("Hermes", new String[]{"Demeter"});
