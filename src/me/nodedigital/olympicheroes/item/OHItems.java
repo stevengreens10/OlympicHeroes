@@ -24,10 +24,11 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+@SuppressWarnings("unused")
 public class OHItems {
 	public static ItemStack longBow;
 	public static ItemStack recurve;
-	public static ItemStack fireStick;
+//	public static ItemStack emeraldInfused;
 	public static ItemStack hermesBoots;
 	public static ItemStack laminatedStick;
 	public static ItemStack aegisShield;
@@ -36,6 +37,18 @@ public class OHItems {
 	public static ItemStack goldenDrachma;
 	public static ItemStack hermesElytra;
 	public static ItemStack poseidonBoots;
+	public static ItemStack emeraldInfusedChest;
+	public static ItemStack emeraldInfusedLeggings;
+	public static ItemStack emeraldInfusedHelmet;
+	public static ItemStack emeraldInfusedBoots;
+	public static ItemStack emeraldInfusedSword;
+	public static ItemStack emeraldInfusedAxe;
+	public static ItemStack starPoweredChest;
+	public static ItemStack starPoweredLeggings;
+	public static ItemStack starPoweredHelmet;
+	public static ItemStack starPoweredBoots;
+	public static ItemStack starPoweredSword;
+	public static ItemStack starPoweredAxe;
 	
 	public static ItemStack[] disallowedItems;
 	
@@ -70,17 +83,17 @@ public class OHItems {
 		Bukkit.getServer().addRecipe(longbowRecipe);
 		items.add(longBow);
 		
-		fireStick = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
-		fireStick.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
+//		emeraldInfused = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
+//		emeraldInfused.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
 		// Put attributes after changing name and adding enchants
-		fireStick = addAttribute(fireStick, "generic.attackDamage", 2, "mainhand", 3123, 5941);
+//		emeraldInfused = addAttribute(fireStick, "generic.attackDamage", 2, "mainhand", 3123, 5941);
 		// Have to put recipe after modifying attributes
-		ShapelessRecipe shapelessRecipe = new ShapelessRecipe(fireStick);
-		shapelessRecipe.addIngredient(Material.BLAZE_POWDER);
-		shapelessRecipe.addIngredient(Material.GOLD_NUGGET);
-		shapelessRecipe.addIngredient(Material.STICK);
-		Bukkit.getServer().addRecipe(shapelessRecipe);
-		items.add(fireStick);
+//		ShapelessRecipe shapelessRecipe = new ShapelessRecipe(emeraldInfused);
+//		shapelessRecipe.addIngredient(Material.BLAZE_POWDER);
+//		shapelessRecipe.addIngredient(Material.GOLD_NUGGET);
+//		shapelessRecipe.addIngredient(Material.STICK);
+//		Bukkit.getServer().addRecipe(shapelessRecipe);
+//		items.add(emeraldInfused);
 		
 		hermesBoots = createItem(Material.LEATHER_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"Boots with a slight amount of Hermes's speed"});
 		hermesBoots = addAttribute(hermesBoots, "generic.movementSpeed", 0.1, "feet", 9213, 4192);
@@ -93,17 +106,9 @@ public class OHItems {
 		Bukkit.getServer().addRecipe(hermesRecipe);
 		items.add(hermesBoots);
 		
-		laminatedStick = createItem(Material.STICK, "Laminated Stick", new String[]{"This is a laminated stick used for bowmaking"});
-		ShapedRecipe laminateRecipe = new ShapedRecipe(laminatedStick);
-		laminateRecipe.shape("psp","psp","aaa");
-		laminateRecipe.setIngredient('p', Material.LOG);
-		laminateRecipe.setIngredient('s', Material.STICK);
-		laminateRecipe.setIngredient('a', Material.AIR);
-		Bukkit.getServer().addRecipe(laminateRecipe);
-		items.add(laminatedStick);
-		
 		recurve = createItem(Material.BOW, ChatColor.YELLOW +  "Recurve", new String[]{"a Lightweight bow that gives mobility"});
 		recurve = addAttribute(recurve, "generic.movementSpeed", .05, "mainhand", 5694, 40985);
+		recurve = addAttribute(recurve, "generic.movementSpeed", .05, "offhand", 10923, 581267);
 		ShapedRecipe recurveRecipe = new ShapedRecipe(recurve);
 		recurveRecipe.shape("sSa", "sal", "sSa");
 		recurveRecipe.setIngredient('S', Material.STICK);
@@ -112,6 +117,188 @@ public class OHItems {
 		recurveRecipe.setIngredient('l', Material.LEATHER);
 		Bukkit.getServer().addRecipe(recurveRecipe);
 		items.add(recurve);
+		
+		/*Emerald Infused*/
+		
+		emeraldInfusedChest = createItem(Material.DIAMOND_CHESTPLATE, ChatColor.GREEN + "Emerald Infused ChestPiece", new String[]{"An Emerald Strengthened Diamond Chest Piece"});
+		emeraldInfusedChest.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//emeraldInfusedChest = addAttribute(emeraldInfusedChest, "generic.armor", 10, "chest");
+		//emeraldInfusedChest = addAttribute(emeraldInfusedChest, "generic.armorToughness", 4, "chest");
+		ShapedRecipe emeraldInfusedChestRecipe = new ShapedRecipe(emeraldInfusedChest);
+		emeraldInfusedChestRecipe.shape("EaE", "DED", "DDD");
+		emeraldInfusedChestRecipe.setIngredient('E', Material.EMERALD);
+		emeraldInfusedChestRecipe.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedChestRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(emeraldInfusedChestRecipe);
+		items.add(emeraldInfusedChest);
+		
+		emeraldInfusedLeggings = createItem(Material.DIAMOND_LEGGINGS, ChatColor.GREEN + "Emerald Infused Leggings", new String[]{"An Emerald Strengthened Set Of Diamond Leggings"});
+		emeraldInfusedLeggings.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//emeraldInfusedLeggings = addAttribute(emeraldInfusedLeggings, "generic.armor", 7, "legs");
+		//emeraldInfusedLeggings = addAttribute(emeraldInfusedLeggings, "generic.armorToughness", 4, "legs");
+		ShapedRecipe emeraldInfusedLeggingsRecipe = new ShapedRecipe(emeraldInfusedLeggings);
+		emeraldInfusedLeggingsRecipe.shape("EDE", "DaD", "DaD");
+		emeraldInfusedLeggingsRecipe.setIngredient('E', Material.EMERALD);
+		emeraldInfusedLeggingsRecipe.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedLeggingsRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(emeraldInfusedLeggingsRecipe);
+		items.add(emeraldInfusedLeggings);
+		
+		emeraldInfusedHelmet = createItem(Material.DIAMOND_HELMET, ChatColor.GREEN + "Emerald Infused Helmet", new String[]{"An Emerald Strengthened Diamond Helm"});
+		emeraldInfusedHelmet.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//emeraldInfusedHelmet = addAttribute(emeraldInfusedHelmet, "generic.armor", 4, "head");
+		//emeraldInfusedHelmet = addAttribute(emeraldInfusedHelmet, "generic.armorToughness", 4, "head");
+		ShapedRecipe emeraldInfusedHelmetRecipe = new ShapedRecipe(emeraldInfusedHelmet);
+		emeraldInfusedHelmetRecipe.shape("DED", "DaD", "aaa");
+		emeraldInfusedHelmetRecipe.setIngredient('E', Material.EMERALD);
+		emeraldInfusedHelmetRecipe.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedHelmetRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(emeraldInfusedHelmetRecipe);
+		
+		ShapedRecipe emeraldInfusedHelmetRecipeBot = new ShapedRecipe(emeraldInfusedHelmet);
+		emeraldInfusedHelmetRecipeBot.shape("aaa", "DED", "DaD");
+		emeraldInfusedHelmetRecipeBot.setIngredient('E', Material.EMERALD);
+		emeraldInfusedHelmetRecipeBot.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedHelmetRecipeBot.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(emeraldInfusedHelmetRecipeBot);
+		items.add(emeraldInfusedHelmet);
+		
+		emeraldInfusedBoots = createItem(Material.DIAMOND_BOOTS, ChatColor.GREEN + "Emerald Infused Boots", new String[]{"An Emerald Strengthened Pair Of Diamond Boots"});
+		emeraldInfusedBoots.addEnchantment(Enchantment.PROTECTION_FALL, 1);
+		emeraldInfusedBoots.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+		//emeraldInfusedBoots = addAttribute(emeraldInfusedBoots, "generic.armor", 4, "feet");
+		//emeraldInfusedBoots = addAttribute(emeraldInfusedBoots, "generic.armorToughness", 4, "feet");
+		ShapedRecipe emeraldInfusedBootsRecipe = new ShapedRecipe(emeraldInfusedBoots);
+		emeraldInfusedBootsRecipe.shape("DaD", "EaE", "aaa");
+		emeraldInfusedBootsRecipe.setIngredient('E', Material.EMERALD);
+		emeraldInfusedBootsRecipe.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedBootsRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(emeraldInfusedBootsRecipe);
+		
+		ShapedRecipe emeraldInfusedBootsRecipeBot = new ShapedRecipe(emeraldInfusedBoots);
+		emeraldInfusedBootsRecipeBot.shape("aaa", "DaD", "EaE");
+		emeraldInfusedBootsRecipeBot.setIngredient('E', Material.EMERALD);
+		emeraldInfusedBootsRecipeBot.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedBootsRecipeBot.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(emeraldInfusedBootsRecipeBot);
+		items.add(emeraldInfusedBoots);
+		
+		emeraldInfusedSword = createItem(Material.DIAMOND_SWORD, ChatColor.GREEN + "Emerald Infused Sword", new String[]{"An Emerald Strengthened Sword"});
+		emeraldInfusedSword = addAttribute(emeraldInfusedSword, "generic.attackDamage", 8, "mainhand", 756, 3410);
+		emeraldInfusedSword = addAttribute(emeraldInfusedSword, "generic.attackSpeed", -2.4, "mainhand", 9857, 6741);
+		ShapedRecipe emeraldInfusedSwordRecipe = new ShapedRecipe(emeraldInfusedSword);
+		emeraldInfusedSwordRecipe.shape("aDa", "sDs", "aEa");
+		emeraldInfusedSwordRecipe.setIngredient('E', Material.EMERALD);
+		emeraldInfusedSwordRecipe.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedSwordRecipe.setIngredient('a', Material.AIR);
+		emeraldInfusedSwordRecipe.setIngredient('s',Material.STICK);
+		Bukkit.getServer().addRecipe(emeraldInfusedSwordRecipe);
+		items.add(emeraldInfusedSword);
+		
+		emeraldInfusedAxe = createItem(Material.DIAMOND_AXE, ChatColor.GREEN + "Emerald Infused Axe", new String[]{"An Emerald Strengthened Axe"});
+		emeraldInfusedAxe.addEnchantment(Enchantment.DIG_SPEED, 2);
+		emeraldInfusedAxe = addAttribute(emeraldInfusedAxe, "generic.attackDamage", 10, "mainhand", 68731, 91723);
+		emeraldInfusedAxe = addAttribute(emeraldInfusedAxe, "generic.attackSpeed", -3, "mainhand", 58712, 21735);
+		ShapedRecipe emeraldInfusedAxeRecipe = new ShapedRecipe(emeraldInfusedAxe);
+		emeraldInfusedAxeRecipe.shape("aDD", "aED", "asa");
+		emeraldInfusedAxeRecipe.setIngredient('E', Material.EMERALD);
+		emeraldInfusedAxeRecipe.setIngredient('D', Material.DIAMOND);
+		emeraldInfusedAxeRecipe.setIngredient('a', Material.AIR);
+		emeraldInfusedAxeRecipe.setIngredient('s', Material.STICK);
+		Bukkit.getServer().addRecipe(emeraldInfusedAxeRecipe);
+		items.add(emeraldInfusedAxe);
+		
+		/*Star Powered*/
+		
+		starPoweredChest = createItem(Material.DIAMOND_CHESTPLATE, ChatColor.DARK_AQUA + "Star Powered ChestPiece", new String[]{"A Star Imbued Emerald Chest Piece"});
+		starPoweredChest.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6);
+		//starPoweredChest = addAttribute(starPoweredChest, "generic.armor", 12, "chest");
+		//starPoweredChest = addAttribute(starPoweredChest, "generic.armorToughness", 6, "chest");
+		ShapedRecipe starPoweredChestRecipe = new ShapedRecipe(starPoweredChest);
+		starPoweredChestRecipe.shape("DaD", "DED", "DDD");
+		starPoweredChestRecipe.setIngredient('E', Material.NETHER_STAR);
+		starPoweredChestRecipe.setIngredient('D', Material.EMERALD);
+		starPoweredChestRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(starPoweredChestRecipe);
+		items.add(starPoweredChest);
+		
+		starPoweredLeggings = createItem(Material.DIAMOND_LEGGINGS, ChatColor.DARK_AQUA + "Star Powered Leggings", new String[]{"A Star Imbued Set Of Emerald Leggings"});
+		starPoweredLeggings.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6);
+		//starPoweredLeggings = addAttribute(starPoweredLeggings, "generic.armor", 8, "legs");
+		//starPoweredLeggings = addAttribute(starPoweredLeggings, "generic.armorToughness", 6, "legs");
+		ShapedRecipe starPoweredLeggingsRecipe = new ShapedRecipe(starPoweredLeggings);
+		starPoweredLeggingsRecipe.shape("DED", "DaD", "DaD");
+		starPoweredLeggingsRecipe.setIngredient('E', Material.NETHER_STAR);
+		starPoweredLeggingsRecipe.setIngredient('D', Material.EMERALD);
+		starPoweredLeggingsRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(starPoweredLeggingsRecipe);
+		items.add(starPoweredLeggings);
+		
+		starPoweredHelmet = createItem(Material.DIAMOND_HELMET, ChatColor.DARK_AQUA + "Star Powered Helmet", new String[]{"A Star Imbued Emerald Helm"});
+		starPoweredHelmet.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6);
+		//starPoweredHelmet = addAttribute(starPoweredHelmet, "generic.armor", 5, "head");
+		//starPoweredHelmet = addAttribute(starPoweredHelmet, "generic.armorToughness", 6, "head");
+		ShapedRecipe starPoweredHelmetRecipe = new ShapedRecipe(starPoweredHelmet);
+		starPoweredHelmetRecipe.shape("DED", "DaD", "aaa");
+		starPoweredHelmetRecipe.setIngredient('E', Material.NETHER_STAR);
+		starPoweredHelmetRecipe.setIngredient('D', Material.EMERALD);
+		starPoweredHelmetRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(starPoweredHelmetRecipe);
+		
+		ShapedRecipe starPoweredHelmetRecipeBot = new ShapedRecipe(starPoweredHelmet);
+		starPoweredHelmetRecipeBot.shape("aaa", "DED", "DaD");
+		starPoweredHelmetRecipeBot.setIngredient('E', Material.NETHER_STAR);
+		starPoweredHelmetRecipeBot.setIngredient('D', Material.EMERALD);
+		starPoweredHelmetRecipeBot.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(starPoweredHelmetRecipeBot);
+		items.add(starPoweredHelmet);
+		
+		starPoweredBoots = createItem(Material.DIAMOND_BOOTS, ChatColor.DARK_AQUA + "Star Powered Boots", new String[]{"A Star Imbued Pair Of Emerald Boots"});
+		starPoweredBoots.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6);
+		starPoweredBoots.addEnchantment(Enchantment.PROTECTION_FALL, 4);
+		//starPoweredBoots = addAttribute(starPoweredBoots, "generic.armor", 5, "feet");
+		//starPoweredBoots = addAttribute(starPoweredBoots, "generic.armorToughness", 6, "feet");
+		ShapedRecipe starPoweredBootsRecipe = new ShapedRecipe(starPoweredBoots);
+		starPoweredBootsRecipe.shape("DaD", "EaE", "aaa");
+		starPoweredBootsRecipe.setIngredient('E', Material.NETHER_STAR);
+		starPoweredBootsRecipe.setIngredient('D', Material.EMERALD);
+		starPoweredBootsRecipe.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(starPoweredBootsRecipe);
+		
+		ShapedRecipe starPoweredBootsRecipeBot = new ShapedRecipe(starPoweredBoots);
+		starPoweredBootsRecipeBot.shape("aaa", "DaD", "EaE");
+		starPoweredBootsRecipeBot.setIngredient('E', Material.NETHER_STAR);
+		starPoweredBootsRecipeBot.setIngredient('D', Material.EMERALD);
+		starPoweredBootsRecipeBot.setIngredient('a', Material.AIR);
+		Bukkit.getServer().addRecipe(starPoweredBootsRecipeBot);
+		items.add(starPoweredBoots);
+		
+		starPoweredSword = createItem(Material.DIAMOND_SWORD, ChatColor.DARK_AQUA + "Star Powered Sword", new String[]{"A Star Imbued Sword"});
+		starPoweredSword = addAttribute(starPoweredSword, "generic.attackDamage", 10, "mainhand", 876, 452109);
+		starPoweredSword = addAttribute(starPoweredSword, "generic.attackSpeed", -2.4, "mainhand", 8761, 71293);
+		ShapedRecipe starPoweredSwordRecipe = new ShapedRecipe(starPoweredSword);
+		starPoweredSwordRecipe.shape("aDa", "sDs", "aEa");
+		starPoweredSwordRecipe.setIngredient('E', Material.NETHER_STAR);
+		starPoweredSwordRecipe.setIngredient('D', Material.EMERALD);
+		starPoweredSwordRecipe.setIngredient('a', Material.AIR);
+		starPoweredSwordRecipe.setIngredient('s',Material.BLAZE_ROD);
+		Bukkit.getServer().addRecipe(starPoweredSwordRecipe);
+		items.add(starPoweredSword);
+		
+		starPoweredAxe = createItem(Material.DIAMOND_AXE, ChatColor.DARK_AQUA + "Star Powered Axe", new String[]{"A Star Imbued Axe"});
+		starPoweredAxe.addEnchantment(Enchantment.DIG_SPEED, 5);
+		starPoweredAxe = addAttribute(starPoweredAxe, "generic.attackDamage", 12, "mainhand", 59871, 509812);
+		starPoweredAxe = addAttribute(starPoweredAxe, "generic.attackSpeed", -3, "mainhand", 120981, 959123);
+		ShapedRecipe starPoweredAxeRecipe = new ShapedRecipe(starPoweredAxe);
+		starPoweredAxeRecipe.shape("aDD", "aED", "asa");
+		starPoweredAxeRecipe.setIngredient('E', Material.NETHER_STAR);
+		starPoweredAxeRecipe.setIngredient('D', Material.EMERALD);
+		starPoweredAxeRecipe.setIngredient('a', Material.AIR);
+		starPoweredAxeRecipe.setIngredient('s', Material.BLAZE_ROD);
+		Bukkit.getServer().addRecipe(starPoweredAxeRecipe);
+		items.add(starPoweredAxe);
+		
+		/*Other OH Items*/
 		
 		silverDrachma = createItem(Material.IRON_NUGGET, ChatColor.GRAY + "Silver Drachma", new String[] {"The common currency of the greek world."});
 		goldenDrachma = createItem(Material.GOLD_NUGGET, ChatColor.GOLD + "Golden Drachma", new String[] {"The advanced currency of the greek world"});
