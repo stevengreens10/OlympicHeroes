@@ -73,7 +73,7 @@ public class OHItems {
 		fireStick = createItem(Material.STICK, ChatColor.RED + "Fire stick thing", new String[] {"This is a fire stick"});
 		fireStick.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 1);
 		// Put attributes after changing name and adding enchants
-		fireStick = addAttribute(fireStick, "generic.attackDamage", 2, "mainhand");
+		fireStick = addAttribute(fireStick, "generic.attackDamage", 2, "mainhand", 3123, 5941);
 		// Have to put recipe after modifying attributes
 		ShapelessRecipe shapelessRecipe = new ShapelessRecipe(fireStick);
 		shapelessRecipe.addIngredient(Material.BLAZE_POWDER);
@@ -83,7 +83,7 @@ public class OHItems {
 		items.add(fireStick);
 		
 		hermesBoots = createItem(Material.LEATHER_BOOTS, ChatColor.GOLD + "Hermes Boots", new String[] {"Boots with a slight amount of Hermes's speed"});
-		hermesBoots = addAttribute(hermesBoots, "generic.movementSpeed", 0.1, "feet");
+		hermesBoots = addAttribute(hermesBoots, "generic.movementSpeed", 0.1, "feet", 9213, 4192);
 		ShapedRecipe hermesRecipe = new ShapedRecipe(hermesBoots);
 		hermesRecipe.shape("lgl","lal","faf");
 		hermesRecipe.setIngredient('g', Material.GLOWSTONE_DUST);
@@ -103,7 +103,7 @@ public class OHItems {
 		items.add(laminatedStick);
 		
 		recurve = createItem(Material.BOW, ChatColor.YELLOW +  "Recurve", new String[]{"a Lightweight bow that gives mobility"});
-		recurve = addAttribute(recurve, "generic.movementSpeed", .05, "mainhand");
+		recurve = addAttribute(recurve, "generic.movementSpeed", .05, "mainhand", 5694, 40985);
 		ShapedRecipe recurveRecipe = new ShapedRecipe(recurve);
 		recurveRecipe.shape("sSa", "sal", "sSa");
 		recurveRecipe.setIngredient('S', Material.STICK);
@@ -171,24 +171,27 @@ public class OHItems {
 	}
 	/**
 	 * Adds an attribute to an item (will add to existing value)
+	 * Ensure that the uuidLeast and uuidMost are a unique pair
 	 * @param item The item to which to add the attribute
 	 * @param attributeName the name of the attribute (e.g. generic.attackDamage)
 	 * @param value the value for the attribute
 	 * @param slot the slot for the attribute to apply (mainhand, head, etc.). Use "all" for all slots.
+	 * @param uuidLeast The least significant bits of the UUID
+	 * @param uuidMost The most significant bits of the UUID 
 	 * @return the modified ItemStack
 	 */
-	private static ItemStack addAttribute(ItemStack item, String attributeName, double value, String slot) {
+	private static ItemStack addAttribute(ItemStack item, String attributeName, double value, String slot, int uuidLeast, int uuidMost) {
 		net.minecraft.server.v1_12_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
 		NBTTagCompound compound = (nmsStack.hasTag()) ? nmsStack.getTag() : new NBTTagCompound();
-		NBTTagList modifiers = compound.getList("AttributeModifiers",10);
+		NBTTagList modifiers = compound.getList("AttributeModifiers", 10);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.set("AttributeName", new NBTTagString(attributeName));
 		tag.set("Name", new NBTTagString(attributeName));
 		tag.set("Amount", new NBTTagDouble(value));
 		// 0 is the additive operation. 1 and 2 are multiplicative
 		tag.set("Operation", new NBTTagInt(0));
-		tag.set("UUIDLeast", new NBTTagInt(894654));
-		tag.set("UUIDMost", new NBTTagInt(2872));
+		tag.set("UUIDLeast", new NBTTagInt(uuidLeast));
+		tag.set("UUIDMost", new NBTTagInt(uuidMost));
 		if(!slot.equalsIgnoreCase("all"))
 			tag.set("Slot", new NBTTagString(slot));
 		
